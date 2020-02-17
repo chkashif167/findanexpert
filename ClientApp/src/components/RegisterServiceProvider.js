@@ -89,7 +89,7 @@ export class RegisterServiceProvider extends Component {
             })
         };
 
-        console.log(requestOptions);
+        console.log("dtyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",requestOptions);
 
         return fetch(App.ApisBaseUrl + '/api/Registration/serviceproviderregistration', requestOptions)
             .then(response => {
@@ -153,8 +153,7 @@ export class RegisterServiceProvider extends Component {
         console.log(requestOptions)
         return fetch(App.ApisBaseUrl + '/api/Address/getaddresses', requestOptions)
             .then(response => {
-                console.log("dttttttttttttttttttttttttttttttttt",response);
-              //return response.json();
+               //return response.json();
             })
             .then(response => {
                 if (response != null) {
@@ -228,9 +227,10 @@ export class RegisterServiceProvider extends Component {
                         <select className="form-control" value={this.state.address}
                             onChange={this.handleChangeAddress}>
                             <option values="" selected>Select an address</option>
-                            {this.state.allAddresses.map((adr) =>
+                            {/* {this.state.allAddresses.map((adr) =>
                                 <option value={adr.replace("{", "").replace("}", "")}>{adr.replace("{", "").replace("}", "")}</option>
-                            )}
+                            )} */}
+                            <option value={"1 Ullswater Crescent London"}>1 Ullswater Crescent London</option>
                         </select>
                     </div>
                 </div>
