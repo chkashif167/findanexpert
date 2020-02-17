@@ -144,25 +144,25 @@ export class RegisterServiceProvider extends Component {
 
     handleChangePostalCode(e) {
         this.setState({ postalcode: e.target.value });
-
+        
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ postalcode: e.target.value })
         };
+        console.log(requestOptions)
+        return fetch(App.ApisBaseUrl + '/api/Address/getaddresses', requestOptions)
+            .then(response => {
+                console.log("dttttttttttttttttttttttttttttttttt",response);
+              //return response.json();
+            })
+            .then(response => {
+                if (response != null) {
+                    this.setState({ allAddresses: response.get_address });
+                    console.log(this.state.allAddresses);
+                }
 
-        // return fetch(App.ApisBaseUrl + '/api/BaseApi/getaddresses', requestOptions)
-        //     .then(response => {
-        //         console.log(response);
-        //         return response.json();
-        //     })
-        //     .then(response => {
-        //         if (response != null) {
-        //             this.setState({ allAddresses: response.get_address });
-        //             console.log(this.state.allAddresses);
-        //         }
-
-        //     });
+            });
 
     }
 
@@ -319,7 +319,7 @@ export class RegisterServiceProvider extends Component {
             <div className="pt-5">
 
                 <div className="alert alert-success mt-5 mb-5 registerWelcome" role="alert">
-                    <p>Welcome to Find an Expert. Please check your registered email and confirm your account.</p>
+                    <p>Welcome to Register as service Provider. Please check your registered email and confirm your account.</p>
                 </div>
 
                 <form onSubmit={this.handleSubmit}>
