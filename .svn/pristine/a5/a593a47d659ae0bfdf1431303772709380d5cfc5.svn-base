@@ -1,0 +1,52 @@
+﻿import React, { Component } from 'react';
+import Logo from '../../assets/img/company-logo.png';
+import { Link } from 'react-router-dom';
+import App from '../../App';
+
+export class Footer extends Component {
+    displayName = Footer.name
+
+    constructor(props) {
+        super(props);
+
+        this.state = { allServices: [], servicesTypes: [], found: false, loading: true };
+
+        fetch(App.ApisBaseUrl + '/api/Service/getserviceonly')
+            .then(response => {
+                return response.json();
+            })
+            .then(response => {
+                //console.log(response);
+                //this.setState({ allServices: response });
+                var newArray = this.state.allServices.slice();
+                for (var i = 0; i < response.services.length; i++) {
+                    var service = response.services[i];
+                    newArray.push([service.serviceID, service.serviceName]);
+                }
+                this.setState({ allServices: newArray });
+            });
+    }
+
+    render(allServices) {
+      return (
+
+          <footer className="footer bg-black col-sm-12 mt-5">
+
+              <div className="container">
+
+                  <div className="row footerBottom">
+                      <div className="col-md-12 text-center">
+                          <img className="selteqLogo" src={Logo} alt="Company Logo" width="auto" />
+                          <small className="d-block mb-3 text-muted text-white">© 2018-2019</small>
+                      </div>
+                  </div>
+              </div>
+
+              <a href="#" id="scroll"><span id="scroll-icon"></span> <p>Back to top</p></a>
+
+          </footer>
+
+
+      );
+  }
+}
