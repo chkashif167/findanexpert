@@ -29,7 +29,7 @@ export class AuthenticateServiceProvider extends Component {
         };
         console.log(requestOptions);
 
-        return fetch(App.ApisBaseUrl + '/api/SignIn/authenticateserviceprovider', requestOptions)
+        return fetch(App.ApisBaseUrl + '/api/SignIn/providersignin', requestOptions)
             .then(response => {
                 console.log(response);
                 if (response.status == '404') {
