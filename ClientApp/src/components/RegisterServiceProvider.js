@@ -1,6 +1,8 @@
 ﻿import React, { Component } from "react";
 import { RouteComponentProps } from "react-router";
 import { Redirect } from "react-router-dom";
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import App from "../App";
 import toastr from "toastr";
 
@@ -34,13 +36,13 @@ export class RegisterServiceProvider extends Component {
     this.handleChangeSurname = this.handleChangeSurname.bind(this);
     this.handleChangeMobile = this.handleChangeMobile.bind(this);
     this.handleChangePostalCode = this.handleChangePostalCode.bind(this);
-    this.handleChangeAddress = this.handleChangeAddress.bind(this);
+    // this.handleChangeAddress = this.handleChangeAddress.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
-    this.handleChangeGenderPreference = this.handleChangeGenderPreference.bind(
-      this
-    );
-    this.handleChangeGender = this.handleChangeGender.bind(this);
+    // this.handleChangeGenderPreference = this.handleChangeGenderPreference.bind(
+    //   this
+    // );
+    // this.handleChangeGender = this.handleChangeGender.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
     // fetch(App.ApisBaseUrl + '/api/Policy/getserviceprovidertermsandconditioncontent')
@@ -66,6 +68,8 @@ export class RegisterServiceProvider extends Component {
     //             this.setState({ privacyPolicyContent: response });
     //         }
     //     });
+
+    
   }
 
   getInitialState = () => {
@@ -117,7 +121,6 @@ export class RegisterServiceProvider extends Component {
 
     return fetch(App.ApisBaseUrl + "/api/SignUp/providersignup", requestOptions)
       .then(response => {
-        console.log(response);
         localStorage.setItem("providerRegisterStatus", response.status);
         if (response.status == "409") {
           toastr["error"](
@@ -190,23 +193,23 @@ export class RegisterServiceProvider extends Component {
       .then(response => {
         if (response != null) {
           this.setState({ allAddresses: response.get_address });
-          console.log(this.state.allAddresses);
+         
         }
       });
   }
 
-  handleChangeAddress(e) {
-    this.setState({ address: e.target.value });
-  }
+//   handleChangeAddress(e) {
+//     this.setState({ address: e.target.value });
+//   }
 
-  handleChangeGenderPreference(e) {
-    this.setState({ genderpreference: e.target.value });
-    //alert(e.target.value);
-  }
+//   handleChangeGenderPreference(e) {
+//     this.setState({ genderpreference: e.target.value });
+//     //alert(e.target.value);
+//   }
 
-  handleChangeGender(e) {
-    this.setState({ gender: e.target.value });
-  }
+//   handleChangeGender(e) {
+//     this.setState({ gender: e.target.value });
+//   }
 
   handleSubmit(e) {
     e.preventDefault();
@@ -256,7 +259,7 @@ export class RegisterServiceProvider extends Component {
       <div className="Register">
         <div className="loginRegisterTopText">
           <h3>New to Findanexpert.net?</h3>
-          <p>Create an account now</p>
+        
         </div>
         <form onSubmit={this.handleSubmit}>
           <div className="form-row pb-3">
@@ -271,6 +274,8 @@ export class RegisterServiceProvider extends Component {
                 required
               />
             </div>
+            </div>
+            <div className="form-row pb-3">
             <div class="col">
               <input
                 type="text"
@@ -298,6 +303,17 @@ export class RegisterServiceProvider extends Component {
             </div>
           </div>
 
+
+          <div className="form-row pb-3">
+                        <div className="col">
+                            <input type="radio" name="gender" className="genderCheckBox" required="" value="Male" />
+                                <label className="ml-2">Male</label>
+                                </div>
+                                <div className="col"><input type="radio" name="gender" className="genderCheckBox" required="" value="Male"/><label className="ml-2">Female</label>
+                                </div>
+                                
+                                </div>
+
           <div className="form-row pb-3">
             <div class="col">
               <input
@@ -309,11 +325,13 @@ export class RegisterServiceProvider extends Component {
                 onChange={this.handleChangePostalCode}
               />
             </div>
+            </div>
+            <div className="form-row pb-3">
             <div class="col">
               <select
                 className="form-control"
                 value={this.state.address}
-                onChange={this.handleChangeAddress}
+               
               >
                 <option values="" selected>
                   Select an address
@@ -730,6 +748,33 @@ export class RegisterServiceProvider extends Component {
             </button>
           </div>
         </form>
+<div class={"modal fade " + this.state.showModal} id="referralModal" tabindex="-1" role="dialog" aria-labelledby="logoutModal" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+
+                                <div className="row">
+                                    <div className="col-md-12 d-flex">
+                                        <div>
+                                            <img src=""  className="change-to-white" />
+                                        </div>
+                                        <h3 className="p-0 m-0 pl-3 text-dark font-weight-bold">Expert</h3>
+                                    </div>
+                                    <div className="col-md-12 text-center fs-18 p-5">
+                                        {this.state.modalMessage}
+                                    </div>
+                                    <div className="col-md-12 text-right">
+                                        <div className="w-100">
+                                            <a id="okBtn" class="btn bg-black text-white float-right ml-3" onClick={this.handleModal.bind(this)}>OK</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
       </div>
     );
   }
