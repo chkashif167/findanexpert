@@ -251,7 +251,7 @@ class RegisterService extends Component {
 
         this.setState({  showModal: 'hide' });
        window.location.replace("/provider-authentication");
-       this.props.history.push("/provider-authenticationd");
+       this.props.history.push("/provider-authentication");
 
        
         
