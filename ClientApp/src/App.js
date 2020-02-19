@@ -109,7 +109,7 @@ import { WhatIsBalayage } from './components/Blog/WhatIsBalayage';
 import { HighlightsVsBalayage } from './components/Blog/HighlightsVsBalayage';
 import CheckOutPayment from './components/Payment/CheckOutPayment'; 
 import { ProviderCodeConfirmation } from './components/BecomeExpert/ProviderCodeConfirmation';
-// import { CodeConfirmation } from './components/BecomeExpert/CodeConfirmation';
+
  
 
 
