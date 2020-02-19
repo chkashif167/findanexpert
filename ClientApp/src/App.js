@@ -107,7 +107,10 @@ import { HelpMobile } from './components/Help/HelpMobile';
 import { WhatisCollagen } from './components/Blog/WhatisCollagen';
 import { WhatIsBalayage } from './components/Blog/WhatIsBalayage';
 import { HighlightsVsBalayage } from './components/Blog/HighlightsVsBalayage';
-import CheckOutPayment from './components/Payment/CheckOutPayment';
+import CheckOutPayment from './components/Payment/CheckOutPayment'; 
+import { ProviderCodeConfirmation } from './components/BecomeExpert/ProviderCodeConfirmation';
+// import { CodeConfirmation } from './components/BecomeExpert/CodeConfirmation';
+ 
 
 
 export default class App extends Component {
@@ -223,6 +226,7 @@ export default class App extends Component {
                     <Route path='/cookies-policy' component={CookiesPolicy} />
                     <Route path='/contact-us' component={ContactUs} />
                     <Route path='/about-us' component={AboutUs} />
+                    <Route path='/provider-code-confirmation' component={ProviderCodeConfirmation} />
 
                     <Route path="*" component={NotFound} />
                 </Switch>
