@@ -16,16 +16,14 @@ class RegisterService extends Component {
       registeredCustomer: new RegisteredCustomer(),
       allAddresses: [],
       firstname: "",
-      surname: "",
+      lastname: "",
       email: "",
       password: "",
       cpassword: "",
       mobile: "",
       postalcode: "",
       address: "",
-      genderpreference: "male",
-      gender: "male",
-      customerid: "0",
+      gender: "",
       serviceproviderid: "0",
       image: "",
       privacyPolicyContent: "",
@@ -36,7 +34,7 @@ class RegisterService extends Component {
     };
 
     this.handleChangeFirstname = this.handleChangeFirstname.bind(this);
-    this.handleChangeSurname = this.handleChangeSurname.bind(this);
+    this.handleChangeLastname = this.handleChangeLastname.bind(this);
     this.handleChangeMobile = this.handleChangeMobile.bind(this);
     this.handleChangePostalCode = this.handleChangePostalCode.bind(this);
     this.handleChangeAddress = this.handleChangeAddress.bind(this);
@@ -47,30 +45,6 @@ class RegisterService extends Component {
     );
     this.handleChangeGender = this.handleChangeGender.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
-    // fetch(App.ApisBaseUrl + '/api/Policy/getserviceprovidertermsandconditioncontent')
-    //     .then(response => {
-    //         console.log(response);
-    //         return response.json();
-    //     })
-    //     .then(response => {
-    //         console.log(response);
-    //         if (response != null) {
-    //             this.setState({ termsandConditionContent: response });
-    //         }
-    //     });
-
-    // fetch(App.ApisBaseUrl + '/api/Policy/getserviceproviderprivacypolicycontent')
-    //     .then(response => {
-    //         console.log(response);
-    //         return response.json();
-    //     })
-    //     .then(response => {
-    //         console.log(response);
-    //         if (response != null) {
-    //             this.setState({ privacyPolicyContent: response });
-    //         }
-    //     });
   }
 
   getInitialState = () => {
@@ -84,23 +58,20 @@ class RegisterService extends Component {
 
   Register(
     firstname,
-    surname,
+    lastname,
     email,
-    // password,
+    password,
     mobile,
     postalcode,
     address,
-    genderpreference,
     gender,
-    customerid,
     serviceproviderid,
     image,
     privacypolicyaccepted,
     termsandconditionaccepted
   ) {
-    const { password, cpassword } = this.state;
-    if (password !== cpassword) {
-        toastr["error"]("Password and Confirm Password not matching");
+    if (this.state.password !== this.state.cpassword) {
+      toastr["error"]("Password and Confirm Password not matching");
       return;
     }
     const requestOptions = {
@@ -111,15 +82,13 @@ class RegisterService extends Component {
       },
       body: JSON.stringify({
         Firstname: firstname,
-        lastname: surname,
+        lastname: lastname,
         Email: email,
         Password: password,
         Mobile: mobile,
         PostalCode: postalcode,
         Address: address,
-        GenderPreference: "N/A",
-        Gender: "N/A",
-        CustomerId: customerid,
+        Gender: gender,
         ServiceProviderId: serviceproviderid,
         Image: image,
         deviceid: "id123",
@@ -129,6 +98,7 @@ class RegisterService extends Component {
         isprivacyaccepted: true
       })
     };
+    console.log("requestOptions", requestOptions);
     return fetch(App.ApisBaseUrl + "/api/SignUp/providersignup", requestOptions)
       .then(response => {
         localStorage.setItem("providerRegisterStatus", response.status);
@@ -154,8 +124,12 @@ class RegisterService extends Component {
           ) {
             toastr["error"](
               "Your password must include at least Mimimum of 8 Characters 1 Upper case 1 Lower case"
-            );
-          } else if (
+            ); 
+          } 
+          else if (response.message=="The Gender field is required.") {
+            toastr["error"]("The Gender field is required.");
+          }
+          else if (
             response.message == "Password minimum length should be 4 characters"
           ) {
             toastr["error"]("Password minimum length should be 4 characters");
@@ -163,16 +137,18 @@ class RegisterService extends Component {
             response.message == "Email already exists. Please sign in"
           ) {
             toastr["error"]("Email already exists. Please sign in");
-          }
-             else if ( response.message == "Please enter a valid e-mail adress") {
-              toastr["error"]("Please enter a valid e-mail adress");
-            }
-          else if (localStorage.getItem("providerRegisterStatus") == "200") {
-            this.setState({
-              modalMessage: response.message,
-              showModal: "show"
-            });
+          } else if (response.message == "Please enter a valid e-mail adress") {
+            toastr["error"]("Please enter a valid e-mail adress");
+          } else if (localStorage.getItem("providerRegisterStatus") == "200") {
             this.setState({ registeredProvider: response, registered: true });
+            this.props.history.push({
+              pathname:"/provider-code-confirmation",
+              state: response.message
+            });
+            // this.setState({
+            //   modalMessage: response.message,
+            //   showModal: "show"
+            // });
           }
         }
       });
@@ -182,8 +158,8 @@ class RegisterService extends Component {
     this.setState({ firstname: e.target.value });
   }
 
-  handleChangeSurname(e) {
-    this.setState({ surname: e.target.value });
+  handleChangeLastname(e) {
+    this.setState({ lastname: e.target.value });
   }
 
   handleChangeEmail(e) {
@@ -242,22 +218,20 @@ class RegisterService extends Component {
     this.setState({ showModal: "hide" });
     //    window.location.replace("/provider-authentication");
     //    this.props.history.push("/provider-authenticationd");
-    this.props.onFinish("signIn");
+    //this.props.onFinish("signIn");
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const {
       firstname,
-      surname,
+      lastname,
       email,
       password,
       mobile,
       postalcode,
       address,
-      genderpreference,
       gender,
-      customerid,
       serviceproviderid,
       image,
       privacyPolicyContent,
@@ -265,15 +239,13 @@ class RegisterService extends Component {
     } = this.state;
     this.Register(
       firstname,
-      surname,
+      lastname,
       email,
       password,
       mobile,
       postalcode,
       address,
-      genderpreference,
       gender,
-      customerid,
       serviceproviderid,
       image,
       privacyPolicyContent,
@@ -313,11 +285,11 @@ class RegisterService extends Component {
             <div class="col">
               <input
                 type="text"
-                name="surname"
+                name="lastname"
                 className="form-control validate"
                 placeholder="Last Name"
-                value={this.state.surname}
-                onChange={this.handleChangeSurname}
+                value={this.state.lastname}
+                onChange={this.handleChangeLastname}
                 required
               ></input>
             </div>
@@ -345,6 +317,8 @@ class RegisterService extends Component {
                 className="genderCheckBox"
                 required=""
                 value="Male"
+                onChange={this.handleChangeGender}
+                required
               />
               <label className="ml-2">Male</label>
             </div>
@@ -354,7 +328,9 @@ class RegisterService extends Component {
                 name="gender"
                 className="genderCheckBox"
                 required=""
-                value="Male"
+                value="Female"
+                onChange={this.handleChangeGender}
+                required
               />
               <label className="ml-2">Female</label>
             </div>
@@ -378,6 +354,7 @@ class RegisterService extends Component {
                 className="form-control"
                 value={this.state.address}
                 onChange={this.handleChangeAddress}
+                name="address"
                 required
               >
                 <option value="" selected>
@@ -604,8 +581,6 @@ class RegisterService extends Component {
       </div>
     );
   }
-
-  
 }
 
 const RegisterServiceProvider = withRouter(RegisterService);

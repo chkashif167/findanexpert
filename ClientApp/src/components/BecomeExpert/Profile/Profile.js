@@ -18,15 +18,7 @@ export class ProviderProfile extends Component {
 
     render() {
         
-        //if (profileImage == 'IMAGE NOT AVAILABLE' || profileImage == '') {
-        //    var imgUrl = 'https://www.integraconference.info/wp-content/uploads/2018/03/placeholder-face-big-300x300.png';
-        //    var imagePreview = (<img src={imgUrl} class="img-fluid providerProfileImg"
-        //        alt="Responsive image" />);
-        //} else {
-        //    var imagePreview = (<img src={App.ApisBaseUrl + profileImage} class="img-fluid providerProfileImg"
-        //        alt="Responsive image one" />);
-        //}
-
+ 
         if (localStorage.getItem('genderpreference') == 'na') {
             var providerGenderPreference = (<p className="card-text">Other</p>);
         }
@@ -44,6 +36,8 @@ export class ProviderProfile extends Component {
         var border = {
             borderRight: '1px solid #ddd'
         }
+       
+
 
         return (
 
@@ -77,16 +71,16 @@ export class ProviderProfile extends Component {
                                         <div className="col-md-6 pb-4">
                                             <div class="profileBox info">
                                                 <h4 class="text-muted">Full Name</h4>
-                                                <h3>{localStorage.getItem("firstname")} {localStorage.getItem("surname")}</h3>
+                                                <h3>{localStorage.getItem("firstname")} {localStorage.getItem("lastname")}</h3>
                                             </div>
                                         </div>
 
-                                        <div className="col-md-6 pb-4">
+                                        {/* <div className="col-md-6 pb-4">
                                             <div className="profileBox info">
                                                 <h4 className="text-muted">Email Address</h4>
                                                 <h3>{localStorage.getItem("email")}</h3>
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                         <div className="col-md-6 pb-4">
                                             <div className="profileBox info">
@@ -98,7 +92,7 @@ export class ProviderProfile extends Component {
                                         <div className="col-md-6 pb-4">
                                             <div className="profileBox info">
                                                 <h4 className="text-muted">Address</h4>
-                                                <h3>{localStorage.getItem('providerAddress')}</h3>
+                                                <h3>{localStorage.getItem('address')}</h3>
                                             </div>
                                         </div>
 
@@ -109,7 +103,7 @@ export class ProviderProfile extends Component {
                                             </div>
                                         </div>
 
-                                        <div className="col-md-6 pb-4">
+                                        {/* <div className="col-md-6 pb-4">
                                             <div className="profileBox info">
                                                 <h4 className="text-muted">Gender Preference</h4>
                                                 <h3>{providerGenderPreference}</h3>
@@ -119,9 +113,9 @@ export class ProviderProfile extends Component {
                                         <div className="col-md-6 pb-4">
                                             <div className="profileBox info">
                                                 <h4 className="text-muted">Date of Birth</h4>
-                                                <h3>{localStorage.getItem('providerDob').split('', 10)}</h3>
+                                                <h3>{localStorage.getItem('dob').split('', 10)}</h3>
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                     </div>
 

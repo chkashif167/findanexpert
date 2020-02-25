@@ -108,7 +108,8 @@ import { WhatisCollagen } from './components/Blog/WhatisCollagen';
 import { WhatIsBalayage } from './components/Blog/WhatIsBalayage';
 import { HighlightsVsBalayage } from './components/Blog/HighlightsVsBalayage';
 import CheckOutPayment from './components/Payment/CheckOutPayment'; 
-import { ProviderCodeConfirmation } from './components/BecomeExpert/ProviderCodeConfirmation';
+import  ProviderCodeConfirmation  from './components/BecomeExpert/ProviderCodeConfirmation';
+import  ProviderResendConfirmationCode  from './components/BecomeExpert/ProviderResendConfirmationCode';
 
  
 
@@ -227,6 +228,7 @@ export default class App extends Component {
                     <Route path='/contact-us' component={ContactUs} />
                     <Route path='/about-us' component={AboutUs} />
                     <Route path='/provider-code-confirmation' component={ProviderCodeConfirmation} />
+                    <Route path='/provider-resend-confirmation-code' component={ProviderResendConfirmationCode} />
 
                     <Route path="*" component={NotFound} />
                 </Switch>

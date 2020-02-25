@@ -1,5 +1,5 @@
 ﻿import React, { Component } from "react";
-import { AuthenticateServiceProvider } from "../AuthenticateServiceProvider";
+import  AuthenticateServiceProvider  from "../AuthenticateServiceProvider";
 import { RegisterServiceProvider } from "../RegisterServiceProvider";
 import { Redirect } from "react-router-dom";
 
@@ -8,7 +8,8 @@ export class ProviderAuthentication extends Component {
 
   state = {
     redirect: false,
-    activeTab: "signIn"
+    activeTab: "signIn",
+    redirectMessage: this.props.location.state
   };
   setRedirect = () => {
     this.setState({
@@ -40,6 +41,7 @@ export class ProviderAuthentication extends Component {
         {this.renderRedirect()}
         <section className="section-padding">
           <div className="container">
+            <h5> {this.state.redirectMessage} </h5>
             <div className="row pb-4 mb-5 pt-5">
               <div className="col-md-12 signinRegisterWrap mt-5 mb-5">
                 <ul
@@ -94,7 +96,7 @@ export class ProviderAuthentication extends Component {
                   >
                     {activeTab === "createAccount" && (
                       <RegisterServiceProvider
-                        onFinish={this.handleActiveTabChange}
+                        // onFinish={this.handleActiveTabChange}
                       />
                     )}
                   </div>
