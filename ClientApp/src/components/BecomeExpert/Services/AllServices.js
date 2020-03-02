@@ -13,15 +13,15 @@ export class ProviderAllServices extends Component {
         super(props);
         this.state = { allServices: [], serviceproviderserviceID: '', found: false, loading: true };
 
-        var providerAccesstoken = localStorage.getItem('provideraccesstoken');
+        var providerAccesstoken = "ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsYVdRaU9pSTRNaUlzSW1WdFlXbHNJam9pWm1GeWNuVnJhRUJ0WVdsc2FXNWhkRzl5TG1OdmJTSXNJbkp2YkdVaU9pSlFjbTkyYVdSbGNpSXNJa2x6Vm1Gc2FXUWlPaUowY25WbElpd2libUptSWpveE5UZ3lPRGt3TlRBM0xDSmxlSEFpT2pFMk1UYzBORFk1TURjc0ltbGhkQ0k2TVRVNE1qZzVNRFV3Tnl3aWFYTnpJam9pWm1sdVpHRnVaWGh3WlhKMExtNWxkQ0lzSW1GMVpDSTZJbVpwYm1SaGJtVjRjR1Z5ZEM1dVpYUWlmUS5PbHRPNW1fYlNOeXkta2V3ZjJtQUNlUkJEMmN0aHJYQmM5QzJIMW80XzIw";
+        //var providerAccesstoken = localStorage.getItem('provideraccesstoken');
         console.log(providerAccesstoken);
         var providerId = localStorage.getItem("serviceproviderid");
-        var providerEmail = localStorage.getItem("email");
+  
         this.handleSubmit = this.handleSubmit.bind(this);
 
-        fetch(App.ApisBaseUrl + '/api/ServiceProvider/getserviceproviderservices?serviceProviderId=' + providerId + '&serviceProviderEmail=' + providerEmail + '&authToken=' + providerAccesstoken)
+        fetch(App.ApisBaseUrl + '/api/Provider/getservices?serviceProviderId=' + '&pagenumber='+ 1 + '&pagesize='+ 15 + '&authToken=' + providerAccesstoken)
             .then(response => {
-                console.log(response.status);
                 if (response.status == '404') {
                     this.setState({ noServices: response.status, found: true });
                     localStorage.setItem('providerServicesNotFound', response.status);
@@ -32,9 +32,7 @@ export class ProviderAllServices extends Component {
                 }
             })
             .then(data => {
-                console.log(data);
                 this.setState({ allServices: data, loading: false });
-                //console(this.state.allServices);
             });
     }
 
@@ -126,7 +124,7 @@ export class ProviderAllServices extends Component {
                                     <div className="providerServicesWrap coloredBox">
                                         <p className="font-weight-bold mb-5">Your <span className="text-red">Services</span></p>
                                         <ul className="list-group">
-                                            {allServices.map(srv =>
+                                            {this.allServices.map(srv =>
                                                 <li className="d-flex justify-content-between align-items-center profileBox info p-4 mb-4">
                                                     <p className="mb-0">{srv.servicetypename}</p>
                                                     <form onSubmit={this.handleSubmit}>

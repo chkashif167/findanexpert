@@ -88,7 +88,7 @@ import toastr from "toastr";
           localStorage.setItem("inclinic", response.inclinic);
           localStorage.setItem("address", response.address);
        
-          this.props.history.push("/provider-profile")
+          this.props.history.push("/jobs")
         }
 
         // if (response.message == null) {

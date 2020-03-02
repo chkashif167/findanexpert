@@ -9,19 +9,30 @@ export class EditProviderProfile extends Component {
     constructor(props) {
         super(props);
 
-        if (localStorage.getItem('providerDob') == '0001-01-01') {
+        if (localStorage.getItem('dob') == '0001-01-01') {
             var providerDOB = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
         }
         else {
-            var providerDOB = localStorage.getItem('providerDob').slice('T', 10);
+            var providerDOB = localStorage.getItem('dob').slice('T', 10);
         }
 
         this.state = {
             allAddresses: [],
-            firstname: localStorage.getItem('firstname'), surname: localStorage.getItem('surname'), phone: localStorage.getItem('phone'), mobile: localStorage.getItem('mobile'), email: '',
-            genderpreference: localStorage.getItem('genderpreference'), gender: localStorage.getItem('gender'), file: '', imagepath: '', base64image: '', imagePreviewUrl: '',
-            postalcode: localStorage.getItem('providerPostalCode'), address: localStorage.getItem('providerAddress'), customerid: '0', serviceproviderid: '', 
-            dob: providerDOB, updated: false
+            firstname: localStorage.getItem('firstname'), 
+            lastname: localStorage.getItem('lastname'), 
+            phone: localStorage.getItem('phone'), 
+            mobile: localStorage.getItem('mobile'), 
+            email: '',
+            genderpreference: localStorage.getItem('genderpreference'), 
+            gender: localStorage.getItem('gender'), 
+            file: '', 
+            imagepath: '', base64image: '', imagePreviewUrl: '',
+            postalcode: localStorage.getItem('providerPostalCode'), 
+            address: localStorage.getItem('providerAddress'), 
+            customerid: '0', 
+            serviceproviderid: '', 
+            dob: providerDOB, 
+            updated: false
         };
 
         this.handleChangeFirstname = this.handleChangeFirstname.bind(this);
@@ -122,8 +133,7 @@ export class EditProviderProfile extends Component {
                     this.setState({ updateProvider: response, updated: true });
 
                     localStorage.setItem('firstname', response.firstname);
-                    localStorage.setItem('surname', response.surname);
-                    localStorage.setItem('phone', response.phone);
+                    localStorage.setItem('lastname', response.surname);
                     localStorage.setItem('mobile', response.mobile);
                     localStorage.setItem('genderpreference', response.genderpreference);
                     localStorage.setItem('gender', response.gender);

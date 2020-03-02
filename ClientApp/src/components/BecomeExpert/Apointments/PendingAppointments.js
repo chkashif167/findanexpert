@@ -7,9 +7,10 @@ export class ProviderPendingAppointments extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { totalPendingPages: '', pendingList: [], loading: true };
+        this.state = {allAppointments: [], totalPendingPages: '', pendingList: [], loading: true };
 
-        var providerAccesstoken = localStorage.getItem('provideraccesstoken');
+        var providerAccesstoken = "ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsYVdRaU9pSTRNaUlzSW1WdFlXbHNJam9pWm1GeWNuVnJhRUJ0WVdsc2FXNWhkRzl5TG1OdmJTSXNJbkp2YkdVaU9pSlFjbTkyYVdSbGNpSXNJa2x6Vm1Gc2FXUWlPaUowY25WbElpd2libUptSWpveE5UZ3lPRGt3TlRBM0xDSmxlSEFpT2pFMk1UYzBORFk1TURjc0ltbGhkQ0k2TVRVNE1qZzVNRFV3Tnl3aWFYTnpJam9pWm1sdVpHRnVaWGh3WlhKMExtNWxkQ0lzSW1GMVpDSTZJbVpwYm1SaGJtVjRjR1Z5ZEM1dVpYUWlmUS5PbHRPNW1fYlNOeXkta2V3ZjJtQUNlUkJEMmN0aHJYQmM5QzJIMW80XzIw";
+        //var providerAccesstoken = localStorage.getItem('provideraccesstoken');
         var providerId = localStorage.getItem("serviceproviderid");
         var providerEmail = localStorage.getItem("email");
 
@@ -25,19 +26,25 @@ export class ProviderPendingAppointments extends Component {
             var pendingPageSize = pendingpageNumber;
         }
         else {
-            var pendingPageSize = 1;
+            var pendingPageSize = 2;
         }
-        console.log(pendingPageSize);
+        console.log("pendingPageSizependingPageSizependingPageSize",pendingPageSize);
 
-        fetch(App.ApisBaseUrl + '/api/ServiceProvider/getpendingappointments?serviceProviderId=' + providerId + '&email=' + providerEmail + '&pageNumber=' + pendingPageSize + '&pageSize=' + 15 + '&authToken=' + providerAccesstoken)
+        fetch(App.ApisBaseUrl + '/api/Provider/getpendingappointments?pageNumber=' + pendingPageSize + '&pageSize=' + 15 + '&authToken=' + providerAccesstoken)
             .then(response => {
                 return response.json();
             })
             .then(data => {
-                console.log(data);
-                this.setState({ totalPendingPages: data.pages.totalpages });
-                this.setState({ pendingList: data.lstAppointments, loading: false });
-                console.log(this.state.pendingList);
+                
+                this.setState({ allAppointments: data.appointmentlist, loading: false });
+                var newArray = this.state.pendingList.slice();
+
+                for (var i = 0; i < this.state.allAppointments.length; i++) {
+
+                    newArray.push(this.state.allAppointments[i]);
+                    this.setState({ pendingList: newArray });
+                }
+                
             })
             .catch((error) => {
                 this.state.pendingList= [];
@@ -45,7 +52,8 @@ export class ProviderPendingAppointments extends Component {
     }
 
     render() {
-        if (this.state.pendingList != '') {
+
+            if (this.state.pendingList != '') {
             let contents = this.state.loading
                 ? <p><em>Loading...</em></p>
                 : this.pendingBookings();
@@ -65,8 +73,6 @@ export class ProviderPendingAppointments extends Component {
     pendingBookings() {
 
         var pageItem = '';
-        console.log("Page Size Cheeji bhootni key:");
-        console.log(this.state.totalPendingPages);
         for (var i = 0; i < this.state.totalPendingPages; i++) {
 
             pageItem += (<li class="page-item"><a class="page-link" href="/provider-profile">{i}</a></li>);
@@ -108,12 +114,13 @@ export class ProviderPendingAppointments extends Component {
 
                 <div className="list-group providerPendingList">
                     {this.state.pendingList.map(apts =>
-                        <a href={'/provider-booking-detail/?' + btoa(encodeURIComponent('servicename=' + apts.servicetype + '&customername=' + apts.firstname + ' ' + apts.surname + '&serviceduration=' + apts.servicetypeduration + '&customeraddress=' +
-                            apts.customeraddress + '&bookingnotes=' + apts.bookingnotes + '&bookingdate=' + apts.bookingdate + '&bookingtime=' + apts.bookingtime))} className="list-group-item list-group-item-action flex-column align-items-start" key={apts.bookingid}>
+                   
+                        <a href={'/provider-booking-detail/?' + btoa(encodeURIComponent('servicename=' + apts.servicetypename + '&customername=' + apts.customername + '&serviceduration=' + apts.bookingduration + '&customeraddress=' +
+                            apts.bookingaddress + '&bookingnotes=' + apts.notes + '&bookingdate=' + apts.bookingdate + '&bookingtime=' + apts.bookingtime))} className="list-group-item list-group-item-action flex-column align-items-start" key={apts.bookingid}>
                             <div className="d-flex w-100 justify-content-between">
                                 <div>
-                                    <h5 className="mb-2"><strong>Service:</strong> {apts.servicetype}</h5>
-                                    <p className="mb-3"><strong>Customer:</strong> {apts.firstname} {apts.surname}</p>
+                                    <h5 className="mb-2"><strong>Service:</strong> {apts.servicetypename}</h5>
+                                    <p className="mb-3"><strong>Customer:</strong> {apts.customername}</p>
                                     <p className="small">
                                         <a href={'/chat/?' + btoa(encodeURIComponent('customerid=' + apts.customerid +
                                             '&bookingid=' + apts.bookingid))}>Chat with customer</a>
