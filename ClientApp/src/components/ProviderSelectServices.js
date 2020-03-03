@@ -2,12 +2,16 @@
 import App from "../App";
 //import { AutoComplete } from '@progress/kendo-dropdowns-react-wrapper';
 import toastr from "toastr";
+import find from "lodash/find";
+import findIndex from "lodash/findIndex";
+import get from "lodash/get";
 
 export class ProviderSelectServices extends Component {
   displayName = ProviderSelectServices.name;
 
   constructor() {
     super();
+    this.array = [];
 
     this.state = {
       // allservices: "",
@@ -15,7 +19,8 @@ export class ProviderSelectServices extends Component {
       allServices: [],
       servicestypes: [],
       listServiceTypes: [],
-      selectedServiceTypes: []
+      selectedServiceTypes: [],
+      selectedService: null
     };
 
     this.handleChangeAllServices = this.handleChangeAllServices.bind(this);
@@ -86,19 +91,13 @@ export class ProviderSelectServices extends Component {
       });
   }
 
-  handleChangeAllServices(e) {
-    this.setState({ categoryname: e.target.value });
-    this.state.selectedServiceTypes = [];
-    for (var i = 0; i <= this.state.listServiceTypes.length; i++) {
-      if (i == e.target.value) {
-        this.setState({ selectedServiceTypes: this.state.listServiceTypes[i] });
-      }
-    }
+  handleChangeAllServices({ target: { value } }) {
+    const { allServices } = this.state;
+    const categoryid = parseInt(value, 10);
+    const selectedService = find(allServices, { categoryid });
 
-    // var x = document.getElementsByClassName("checkboxx");
-    // for (var g = 0; g <= x.length; g++) {
-    //   x[g].checked = false;
-    // }
+    this.setState({ selectedService });
+    this.array = [];
   }
 
   handleChangeServiceTypes(e) {
@@ -108,9 +107,21 @@ export class ProviderSelectServices extends Component {
     this.state.listServiceTypes.push(e.target.value);
   }
 
-  handleChangeType(e) {
-    alert(e.target.value);
-    alert(e.target.id);
+  handleChangeType(value) {
+    const { selectedService } = this.state;
+    const index = findIndex(this.array, v => {
+      return value.servicetypeid === v;
+    });
+    if (index === -1) {
+      this.array.push(value.servicetypeid);
+    } else {
+      this.array.splice(index, 1);
+    }
+    const obj = {
+      cateId: selectedService.categoryid,
+      list: this.array
+    };
+    console.log(obj);
   }
 
   handleSubmit(e) {
@@ -124,6 +135,8 @@ export class ProviderSelectServices extends Component {
   }
 
   ProviderServices() {
+    const { selectedService } = this.state;
+    const typeslist = get(selectedService, "typeslist", []);
     return (
       <div className="Register profileBox p-5">
         <form onSubmit={this.handleSubmit} enctype="multipart/form-data">
@@ -138,24 +151,24 @@ export class ProviderSelectServices extends Component {
                 Select an option
               </option>
               {this.state.allServices.map((srv, index) => (
-                <option value={index}>{srv.categoryname}</option>
+                <option key={index} value={srv.categoryid}>
+                  {srv.categoryname}
+                </option>
               ))}
             </select>
-            {this.state.selectedServiceTypes.map(type => (
-              <>
+            {typeslist.map(type => (
+              <div>
                 <label>
                   <input
-                    onChange={this.handleChangeType}
+                    onChange={() => this.handleChangeType(type)}
                     className="checkboxx"
                     value={type.servicetypeid}
-                    id={type.servicetypeidlist}
-                    name={type.servicetypename}
                     type="checkbox"
+                    checked={type.checked}
                   />
                   {type.servicetypename}
                 </label>
-                <p></p>
-              </>
+              </div>
             ))}
           </div>
 
