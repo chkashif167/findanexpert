@@ -56,8 +56,6 @@ export class ProviderSelectServices extends Component {
   };
 
   AddServices(servicestypes) {
-
-
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -69,12 +67,9 @@ export class ProviderSelectServices extends Component {
     };
 
     var providerAccesstoken =
-    "ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsYVdRaU9pSTRNaUlzSW1WdFlXbHNJam9pWm1GeWNuVnJhRUJ0WVdsc2FXNWhkRzl5TG1OdmJTSXNJbkp2YkdVaU9pSlFjbTkyYVdSbGNpSXNJa2x6Vm1Gc2FXUWlPaUowY25WbElpd2libUptSWpveE5UZ3lPRGt3TlRBM0xDSmxlSEFpT2pFMk1UYzBORFk1TURjc0ltbGhkQ0k2TVRVNE1qZzVNRFV3Tnl3aWFYTnpJam9pWm1sdVpHRnVaWGh3WlhKMExtNWxkQ0lzSW1GMVpDSTZJbVpwYm1SaGJtVjRjR1Z5ZEM1dVpYUWlmUS5PbHRPNW1fYlNOeXkta2V3ZjJtQUNlUkJEMmN0aHJYQmM5QzJIMW80XzIw";
-  //var providerAccesstoken = localStorage.getItem('provideraccesstoken');
-    return fetch(
-      App.ApisBaseUrl + "/api/Provider/addservices",
-      requestOptions
-    )
+      "ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsYVdRaU9pSTRNaUlzSW1WdFlXbHNJam9pWm1GeWNuVnJhRUJ0WVdsc2FXNWhkRzl5TG1OdmJTSXNJbkp2YkdVaU9pSlFjbTkyYVdSbGNpSXNJa2x6Vm1Gc2FXUWlPaUowY25WbElpd2libUptSWpveE5UZ3lPRGt3TlRBM0xDSmxlSEFpT2pFMk1UYzBORFk1TURjc0ltbGhkQ0k2TVRVNE1qZzVNRFV3Tnl3aWFYTnpJam9pWm1sdVpHRnVaWGh3WlhKMExtNWxkQ0lzSW1GMVpDSTZJbVpwYm1SaGJtVjRjR1Z5ZEM1dVpYUWlmUS5PbHRPNW1fYlNOeXkta2V3ZjJtQUNlUkJEMmN0aHJYQmM5QzJIMW80XzIw";
+    //var providerAccesstoken = localStorage.getItem('provideraccesstoken');
+    return fetch(App.ApisBaseUrl + "/api/Provider/addservices", requestOptions)
       .then(response => {
         console.log(response);
         return response.json();
@@ -114,9 +109,8 @@ export class ProviderSelectServices extends Component {
   }
 
   handleChangeType(e) {
-    
-    
-
+    alert(e.target.value);
+    alert(e.target.id);
   }
 
   handleSubmit(e) {
@@ -150,9 +144,11 @@ export class ProviderSelectServices extends Component {
             {this.state.selectedServiceTypes.map(type => (
               <>
                 <label>
-                  <input onChange={this.handleChangeType}
+                  <input
+                    onChange={this.handleChangeType}
                     className="checkboxx"
                     value={type.servicetypeid}
+                    id={type.servicetypeidlist}
                     name={type.servicetypename}
                     type="checkbox"
                   />
