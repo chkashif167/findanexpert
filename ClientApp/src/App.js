@@ -44,7 +44,8 @@ import { DisplayCustomerConsent } from './components/ConsentForms/DisplayCustome
 import { CustomerBookingDetail } from './components/CustomerBookings/CustomerBookingDetail';
 import { ChangePassword } from './components/CustomerAccount/YourAccount/ChangePassword';
 import { EditCustomerBooking } from './components/Booking/EditBooking';
-import { ProviderForgotPassword } from './components/BecomeExpert/Profile/ProviderForgotPassword';
+import  ProviderForgotPassword  from './components/BecomeExpert/Profile/ProviderForgotPassword';
+import  ProviderConfirmCodeForgotPassword  from './components/BecomeExpert/Profile/ProviderConfirmCodeForgotPassword';
 import { ProviderUpdatePassword } from './components/BecomeExpert/Profile/ProviderUpdatePassword';
 import { ConfirmProvider } from './components/BecomeExpert/Profile/ConfirmProvider';
 import { SaveReferral } from './components/Referral/SaveReferral';
@@ -178,6 +179,7 @@ export default class App extends Component {
                     <Route path='/provider-edit-profile' component={ProviderEditProfile} />
                     <Route path='/provider-change-password' component={ChangeProviderPassword} />
                     <Route path='/provider-forgot-password' component={ProviderForgotPassword} />
+                    <Route path='/provider-confirm-code-forgot-password' component={ProviderConfirmCodeForgotPassword} />
                     <Route path='/provider-update-password' component={ProviderUpdatePassword} />
                     <Route path='/provider-services' component={ProviderAllServices} />
                     <Route path='/provider-edit-services' component={ProviderEditServices} />

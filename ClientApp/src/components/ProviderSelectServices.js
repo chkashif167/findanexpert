@@ -10,30 +10,39 @@ export class ProviderSelectServices extends Component {
     super();
 
     this.state = {
-      allservices: "",
+      // allservices: "",
       updated: false,
       allServices: [],
       servicestypes: [],
-      listServiceTypes: []
+      listServiceTypes: [],
+      selectedServiceTypes: []
     };
 
     this.handleChangeAllServices = this.handleChangeAllServices.bind(this);
     this.handleChangeServiceTypes = this.handleChangeServiceTypes.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
-    fetch(App.ApisBaseUrl + "/api/Provider/addservices")
+    var providerAccesstoken =
+      "ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsYVdRaU9pSTRNaUlzSW1WdFlXbHNJam9pWm1GeWNuVnJhRUJ0WVdsc2FXNWhkRzl5TG1OdmJTSXNJbkp2YkdVaU9pSlFjbTkyYVdSbGNpSXNJa2x6Vm1Gc2FXUWlPaUowY25WbElpd2libUptSWpveE5UZ3lPRGt3TlRBM0xDSmxlSEFpT2pFMk1UYzBORFk1TURjc0ltbGhkQ0k2TVRVNE1qZzVNRFV3Tnl3aWFYTnpJam9pWm1sdVpHRnVaWGh3WlhKMExtNWxkQ0lzSW1GMVpDSTZJbVpwYm1SaGJtVjRjR1Z5ZEM1dVpYUWlmUS5PbHRPNW1fYlNOeXkta2V3ZjJtQUNlUkJEMmN0aHJYQmM5QzJIMW80XzIw";
+    //var providerAccesstoken = localStorage.getItem('provideraccesstoken');
+
+    fetch(
+      App.ApisBaseUrl +
+        "/api/Categories/getcategorieswithtypes?authToken=" +
+        providerAccesstoken
+    )
       .then(response => {
         return response.json();
       })
       .then(response => {
-        console.log(response);
-        //this.setState({ allServices: response });
-        var newArray = this.state.allServices.slice();
-        for (var i = 0; i < response.services.length; i++) {
-          var service = response.services[i];
-          newArray.push([service.serviceID, service.serviceName]);
+        this.setState({ allServices: response.categorieslist });
+
+        var newArray = [];
+
+        for (var i = 0; i < this.state.allServices.length; i++) {
+          newArray.push(this.state.allServices[i].typeslist);
+          this.setState({ listServiceTypes: newArray });
         }
-        this.setState({ allServices: newArray });
       });
   }
 
@@ -47,24 +56,23 @@ export class ProviderSelectServices extends Component {
   };
 
   AddServices(servicestypes) {
-    var providerAccesstoken = localStorage.getItem("provideraccesstoken");
-    var serviceproviderid = localStorage.getItem("serviceproviderid");
-    var serviceid = localStorage.getItem("serviceid");
+
 
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        serviceproviderid: serviceproviderid,
-        serviceid: serviceid,
-        servicetypelist: this.state.listServiceTypes,
+        categoryid: "",
+        servicetypeidlist: "",
         authtoken: providerAccesstoken
       })
     };
 
-    //console.log(this.state.listServiceTypes);
+    var providerAccesstoken =
+    "ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsYVdRaU9pSTRNaUlzSW1WdFlXbHNJam9pWm1GeWNuVnJhRUJ0WVdsc2FXNWhkRzl5TG1OdmJTSXNJbkp2YkdVaU9pSlFjbTkyYVdSbGNpSXNJa2x6Vm1Gc2FXUWlPaUowY25WbElpd2libUptSWpveE5UZ3lPRGt3TlRBM0xDSmxlSEFpT2pFMk1UYzBORFk1TURjc0ltbGhkQ0k2TVRVNE1qZzVNRFV3Tnl3aWFYTnpJam9pWm1sdVpHRnVaWGh3WlhKMExtNWxkQ0lzSW1GMVpDSTZJbVpwYm1SaGJtVjRjR1Z5ZEM1dVpYUWlmUS5PbHRPNW1fYlNOeXkta2V3ZjJtQUNlUkJEMmN0aHJYQmM5QzJIMW80XzIw";
+  //var providerAccesstoken = localStorage.getItem('provideraccesstoken');
     return fetch(
-      App.ApisBaseUrl + "/api/ServiceProvider/addserviceproviderservices",
+      App.ApisBaseUrl + "/api/Provider/addservices",
       requestOptions
     )
       .then(response => {
@@ -73,41 +81,29 @@ export class ProviderSelectServices extends Component {
       })
       .then(response => {
         console.log(response);
-        if (response != null) {
-          this.setState({ updateProviderService: response, updated: true });
-          toastr["success"]("Your selected services are added successfully!");
-          setTimeout(function() {
-            window.location = "/provider-services";
-          }, 3000);
-        }
+        // if (response != null) {
+        //   this.setState({ updateProviderService: response, updated: true });
+        //   toastr["success"]("Your selected services are added successfully!");
+        //   setTimeout(function() {
+        //     window.location = "/provider-services";
+        //   }, 3000);
+        // }
       });
   }
 
   handleChangeAllServices(e) {
-    this.setState({ allservices: e.target.value });
-    localStorage.setItem("serviceid", e.target.value);
+    this.setState({ categoryname: e.target.value });
+    this.state.selectedServiceTypes = [];
+    for (var i = 0; i <= this.state.listServiceTypes.length; i++) {
+      if (i == e.target.value) {
+        this.setState({ selectedServiceTypes: this.state.listServiceTypes[i] });
+      }
+    }
 
-    //const requestOptions = {
-    //    method: 'POST',
-    //    headers: { 'Content-Type': 'application/json' },
-    //    body: JSON.stringify({ serviceid: e.target.value })
-    //};
-    //console.log(requestOptions);
-    return fetch(
-      App.ApisBaseUrl +
-        "/api/ServiceType/getallservicetypes?serviceid=" +
-        localStorage.getItem("serviceid") +
-        "&pagenumber=1&pagesize=150"
-    )
-      .then(response => {
-        //console.log(response);
-        return response.json();
-      })
-      .then(response => {
-        console.log(response);
-        this.setState({ serviceTypes: response.data, found: true });
-        //console.log(response);
-      });
+    // var x = document.getElementsByClassName("checkboxx");
+    // for (var g = 0; g <= x.length; g++) {
+    //   x[g].checked = false;
+    // }
   }
 
   handleChangeServiceTypes(e) {
@@ -117,6 +113,12 @@ export class ProviderSelectServices extends Component {
     this.state.listServiceTypes.push(e.target.value);
   }
 
+  handleChangeType(e) {
+    
+    
+
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     const { servicestypes } = this.state;
@@ -124,10 +126,7 @@ export class ProviderSelectServices extends Component {
   }
 
   render() {
-    let contents = this.state.found
-      ? this.UpdatedProviderServices(this.state.updateProviderService)
-      : this.ProviderServices();
-    return <div>{contents}</div>;
+    return this.ProviderServices();
   }
 
   ProviderServices() {
@@ -144,11 +143,24 @@ export class ProviderSelectServices extends Component {
               <option value="" selected>
                 Select an option
               </option>
-              {this.state.allServices.map(srv => (
-                <option value={srv[0]}>{srv[1]}</option>
+              {this.state.allServices.map((srv, index) => (
+                <option value={index}>{srv.categoryname}</option>
               ))}
-              ;
             </select>
+            {this.state.selectedServiceTypes.map(type => (
+              <>
+                <label>
+                  <input onChange={this.handleChangeType}
+                    className="checkboxx"
+                    value={type.servicetypeid}
+                    name={type.servicetypename}
+                    type="checkbox"
+                  />
+                  {type.servicetypename}
+                </label>
+                <p></p>
+              </>
+            ))}
           </div>
 
           <div className="text-center mb-5">
@@ -161,67 +173,6 @@ export class ProviderSelectServices extends Component {
           </div>
         </form>
       </div>
-    );
-  }
-
-  UpdatedProviderServices(updateProviderService) {
-    return (
-      <div className="profileBox p-5">
-        <form
-          onSubmit={this.handleSubmit}
-          enctype="multipart/form-data"
-          className="pb-5"
-        >
-          <div className="md-form pb-3">
-            <select
-              className="form-control frm-field"
-              value={this.state.allservices}
-              onChange={this.handleChangeAllServices}
-              required
-            >
-              <option value="" selected>
-                Select an option
-              </option>
-              {this.state.allServices.map(srv => (
-                <option value={srv[0]}>{srv[1]}</option>
-              ))}
-              ;
-            </select>
-          </div>
-
-          <p>
-            <strong>Service Types</strong>
-          </p>
-
-          <div className="md-form pb-3">
-            {this.state.serviceTypes.map(srvtype => (
-              <div class="form-check">
-                <input
-                  class="form-check-input frm-field"
-                  type="checkbox"
-                  value={srvtype.servicetypeid}
-                  id={srvtype.servicetypeid}
-                  onChange={this.handleChangeServiceTypes}
-                />
-                <label class="form-check-label" for={srvtype.servicetypeid}>
-                  {srvtype.servicetypename}
-                </label>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <button
-              type="submit"
-              className="btn bg-black btn-block text-white z-depth-1a w-auto float-right"
-            >
-              Add Your Services
-            </button>
-          </div>
-        </form>
-      </div>
-
-      //<Redirect to='/profile' />
     );
   }
 }
