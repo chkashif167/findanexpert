@@ -34,7 +34,11 @@ export class ProviderDocuments extends Component {
         var newArray = [];
         for (var i = 0; i < data.documentlist.length; i++) {
           newArray.push(data.documentlist[i].documentid);
-          this.setState({ allDocuments: newArray, loading: false });
+          this.setState({
+            allDocuments: newArray,
+            loading: false,
+            found: true
+          });
         }
         console.log("=======================", this.state.loading);
       });
