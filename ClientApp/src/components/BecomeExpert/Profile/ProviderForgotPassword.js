@@ -30,7 +30,7 @@ class ProviderForgotPassword extends Component {
                          toastr["success"](response.message);
                             this.props.history.push({
                             pathname:"/provider-confirm-code-forgot-password",
-                            state: response.message
+                           state: response.message
                              
                            }); 
                    

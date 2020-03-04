@@ -20,16 +20,15 @@ export class ProviderSelectServices extends Component {
       servicestypes: [],
       listServiceTypes: [],
       selectedServiceTypes: [],
-      selectedService: null
+      selectedService: null,
+      cateId: "",
+      list: []
     };
 
     this.handleChangeAllServices = this.handleChangeAllServices.bind(this);
-    this.handleChangeServiceTypes = this.handleChangeServiceTypes.bind(this);
+    // this.handleChangeServiceTypes = this.handleChangeServiceTypes.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
-    var providerAccesstoken =
-      "ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsYVdRaU9pSTRNaUlzSW1WdFlXbHNJam9pWm1GeWNuVnJhRUJ0WVdsc2FXNWhkRzl5TG1OdmJTSXNJbkp2YkdVaU9pSlFjbTkyYVdSbGNpSXNJa2x6Vm1Gc2FXUWlPaUowY25WbElpd2libUptSWpveE5UZ3lPRGt3TlRBM0xDSmxlSEFpT2pFMk1UYzBORFk1TURjc0ltbGhkQ0k2TVRVNE1qZzVNRFV3Tnl3aWFYTnpJam9pWm1sdVpHRnVaWGh3WlhKMExtNWxkQ0lzSW1GMVpDSTZJbVpwYm1SaGJtVjRjR1Z5ZEM1dVpYUWlmUS5PbHRPNW1fYlNOeXkta2V3ZjJtQUNlUkJEMmN0aHJYQmM5QzJIMW80XzIw";
-    //var providerAccesstoken = localStorage.getItem('provideraccesstoken');
+    var providerAccesstoken = localStorage.getItem('provideraccesstoken');
 
     fetch(
       App.ApisBaseUrl +
@@ -61,19 +60,22 @@ export class ProviderSelectServices extends Component {
   };
 
   AddServices(servicestypes) {
+
+    var providerAccesstoken = localStorage.getItem('provideraccesstoken');
+
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        categoryid: "",
-        servicetypeidlist: "",
+        categoryid: this.state.cateId,
+        servicetypeidlist: this.state.list,
         authtoken: providerAccesstoken
       })
     };
 
-    var providerAccesstoken =
-      "ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsYVdRaU9pSTRNaUlzSW1WdFlXbHNJam9pWm1GeWNuVnJhRUJ0WVdsc2FXNWhkRzl5TG1OdmJTSXNJbkp2YkdVaU9pSlFjbTkyYVdSbGNpSXNJa2x6Vm1Gc2FXUWlPaUowY25WbElpd2libUptSWpveE5UZ3lPRGt3TlRBM0xDSmxlSEFpT2pFMk1UYzBORFk1TURjc0ltbGhkQ0k2TVRVNE1qZzVNRFV3Tnl3aWFYTnpJam9pWm1sdVpHRnVaWGh3WlhKMExtNWxkQ0lzSW1GMVpDSTZJbVpwYm1SaGJtVjRjR1Z5ZEM1dVpYUWlmUS5PbHRPNW1fYlNOeXkta2V3ZjJtQUNlUkJEMmN0aHJYQmM5QzJIMW80XzIw";
-    //var providerAccesstoken = localStorage.getItem('provideraccesstoken');
+
+    console.log(requestOptions)
+
     return fetch(App.ApisBaseUrl + "/api/Provider/addservices", requestOptions)
       .then(response => {
         console.log(response);
@@ -81,13 +83,15 @@ export class ProviderSelectServices extends Component {
       })
       .then(response => {
         console.log(response);
-        // if (response != null) {
-        //   this.setState({ updateProviderService: response, updated: true });
-        //   toastr["success"]("Your selected services are added successfully!");
-        //   setTimeout(function() {
-        //     window.location = "/provider-services";
-        //   }, 3000);
-        // }
+        if (response.statuscode == 200) {
+           toastr["success"]("Your selected services are added successfully!");
+          setTimeout(function() {
+            window.location = "/provider-services";
+          }, 1000);
+        }
+        else {
+          toastr["error"](response.response);
+        }
       });
   }
 
@@ -97,17 +101,18 @@ export class ProviderSelectServices extends Component {
     const selectedService = find(allServices, { categoryid });
 
     this.setState({ selectedService });
-    this.array = [];
+  
   }
 
-  handleChangeServiceTypes(e) {
-    //
-    this.setState({ servicestypes: e.target.id });
-    console.log(e.target.value);
-    this.state.listServiceTypes.push(e.target.value);
-  }
+  // handleChangeServiceTypes(e) {
+  //   //
+  //   this.setState({ servicestypes: e.target.id });
+  //   console.log(e.target.value);
+  //   this.state.listServiceTypes.push(e.target.value);
+  // }
 
-  handleChangeType(value) {
+  handleChangeTypeCheckboxes(value) {
+    
     const { selectedService } = this.state;
     const index = findIndex(this.array, v => {
       return value.servicetypeid === v;
@@ -121,7 +126,9 @@ export class ProviderSelectServices extends Component {
       cateId: selectedService.categoryid,
       list: this.array
     };
-    console.log(obj);
+
+    this.setState({ cateId: obj.cateId, list: obj.list });
+    //console.log(obj);
   }
 
   handleSubmit(e) {
@@ -160,7 +167,7 @@ export class ProviderSelectServices extends Component {
               <div>
                 <label>
                   <input
-                    onChange={() => this.handleChangeType(type)}
+                    onChange={() => this.handleChangeTypeCheckboxes(type)}
                     className="checkboxx"
                     value={type.servicetypeid}
                     type="checkbox"

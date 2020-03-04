@@ -14,7 +14,7 @@ export class ProviderPendingAppointments extends Component {
     };
 
     var providerAccesstoken =
-      "ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsYVdRaU9pSTRNaUlzSW1WdFlXbHNJam9pWm1GeWNuVnJhRUJ0WVdsc2FXNWhkRzl5TG1OdmJTSXNJbkp2YkdVaU9pSlFjbTkyYVdSbGNpSXNJa2x6Vm1Gc2FXUWlPaUowY25WbElpd2libUptSWpveE5UZ3lPRGt3TlRBM0xDSmxlSEFpT2pFMk1UYzBORFk1TURjc0ltbGhkQ0k2TVRVNE1qZzVNRFV3Tnl3aWFYTnpJam9pWm1sdVpHRnVaWGh3WlhKMExtNWxkQ0lzSW1GMVpDSTZJbVpwYm1SaGJtVjRjR1Z5ZEM1dVpYUWlmUS5PbHRPNW1fYlNOeXkta2V3ZjJtQUNlUkJEMmN0aHJYQmM5QzJIMW80XzIw";
+      "ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsYVdRaU9pSXhNRE1pTENKbGJXRnBiQ0k2SW5OaGNtRkFiV0ZwYkdsdVlYUnZjaTVqYjIwaUxDSnliMnhsSWpvaVEzVnpkRzl0WlhJaUxDSkpjMVpoYkdsa0lqb2lkSEoxWlNJc0ltNWlaaUk2TVRVNE16RTFNRFl6TkN3aVpYaHdJam94TmpFM056QTNNRE0wTENKcFlYUWlPakUxT0RNeE5UQTJNelFzSW1semN5STZJbVpwYm1SaGJtVjRjR1Z5ZEM1dVpYUWlMQ0poZFdRaU9pSm1hVzVrWVc1bGVIQmxjblF1Ym1WMEluMC5WMkdGQVlNS00xa3JScWIwVkRuVll2dWlsSVk0Q3NPUGhGRm43R2J3WWdn";
     //var providerAccesstoken = localStorage.getItem('provideraccesstoken');
     var providerId = localStorage.getItem("serviceproviderid");
     var providerEmail = localStorage.getItem("email");
@@ -42,6 +42,13 @@ export class ProviderPendingAppointments extends Component {
         providerAccesstoken
     )
       .then(response => {
+        console.log(  App.ApisBaseUrl +
+          "/api/Provider/getpendingappointments?pageNumber=" +
+          PageNumber +
+          "&pageSize=" +
+          15 +
+          "&authToken=" +
+          providerAccesstoken)
         return response.json();
       })
       .then(data => {
@@ -189,7 +196,7 @@ export class ProviderPendingAppointments extends Component {
     return (
       <div id="MainPageWrapper">
         <div className="list-group providerPendingList">
-          {this.state.allAppointments.map(apts => (
+          {this.state.allAppointments && this.state.allAppointments.map(apts => (
             <a
               href={
                 "/provider-booking-detail/?" +

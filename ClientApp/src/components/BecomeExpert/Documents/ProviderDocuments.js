@@ -12,26 +12,28 @@ export class ProviderDocuments extends Component {
         super();
         this.state = { allDocuments: [], found: false, loading: true };
 
-        var providerAccesstoken = localStorage.getItem('provideraccesstoken');
+         var providerAccesstoken =
+        "ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsYVdRaU9pSXhNRE1pTENKbGJXRnBiQ0k2SW5OaGNtRkFiV0ZwYkdsdVlYUnZjaTVqYjIwaUxDSnliMnhsSWpvaVEzVnpkRzl0WlhJaUxDSkpjMVpoYkdsa0lqb2lkSEoxWlNJc0ltNWlaaUk2TVRVNE16RTFNRFl6TkN3aVpYaHdJam94TmpFM056QTNNRE0wTENKcFlYUWlPakUxT0RNeE5UQTJNelFzSW1semN5STZJbVpwYm1SaGJtVjRjR1Z5ZEM1dVpYUWlMQ0poZFdRaU9pSm1hVzVrWVc1bGVIQmxjblF1Ym1WMEluMC5WMkdGQVlNS00xa3JScWIwVkRuVll2dWlsSVk0Q3NPUGhGRm43R2J3WWdn";
+      //var providerAccesstoken = localStorage.getItem('provideraccesstoken');
         var providerId = localStorage.getItem("serviceproviderid");
         var providerEmail = localStorage.getItem("email");
 
         this.handleSubmit = this.handleSubmit.bind(this);
 
-        fetch(App.ApisBaseUrl + '/api/ServiceProvider/getdocuments?serviceProviderId=' + providerId + '&email=' + providerEmail + '&authToken=' + providerAccesstoken)
+        fetch(App.ApisBaseUrl + '/api/Provider/getdocuments?authToken=' + providerAccesstoken)
             .then(response => {
-                if (response.status == '404') {
-                    this.setState({ noDocuments: response.status, found: true });
-                    localStorage.setItem('providerDocumentNotFound', response.status);
-                }
-                else {
-                    localStorage.removeItem('providerDocumentNotFound');
-                    return response.json();
-                }
+                return response.json();
             })
             .then(data => {
-                console.log(data);
-                this.setState({ allDocuments: data, loading: false });
+                console.log("=-=-=-=-=-=-=-=-=-=-=-=-",data);
+                
+                var newArray = [];
+                  for (var i = 0; i < data.documentlist.length; i++) {
+                  newArray.push(data.documentlist[i].documentid);
+                  this.setState({ allDocuments: newArray, loading: false });
+                  console.log("=======================",this.state.allDocuments);
+                  }
+                  
             });
     }
 
@@ -130,10 +132,10 @@ export class ProviderDocuments extends Component {
                                                     {allDocuments.map(docs =>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center profileBox mb-3">
                                                             <div>
-                                                                <img class="card-img-top providerDocuments shadow" src={App.ApisBaseUrl + docs.documentpath} alt="Card image cap" />
+                                                                <img class="card-img-top providerDocuments shadow" src={App.ApisBaseUrl + docs.docpath} alt="Card image cap" />
                                                                 <div className="d-flex justify-content-between pt-3">
                                                                     <p class="card-text"><i class="far fa-file"></i> {docs.documenttype}</p>
-                                                                    <p class="card-text"><i class="far fa-clock pr-1"></i> {docs.createdatetime.split('', 10)}</p>
+                                                                    {/* <p class="card-text"><i class="far fa-clock pr-1"></i> {docs.createddatetime.split('', 10)}</p> */}
                                                                 </div>
                                                             </div>
                                                             <form onSubmit={this.handleSubmit}>

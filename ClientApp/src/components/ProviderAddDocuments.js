@@ -35,7 +35,9 @@ export class ProviderAddDocuments extends Component {
 
     UploadDocument(serviceproviderid, doctype, imagePreviewUrl) {
 
-        var providerAccesstoken = localStorage.getItem('provideraccesstoken');
+        var providerAccesstoken =
+        "ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsYVdRaU9pSXhNRE1pTENKbGJXRnBiQ0k2SW5OaGNtRkFiV0ZwYkdsdVlYUnZjaTVqYjIwaUxDSnliMnhsSWpvaVEzVnpkRzl0WlhJaUxDSkpjMVpoYkdsa0lqb2lkSEoxWlNJc0ltNWlaaUk2TVRVNE16RTFNRFl6TkN3aVpYaHdJam94TmpFM056QTNNRE0wTENKcFlYUWlPakUxT0RNeE5UQTJNelFzSW1semN5STZJbVpwYm1SaGJtVjRjR1Z5ZEM1dVpYUWlMQ0poZFdRaU9pSm1hVzVrWVc1bGVIQmxjblF1Ym1WMEluMC5WMkdGQVlNS00xa3JScWIwVkRuVll2dWlsSVk0Q3NPUGhGRm43R2J3WWdn";
+      //var providerAccesstoken = localStorage.getItem('provideraccesstoken');
         var serviceproviderid = localStorage.getItem("serviceproviderid");
         var bse64String = this.state.imagePreviewUrl.slice(22);
         const requestOptions = {
@@ -49,7 +51,7 @@ export class ProviderAddDocuments extends Component {
             })
         };
         console.log(requestOptions);
-        return fetch(App.ApisBaseUrl + '/api/ServiceProvider/uploaddocuments', requestOptions)
+        return fetch(App.ApisBaseUrl + '/api/Provider/uploaddocument', requestOptions)
             .then(response => {
                 console.log(response);
                 return response.json();
@@ -57,12 +59,12 @@ export class ProviderAddDocuments extends Component {
             .then(response => {
                 console.log(response);
                 if (response != null) {
-                    this.setState({ uploadedDocument: response, upload: true });
+                   
                     
                     toastr['success']('Document has been uploaded!');
-                    setTimeout(function () {
-                        window.location = '/provider-documents';
-                    }, 3000);
+                    // setTimeout(function () {
+                    //     window.location = '/provider-documents';
+                    // }, 3000);
 
                 }
 
