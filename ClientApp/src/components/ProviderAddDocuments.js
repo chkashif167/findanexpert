@@ -41,9 +41,8 @@ export class ProviderAddDocuments extends Component {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        serviceproviderid: serviceproviderid,
         doctype: doctype,
-        base64Image: bse64String,
+
         authtoken: providerAccesstoken
       })
     };
@@ -58,11 +57,13 @@ export class ProviderAddDocuments extends Component {
       })
       .then(response => {
         console.log(response);
-        if (response != null) {
+        if (response.statuscode == 200) {
           toastr["success"]("Document has been uploaded!");
           // setTimeout(function () {
           //     window.location = '/provider-documents';
           // }, 3000);
+        } else {
+          toastr["error"](response.message);
         }
       });
   }
