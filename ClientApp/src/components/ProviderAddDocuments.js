@@ -1,4 +1,5 @@
-﻿﻿import React, { Component } from "react";
+import React, { Component } from "react";
+
 import App from "../App";
 import toastr from "toastr";
 

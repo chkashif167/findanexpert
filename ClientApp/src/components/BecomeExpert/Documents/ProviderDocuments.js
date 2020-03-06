@@ -13,6 +13,7 @@ export class ProviderDocuments extends Component {
     this.state = { allDocuments: [], found: false, loading: true };
 
     var providerAccesstoken = localStorage.getItem("provideraccesstoken");
+
     var providerId = localStorage.getItem("serviceproviderid");
     var providerEmail = localStorage.getItem("email");
 
@@ -57,8 +58,11 @@ export class ProviderDocuments extends Component {
     };
 
     return fetch(
-      App.ApisBaseUrl + "/api/Provider/deletedocument",
-      requestOptions
+      App.ApisBaseUrl +
+        "/api/ServiceProvider/deletedocument?documentId=" +
+        documentId +
+        "&authToken=" +
+        providerAccesstoken
     )
       .then(response => {
         console.log(response);
