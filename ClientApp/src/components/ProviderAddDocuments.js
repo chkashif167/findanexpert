@@ -1,4 +1,5 @@
-﻿import React, { Component } from "react";
+import React, { Component } from "react";
+
 import App from "../App";
 import toastr from "toastr";
 
@@ -33,19 +34,32 @@ export class ProviderAddDocuments extends Component {
 
   UploadDocument(serviceproviderid, doctype, imagePreviewUrl) {
     // var providerAccesstoken =
-    //   "ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsYVdRaU9pSXhNRE1pTENKbGJXRnBiQ0k2SW5OaGNtRkFiV0ZwYkdsdVlYUnZjaTVqYjIwaUxDSnliMnhsSWpvaVEzVnpkRzl0WlhJaUxDSkpjMVpoYkdsa0lqb2lkSEoxWlNJc0ltNWlaaUk2TVRVNE16RTFNRFl6TkN3aVpYaHdJam94TmpFM056QTNNRE0wTENKcFlYUWlPakUxT0RNeE5UQTJNelFzSW1semN5STZJbVpwYm1SaGJtVjRjR1Z5ZEM1dVpYUWlMQ0poZFdRaU9pSm1hVzVrWVc1bGVIQmxjblF1Ym1WMEluMC5WMkdGQVlNS00xa3JScWIwVkRuVll2dWlsSVk0Q3NPUGhGRm43R2J3WWdn";
+
+    //   "ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsYVdRaU9pSXhNRFFpTENKbGJXRnBiQ0k2SW10aGMyaHBaa0J0WVdsc2FXNWhkRzl5TG1OdmJTSXNJbkp2YkdVaU9pSlFjbTkyYVdSbGNpSXNJa2x6Vm1Gc2FXUWlPaUowY25WbElpd2libUptSWpveE5UZ3pNelEzTmpZNExDSmxlSEFpT2pFMk1UYzVNRFF3Tmpnc0ltbGhkQ0k2TVRVNE16TTBOelkyT0N3aWFYTnpJam9pWm1sdVpHRnVaWGh3WlhKMExtNWxkQ0lzSW1GMVpDSTZJbVpwYm1SaGJtVjRjR1Z5ZEM1dVpYUWlmUS5nc04wTm4ySjY5WEVvT19sVnVEZ1pyT3NKZ3dXMklXUFBaem9NbVFYUVc0";
     var providerAccesstoken = localStorage.getItem("provideraccesstoken");
-    var serviceproviderid = localStorage.getItem("serviceproviderid");
-    var bse64String = this.state.imagePreviewUrl.slice(22);
+    // var serviceproviderid = localStorage.getItem("serviceproviderid");
+    // var bse64String = this.state.imagePreviewUrl.slice(22);
+    // const requestOptions = {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({
+    //     serviceproviderid: serviceproviderid,
+    //     doctype: doctype,
+    //     base64Image: bse64String,
+    //     authtoken: providerAccesstoken
+    //   })
+    // };
+    const formData = new FormData();
+    formData.append("image", this.state.file);
+    formData.append("docType", doctype);
+    formData.append("authtoken", providerAccesstoken);
+
     const requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        doctype: doctype,
 
-        authtoken: providerAccesstoken
-      })
+      body: formData
     };
+
     console.log(requestOptions);
     return fetch(
       App.ApisBaseUrl + "/api/Provider/uploaddocument",
@@ -59,9 +73,9 @@ export class ProviderAddDocuments extends Component {
         console.log(response);
         if (response.statuscode == 200) {
           toastr["success"]("Document has been uploaded!");
-          // setTimeout(function () {
-          //     window.location = '/provider-documents';
-          // }, 3000);
+          setTimeout(function() {
+            window.location = "/provider-documents";
+          }, 1000);
         } else {
           toastr["error"](response.message);
         }
@@ -88,10 +102,10 @@ export class ProviderAddDocuments extends Component {
     };
 
     reader.readAsDataURL(file);
-    this.state.imagePreviewUrl = this.state.imagePreviewUrl.replace(
-      "data:image/png;base64,",
-      ""
-    );
+    // this.state.imagePreviewUrl = this.state.imagePreviewUrl.replace(
+    //   "data:image/png;base64,",
+    //   ""
+    // );
   }
 
   handleSubmit(e) {

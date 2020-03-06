@@ -360,21 +360,9 @@ export class EditCustomerProfile extends Component {
                             {$imagePreview}
                         </div>
 
-<<<<<<< .mine
-                    {/*<div class="form-group pb-3">
-                        <label for="exampleFormControlFile2">Upload Image</label>
-                        <input type="file" name="file" class="form-control-file frm-field"
-                            onChange={this.handleChangeTestImage} />
-                    </div>*/}
-||||||| .r377
-                    <div class="form-group pb-3">
-                        <label for="exampleFormControlFile2">Upload Image</label>
-                        <input type="file" name="file" class="form-control-file frm-field"
-                            onChange={this.handleChangeTestImage} />
-                    </div>
-=======
+
                     </form>
->>>>>>> .r555
+
 
                 </div>
 
