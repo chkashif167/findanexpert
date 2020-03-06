@@ -22,6 +22,7 @@ export class EditProviderProfile extends Component {
       allAddresses: [],
       firstname: localStorage.getItem("firstname"),
       lastname: localStorage.getItem("lastname"),
+      // phone: localStorage.getItem('phone'),
       mobile: localStorage.getItem("mobile"),
       genderpreference: localStorage.getItem("genderpreference"),
       gender: localStorage.getItem("gender"),
@@ -70,6 +71,7 @@ export class EditProviderProfile extends Component {
     address,
     dob
   ) {
+    console.log(firstname);
     var providerAccesstoken = localStorage.getItem("provideraccesstoken");
 
     console.log(this.state.imagePreviewUrl);
@@ -89,7 +91,8 @@ export class EditProviderProfile extends Component {
     const requestOptions = {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Accept: "application/json"
       },
       body: JSON.stringify({
         firstname: firstname,
@@ -106,7 +109,7 @@ export class EditProviderProfile extends Component {
     console.log(requestOptions);
 
     return fetch(
-      App.ApisBaseUrl + "/api/ServiceProvider/updateprofile",
+      App.ApisBaseUrl + "/api/Provider/updateprofile",
       requestOptions
     )
       .then(response => {
@@ -356,6 +359,7 @@ export class EditProviderProfile extends Component {
               <option value={localStorage.getItem("genderpreference")}>
                 {providerGenderPreference}
               </option>
+              <option value="">-----------------</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Others">Others</option>
