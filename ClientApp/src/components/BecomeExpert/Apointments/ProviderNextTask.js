@@ -11,8 +11,7 @@ export class ProviderNextTask extends Component {
     //var providerAccesstoken = localStorage.getItem('provideraccesstoken');
     var providerAccesstoken =
       "ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsYVdRaU9pSXhNRE1pTENKbGJXRnBiQ0k2SW5OaGNtRkFiV0ZwYkdsdVlYUnZjaTVqYjIwaUxDSnliMnhsSWpvaVEzVnpkRzl0WlhJaUxDSkpjMVpoYkdsa0lqb2lkSEoxWlNJc0ltNWlaaUk2TVRVNE16RTFNRFl6TkN3aVpYaHdJam94TmpFM056QTNNRE0wTENKcFlYUWlPakUxT0RNeE5UQTJNelFzSW1semN5STZJbVpwYm1SaGJtVjRjR1Z5ZEM1dVpYUWlMQ0poZFdRaU9pSm1hVzVrWVc1bGVIQmxjblF1Ym1WMEluMC5WMkdGQVlNS00xa3JScWIwVkRuVll2dWlsSVk0Q3NPUGhGRm43R2J3WWdn";
-    var providerId = localStorage.getItem("serviceproviderid");
-    var providerEmail = localStorage.getItem("email");
+
     fetch(
       App.ApisBaseUrl +
         "/api/Provider/getpendingappointments?serviceProviderId=" +
@@ -37,7 +36,6 @@ export class ProviderNextTask extends Component {
           newArray.push(this.state.allAppointments[i]);
           this.setState({ pendingList: newArray });
         }
-        console.log(this.state.pendingList[0]);
       })
       .catch(error => {
         this.state.pendingList = [];

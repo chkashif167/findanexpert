@@ -1,5 +1,5 @@
 ﻿import React, { Component } from "react";
-import  AuthenticateServiceProvider  from "../AuthenticateServiceProvider";
+import AuthenticateServiceProvider from "../AuthenticateServiceProvider";
 import { RegisterServiceProvider } from "../RegisterServiceProvider";
 import { Redirect } from "react-router-dom";
 
@@ -41,7 +41,12 @@ export class ProviderAuthentication extends Component {
         {this.renderRedirect()}
         <section className="section-padding">
           <div className="container">
-            <h5> {this.state.redirectMessage} </h5>
+            {this.state.redirectMessage && (
+              <p className="alert alert-success">
+                {this.state.redirectMessage}
+              </p>
+            )}
+
             <div className="row pb-4 mb-5 pt-5">
               <div className="col-md-12 signinRegisterWrap mt-5 mb-5">
                 <ul
@@ -50,7 +55,8 @@ export class ProviderAuthentication extends Component {
                 >
                   <li className="nav-item">
                     <a
-                      className={`nav-link ${activeTab === "signIn" && "active"}`}
+                      className={`nav-link ${activeTab === "signIn" &&
+                        "active"}`}
                       data-toggle="tab"
                       //   href="#signIn"
                       role="tab"
@@ -61,7 +67,8 @@ export class ProviderAuthentication extends Component {
                   </li>
                   <li className="nav-item">
                     <a
-                      className={`nav-link ${activeTab === "createAccount" && "active"}`}
+                      className={`nav-link ${activeTab === "createAccount" &&
+                        "active"}`}
                       data-toggle="tab"
                       //   href="#createAccount"
                       role="tab"
@@ -96,7 +103,7 @@ export class ProviderAuthentication extends Component {
                   >
                     {activeTab === "createAccount" && (
                       <RegisterServiceProvider
-                        // onFinish={this.handleActiveTabChange}
+                      // onFinish={this.handleActiveTabChange}
                       />
                     )}
                   </div>

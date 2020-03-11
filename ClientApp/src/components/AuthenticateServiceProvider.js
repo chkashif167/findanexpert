@@ -1,11 +1,11 @@
 ﻿import React, { Component } from "react";
-import { RouteComponentProps } from "react-router";
-import { Redirect, withRouter } from "react-router-dom";
+
+import { withRouter } from "react-router-dom";
 import App from "../App";
 import toastr from "toastr";
 
- class AuthenticateServiceProvider extends Component {
- //displayName = AuthenticateServiceProvider.name;
+class AuthenticateServiceProvider extends Component {
+  //displayName = AuthenticateServiceProvider.name;
 
   constructor(props) {
     super(props);
@@ -16,7 +16,7 @@ import toastr from "toastr";
       addressesList: [],
       submitted: false,
       isAuthenticated: null,
-      showModal : "hide",
+      showModal: "hide",
       modalMessage: ""
     };
 
@@ -39,44 +39,36 @@ import toastr from "toastr";
     };
     return fetch(App.ApisBaseUrl + "/api/SignIn/providersignin", requestOptions)
       .then(response => {
-        if (response.status == "404") {
-          toastr["error"]("Email or password is incorrect");
-        } else if (response.status == "409") {
-          toastr["error"](
-            "Please check your email and follow the link to activate your account."
-          );
-        } else if (response.status == "400") {
-          toastr["error"]("Wrong Login Details!");
-        } else {
-          return response.json(); 
-        }
+        return response.json();
       })
       .then(response => {
-        console.log("response.message",response.message);
-        if(response.message == "Incorrect password, please try again." ) {
-            toastr["error"]("Incorrect password, please try again.");
-        }
-        else if(response.message == "Email does not exist. Please sign up." ) {
+        if (response.message == "Incorrect password, please try again.") {
+          toastr["error"]("Incorrect password, please try again.");
+        } else if (
+          response.message == "Email does not exist. Please sign up."
+        ) {
           toastr["error"]("Email does not exist. Please sign up.");
-      }
-      else if(response.message == "Please enter a valid e-mail adress" ) {
-        toastr["error"]("Please enter a valid e-mail adress");
-    }
-        else if(response.message == "Your email is not confirmed, Please confirm it first.") {
-            this.props.history.push({
-            pathname:"/provider-code-confirmation",
+        } else if (response.message == "Please enter a valid e-mail adress") {
+          toastr["error"]("Please enter a valid e-mail adress");
+        } else if (
+          response.message ==
+          "Your email is not confirmed, Please confirm it first."
+        ) {
+          this.props.history.push({
+            pathname: "/provider-code-confirmation",
             state: response.message
-             
-           });
-        }
-        else if(response.message == "Success") {
-          console.log("Response",response)
+          });
+        } else if (response.message == "Success") {
+          console.log("Response", response);
           localStorage.setItem("provideraccesstoken", response.authtoken);
           localStorage.setItem("serviceproviderid", response.serviceproviderid);
           localStorage.setItem("firstname", response.firstname);
           localStorage.setItem("lastname", response.lastname);
           localStorage.setItem("email", response.email);
-          localStorage.setItem("isaccountconfirmed", response.isaccountconfirmed);
+          localStorage.setItem(
+            "isaccountconfirmed",
+            response.isaccountconfirmed
+          );
           localStorage.setItem("mobile", response.mobile);
           localStorage.setItem("gender", response.gender);
           localStorage.setItem("genderpreference", response.genderpreference);
@@ -87,55 +79,11 @@ import toastr from "toastr";
           localStorage.setItem("inhouse", response.inhouse);
           localStorage.setItem("inclinic", response.inclinic);
           localStorage.setItem("address", response.address);
-       
-          this.props.history.push("/jobs")
+
+          this.props.history.push("/jobs");
         }
-
-        // if (response.message == null) {
-        //   console.log(response);
-        //   this.setState({ authenticatedCustomer: response, submitted: true });
-        //   localStorage.setItem("provideraccesstoken", response.authtoken);
-        //   localStorage.setItem("serviceproviderid", response.serviceproviderid);
-        //   localStorage.setItem("firstname", response.firstname);
-        //   localStorage.setItem("surname", response.surname);
-        //   localStorage.setItem("email", response.email);
-        //   localStorage.setItem("phone", response.phone);
-        //   localStorage.setItem("mobile", response.mobile);
-        //   localStorage.setItem("gender", response.gender);
-        //   localStorage.setItem("genderpreference", response.genderpreference);
-        //   localStorage.setItem("providerDob", response.dob);
-        //   localStorage.setItem("providerprofileImage", response.imagepath);
-        //   localStorage.setItem("providerPostalCode", response.postalcode);
-        //   localStorage.setItem("providerAddress", response.address);
-
-        //   this.setState({
-        //     serviceProviderAddresses: response.serviceProviderAddresses,
-        //     submitted: true
-        //   });
-        //   var newArray = this.state.addressesList.slice();
-        //     // for (var i = 0; i < this.state.serviceProviderAddresses.length; i++) {
-        //     //   newArray.push(this.state.serviceProviderAddresses[i]);
-        //     //   this.setState({ addressesList: newArray });
-        //     //   //localStorage.setItem('addressList', addressesList);
-        //     //   console.log(this.state.addressesList[i].address);
-        //     //   localStorage.setItem(
-        //     //     "providerAddress",
-        //     //     this.state.addressesList[i].address
-        //     //   );
-        //     //   localStorage.setItem(
-        //     //     "providerPostalCode",
-        //     //     this.state.addressesList[i].postalCode
-        //     //   );
-        //     // }
-
-        //   //window.location = "/provider-profile";
-        // } else {
-        //   //toastr["error"]("Please activate your account.");
-        // }
       });
   }
-
-
 
   handleChangeUsername(e) {
     this.setState({ username: e.target.value });
@@ -201,13 +149,9 @@ import toastr from "toastr";
             </button>
           </div>
         </form>
-
       </div>
     );
   }
 }
 
-
-
 export default withRouter(AuthenticateServiceProvider);
-

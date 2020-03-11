@@ -2,8 +2,9 @@
 import ModernDatepicker from "react-modern-datepicker";
 import App from "../App";
 import toastr from "toastr";
+import { withRouter } from "react-router-dom";
 
-export class EditProviderProfile extends Component {
+class EditProviderProfile extends Component {
   displayName = EditProviderProfile.name;
 
   constructor(props) {
@@ -128,6 +129,7 @@ export class EditProviderProfile extends Component {
           localStorage.setItem("providerDob", dob);
 
           toastr["success"]("Profile Updated Successfully!");
+          this.props.history.push("/provider-profile");
         } else {
           toastr["error"](response.message);
         }
@@ -600,3 +602,5 @@ export class EditProviderProfile extends Component {
   //   );
   // }
 }
+
+export default withRouter(EditProviderProfile);

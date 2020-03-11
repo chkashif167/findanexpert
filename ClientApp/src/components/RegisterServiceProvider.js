@@ -101,55 +101,17 @@ class RegisterService extends Component {
     console.log("requestOptions", requestOptions);
     return fetch(App.ApisBaseUrl + "/api/SignUp/providersignup", requestOptions)
       .then(response => {
-        localStorage.setItem("providerRegisterStatus", response.status);
-        if (response.status == "409") {
-          toastr["error"](
-            "This email address is already registered. If you're a returning customer, sign in to your account or reset your password."
-          );
-        } else if (response.status == "400") {
-          toastr["error"]("Your Password should contain minimum 8 characters.");
-        } else if (response.status == "404") {
-          toastr["error"]("Invalid postal code");
-        } else {
-          window.scrollTo(0, 0);
-          return response.json();
-        }
+        return response.json();
       })
       .then(response => {
         console.log("response..", response);
-        if (response != null) {
-          if (
-            response.password ==
-            "Your password must include at least Mimimum of 8 Characters 1 Upper case 1 Lower case"
-          ) {
-            toastr["error"](
-              "Your password must include at least Mimimum of 8 Characters 1 Upper case 1 Lower case"
-            ); 
-          } 
-          else if (response.message=="The Gender field is required.") {
-            toastr["error"]("The Gender field is required.");
-          }
-          else if (
-            response.message == "Password minimum length should be 4 characters"
-          ) {
-            toastr["error"]("Password minimum length should be 4 characters");
-          } else if (
-            response.message == "Email already exists. Please sign in"
-          ) {
-            toastr["error"]("Email already exists. Please sign in");
-          } else if (response.message == "Please enter a valid e-mail adress") {
-            toastr["error"]("Please enter a valid e-mail adress");
-          } else if (localStorage.getItem("providerRegisterStatus") == "200") {
-            this.setState({ registeredProvider: response, registered: true });
-            this.props.history.push({
-              pathname:"/provider-code-confirmation",
-              state: response.message
-            });
-            // this.setState({
-            //   modalMessage: response.message,
-            //   showModal: "show"
-            // });
-          }
+        if (response.statuscode == 200) {
+          this.props.history.push({
+            pathname: "/provider-code-confirmation",
+            state: response.message
+          });
+        } else {
+          toastr["error"](response.message);
         }
       });
   }

@@ -49,16 +49,20 @@ export class ProviderAllSchedules extends Component {
         providerAccesstoken
     )
       .then(response => {
-        console.log(response);
-
         return response.json();
       })
       .then(data => {
         this.setState({ serviceprovideravailability: data.availabilitylist });
-        for (var i = 0; i < data.availabilitylist.length; i++) {
-          this.state.availableDays.push(data.availabilitylist[i].availableday);
-          this.state.availableTimeFrom.push(data.availabilitylist[i].timefrom);
-          this.state.availableTimeTo.push(data.availabilitylist[i].timeto);
+        if (data.availabilitylist) {
+          for (var i = 0; i < data.availabilitylist.length; i++) {
+            this.state.availableDays.push(
+              data.availabilitylist[i].availableday
+            );
+            this.state.availableTimeFrom.push(
+              data.availabilitylist[i].timefrom
+            );
+            this.state.availableTimeTo.push(data.availabilitylist[i].timeto);
+          }
         }
       });
 
@@ -131,56 +135,55 @@ export class ProviderAllSchedules extends Component {
     for (var i = 0; i < this.state.availableDays.length; i++) {
       if (this.state.availableDays[i] == day) {
         this.setState({ date: e.target.value });
-        return false;
+        //return false;
       } else {
         toastr["error"](
           "You selected Day does not match your availibility! Please another one."
         );
-        return false;
+        // return false;
       }
     }
   }
 
   handleChangeFrom(e) {
     for (var i = 0; i < this.state.availableDays.length; i++) {
+      console.log(this.state.availableDays[i]);
       if (this.state.availableDays[i] == this.state.selectedDay) {
-        console.log("1");
         for (var j = 0; j < this.state.availableTimeFrom.length; j++) {
-          console.log("2");
           if (i == j) {
-            console.log("3");
             if (e.target.value > this.state.availableTimeFrom[j]) {
-              console.log("4");
               for (var k = 0; k < this.state.availableTimeTo.length; k++) {
-                console.log("5");
                 if (j == k) {
-                  console.log("6");
                   if (e.target.value < this.state.availableTimeTo[k]) {
-                    console.log("7");
                     this.setState({ from: e.target.value });
-                    return false;
                   } else {
                     toastr["error"](
-                      "You selected Time does not match your availibility! Please another one."
+                      "1 You selected Time does not match your availibility! Please another one."
                     );
-                    return false;
+                    // return false;
                   }
+                } else {
+                  toastr["error"](
+                    "2 You selected Time does not match your availibility! Please another one."
+                  );
+                  // return false;
                 }
               }
             } else {
-              console.log("6");
               toastr["error"](
-                "You selected Time does not match your availibility! Please another one."
+                "3 You selected Time does not match your availibility! Please another one."
               );
-              return false;
             }
+          } else {
+            toastr["error"](
+              "4 You selected Time does not match your availibility! Please another one."
+            );
           }
         }
       } else {
         toastr["error"](
-          "You selected Time does not match your availibility! Please another one."
+          "5 You selected Time does not match your availibility! Please another one."
         );
-        return false;
       }
     }
   }
@@ -188,36 +191,32 @@ export class ProviderAllSchedules extends Component {
   handleChangeTo(e) {
     for (var i = 0; i < this.state.availableDays.length; i++) {
       if (this.state.availableDays[i] == this.state.selectedDay) {
-        console.log("1");
         for (var k = 0; k < this.state.availableTimeTo.length; k++) {
-          console.log("5");
           if (i == k) {
-            console.log("6");
             if (
               e.target.value > this.state.from &&
               e.target.value < this.state.availableTimeTo[k]
             ) {
-              console.log("7");
               this.setState({ to: e.target.value });
-              return false;
+              // return false;
             } else {
               toastr["error"](
                 "You selected Time does not match your availibility! Please another one."
               );
-              return false;
+              // return false;
             }
           } else {
             toastr["error"](
               "You selected Time does not match your availibility! Please another one."
             );
-            return false;
+            // return false;
           }
         }
       } else {
         toastr["error"](
           "You selected Time does not match your availibility! Please another one."
         );
-        return false;
+        // return false;
       }
     }
   }
@@ -336,7 +335,7 @@ export class ProviderAllSchedules extends Component {
                       className="btn bg-black text-white"
                       href="/provider-edit-schedular"
                     >
-                      Add Your Unavailibility
+                      Add Your Availibility
                     </a>
                   </div>
 
@@ -363,21 +362,22 @@ export class ProviderAllSchedules extends Component {
                     </div>
 
                     <div className="contents pb-5">
-                      {serviceprovideravailability.map(srv => (
-                        <div>
-                          <div className="form-row mb-3">
-                            <div class="col">
-                              <h4>{srv.availableday}</h4>
-                            </div>
-                            <div class="col">
-                              <h4>{srv.timefrom}</h4>
-                            </div>
-                            <div class="col">
-                              <h4>{srv.timeto}</h4>
+                      {serviceprovideravailability &&
+                        serviceprovideravailability.map(srv => (
+                          <div>
+                            <div className="form-row mb-3">
+                              <div class="col">
+                                <h4>{srv.availableday}</h4>
+                              </div>
+                              <div class="col">
+                                <h4>{srv.timefrom}</h4>
+                              </div>
+                              <div class="col">
+                                <h4>{srv.timeto}</h4>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        ))}
                     </div>
                   </div>
 

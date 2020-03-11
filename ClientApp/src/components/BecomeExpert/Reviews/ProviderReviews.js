@@ -44,33 +44,32 @@ export class ProviderReviews extends Component {
         return response.json();
       })
       .then(data => {
-        console.log("++++++++++++++++++++++++++++", data);
-        this.setState({ allReviews: data, loading: false });
+        this.setState({ allReviews: data.ratinglist, loading: false });
 
-        // if (localStorage.getItem("providerReviewsNotFound") == "200") {
-        //   var newArray = this.state.reviewList.slice();
-        //   var initailSum = 0;
-        //   for (var i = 0; i < this.state.allReviews.length; i++) {
-        //     newArray.push(this.state.allReviews[i]);
-        //     this.setState({ reviewList: newArray });
-        //     localStorage.setItem(
-        //       "reviewPoints",
-        //       this.state.reviewList[i].reviewpoints
-        //     );
-        //     console.log(localStorage.getItem("reviewPoints"));
+        if (localStorage.getItem("providerReviewsNotFound") == "200") {
+          var newArray = this.state.reviewList.slice();
+          var initailSum = 0;
+          for (var i = 0; i < this.state.allReviews.length; i++) {
+            newArray.push(this.state.allReviews[i]);
+            this.setState({ reviewList: newArray });
+            localStorage.setItem(
+              "reviewPoints",
+              this.state.reviewList[i].reviewpoints
+            );
+            console.log(localStorage.getItem("reviewPoints"));
 
-        //     var allPoints = this.state.allReviews[i];
+            var allPoints = this.state.allReviews[i];
 
-        //     initailSum = initailSum + allPoints.reviewpoints;
-        //     console.log(initailSum);
-        //     var pointSum = initailSum;
-        //   }
-        //   this.setState({ totalPoints: pointSum });
-        //   console.log(this.state.totalPoints);
-        //   var averageFormula =
-        //     this.state.totalPoints / this.state.allReviews.length;
-        //   this.setState({ averageRating: averageFormula });
-        // }
+            initailSum = initailSum + allPoints.reviewpoints;
+            console.log(initailSum);
+            var pointSum = initailSum;
+          }
+          this.setState({ totalPoints: pointSum });
+          console.log(this.state.totalPoints);
+          var averageFormula =
+            this.state.totalPoints / this.state.allReviews.length;
+          this.setState({ averageRating: averageFormula });
+        }
       });
   }
 
@@ -209,8 +208,12 @@ export class ProviderReviews extends Component {
                           </li>
                           <li className="list-inline-item">
                             <p className="text-muted">
-                              {this.state.averageRating} (
-                              {this.state.allReviews.length})
+                              {this.state.averageRating &&
+                                this.state.averageRating}{" "}
+                              (
+                              {this.state.averageRating &&
+                                this.state.allReviews.length}
+                              )
                             </p>
                           </li>
                         </ul>
