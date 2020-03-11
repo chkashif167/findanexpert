@@ -18,10 +18,8 @@ export class ProviderAllServices extends Component {
       loading: true
     };
 
-    var providerAccesstoken = localStorage.getItem('provideraccesstoken');
-      var providerId = localStorage.getItem("serviceproviderid");
-
-   
+    var providerAccesstoken = localStorage.getItem("provideraccesstoken");
+    var providerId = localStorage.getItem("serviceproviderid");
 
     fetch(
       App.ApisBaseUrl +
@@ -34,7 +32,6 @@ export class ProviderAllServices extends Component {
         providerAccesstoken
     )
       .then(response => {
-         
         if (response.status == "404") {
           this.setState({ noServices: response.status, found: true });
           localStorage.setItem("providerServicesNotFound", response.status);
@@ -50,39 +47,35 @@ export class ProviderAllServices extends Component {
 
   showOffline(e) {
     e.preventDefault();
-    var providerAccesstoken = localStorage.getItem('provideraccesstoken');
+    var providerAccesstoken = localStorage.getItem("provideraccesstoken");
     const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          categoryid: parseInt(e.target.getAttribute('name')),
-          servicetypeid: parseInt(e.target.id),
-          authtoken: providerAccesstoken
-        })
-  
-       
-      };
-     
-        return fetch(
-        App.ApisBaseUrl + "/api/Provider/deleteservice",
-        requestOptions
-      )
-        .then(response => {
-          return response.json();
-        })
-        .then(response => {
-          if (response.statuscode == 200) {
-            toastr["success"]("Service has been removed.");
-             setTimeout(function() {
-              window.location = "/provider-services";
-            }, 1000);
-          }
-          else {
-            toastr["error"](response.response);
-          }
-        });
-  }
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        categoryid: parseInt(e.target.getAttribute("name")),
+        servicetypeid: parseInt(e.target.id),
+        authtoken: providerAccesstoken
+      })
+    };
 
+    return fetch(
+      App.ApisBaseUrl + "/api/Provider/deleteservice",
+      requestOptions
+    )
+      .then(response => {
+        return response.json();
+      })
+      .then(response => {
+        if (response.statuscode == 200) {
+          toastr["success"]("Service has been removed.");
+          setTimeout(function() {
+            window.location = "/provider-services";
+          }, 1000);
+        } else {
+          toastr["error"](response.response);
+        }
+      });
+  }
 
   render() {
     if (localStorage.getItem("providerServicesNotFound") != "404") {
@@ -121,21 +114,22 @@ export class ProviderAllServices extends Component {
                       Your <span className="text-red">Services</span>
                     </p>
                     <ul className="list-group">
-                      {this.state.allServices && this.state.allServices.map(srv => (
-                        <li className="d-flex justify-content-between align-items-center profileBox info p-4 mb-4">
-                          <p className="mb-0">{srv.servicetypename}</p>
-                          <form >
-                            <input
-                              type="button"
-                              className="btn bg-orange text-white"
-                              name={srv.categoryid}
-                              id={srv.servicetypeid}
-                              onClick={this.showOffline}
-                              value="Remove"
-                            />
-                          </form>
-                        </li>
-                      ))}
+                      {this.state.allServices &&
+                        this.state.allServices.map(srv => (
+                          <li className="d-flex justify-content-between align-items-center profileBox info p-4 mb-4">
+                            <p className="mb-0">{srv.servicetypename}</p>
+                            <form>
+                              <input
+                                type="button"
+                                className="btn bg-orange text-white"
+                                name={srv.categoryid}
+                                id={srv.servicetypeid}
+                                onClick={this.showOffline}
+                                value="Remove"
+                              />
+                            </form>
+                          </li>
+                        ))}
                     </ul>
 
                     <ProviderSelectServices />
