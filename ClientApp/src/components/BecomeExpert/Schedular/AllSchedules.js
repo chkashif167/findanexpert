@@ -147,7 +147,6 @@ export class ProviderAllSchedules extends Component {
 
   handleChangeFrom(e) {
     for (var i = 0; i < this.state.availableDays.length; i++) {
-      console.log(this.state.availableDays[i]);
       if (this.state.availableDays[i] == this.state.selectedDay) {
         for (var j = 0; j < this.state.availableTimeFrom.length; j++) {
           if (i == j) {
