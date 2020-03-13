@@ -2080,7 +2080,7 @@ section.customerProfile {
 }
 
 .hero-image {
-  height: 200px;
+  height: 250px;
   /* Position and center the image to scale nicely on all screens */
   background-position: center !important;
   background-repeat: no-repeat !important;
@@ -2102,21 +2102,41 @@ section.customerProfile {
 
 .banner_profile_picture {
   position: absolute;
-  top: 5%;
+  top: 1%;
   left: 0;
   right: 0;
   text-align: center;
 }
 
 .banner_profile_picture img {
-  width: 140px;
-  height: 140px;
+  width: 100px;
+  height: 100px;
   margin-bottom: 8px;
 }
 
 .profileName h3 {
-  font-size: 28px;
+  font-size: 20px;
   margin: 0;
+}
+
+.uploadPhotoArea {
+  width: 100%;
+  text-align: center;
+}
+.uploadPhotoArea form {
+  width: 300px;
+  margin: 20px auto 0 auto;
+  background: #fff;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 5px;
+}
+.uploadPhotoArea form .form-group {
+  margin: 0;
+}
+.uploadPhotoArea form button {
+  float: none !important;
+  margin: auto;
 }
 
 .profileName h4 {
