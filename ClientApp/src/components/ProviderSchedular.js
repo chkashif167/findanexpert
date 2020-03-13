@@ -45,8 +45,6 @@ export class ProviderSchedular extends Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-
-    var serviceproviderid = localStorage.getItem("serviceproviderid");
   }
 
   getInitialState = () => {
@@ -101,7 +99,7 @@ export class ProviderSchedular extends Component {
   }
 
   handleChangeAvailableDay(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: e.target.checked });
     this.setState({ availabledayList: e.target.id });
     const provideravailabilityOjb = {
       availableday: e.target.id,
@@ -115,7 +113,6 @@ export class ProviderSchedular extends Component {
   }
 
   handleChangeAvailableTimeFrom(e) {
-    console.log(e.target.name);
     this.setState({ [e.target.name]: e.target.value });
     this.setState({ availabletimefromList: e.target.value });
     const provideravailabilityOjb = {
@@ -193,6 +190,7 @@ export class ProviderSchedular extends Component {
                 value={this.state.fromMonday}
                 onChange={this.handleChangeAvailableTimeFrom.bind(this)}
                 name="fromMonday"
+                disabled={!this.state.dayMonday}
               >
                 <option value="">Select an option</option>
                 <option value="0">00:00</option>
@@ -251,6 +249,7 @@ export class ProviderSchedular extends Component {
                 value={this.state.toMonday}
                 onChange={this.handleChangeAvailableTimeTo.bind(this)}
                 name="toMonday"
+                disabled={!this.state.fromMonday}
               >
                 <option value="">Select an option</option>
                 <option value="0">00:00</option>
@@ -325,6 +324,7 @@ export class ProviderSchedular extends Component {
                 value={this.state.fromTuesday}
                 onChange={this.handleChangeAvailableTimeFrom.bind(this)}
                 name="fromTuesday"
+                disabled={!this.state.dayTuesday}
               >
                 <option value="">Select an option</option>
                 <option value="0">00:00</option>
@@ -383,6 +383,7 @@ export class ProviderSchedular extends Component {
                 value={this.state.toTuesday}
                 onChange={this.handleChangeAvailableTimeTo.bind(this)}
                 name="toTuesday"
+                disabled={!this.state.fromTuesday}
               >
                 <option value="">Select an option</option>
                 <option value="0">00:00</option>
@@ -457,6 +458,7 @@ export class ProviderSchedular extends Component {
                 value={this.state.fromWednesday}
                 onChange={this.handleChangeAvailableTimeFrom.bind(this)}
                 name="fromWednesday"
+                disabled={!this.state.dayWednesday}
               >
                 <option value="">Select an option</option>
                 <option value="0">00:00</option>
@@ -515,6 +517,7 @@ export class ProviderSchedular extends Component {
                 value={this.state.toWednesday}
                 onChange={this.handleChangeAvailableTimeTo.bind(this)}
                 name="toWednesday"
+                disabled={!this.state.fromWednesday}
               >
                 <option value="">Select an option</option>
                 <option value="0">00:00</option>
@@ -589,6 +592,7 @@ export class ProviderSchedular extends Component {
                 value={this.state.fromThursday}
                 onChange={this.handleChangeAvailableTimeFrom.bind(this)}
                 name="fromThursday"
+                disabled={!this.state.dayThursday}
               >
                 <option value="">Select an option</option>
                 <option value="0">00:00</option>
@@ -647,6 +651,7 @@ export class ProviderSchedular extends Component {
                 value={this.state.toThursday}
                 onChange={this.handleChangeAvailableTimeTo.bind(this)}
                 name="toThursday"
+                disabled={!this.state.fromThursday}
               >
                 <option value="">Select an option</option>
                 <option value="0">00:00</option>
@@ -721,6 +726,7 @@ export class ProviderSchedular extends Component {
                 value={this.state.fromFriday}
                 onChange={this.handleChangeAvailableTimeFrom.bind(this)}
                 name="fromFriday"
+                disabled={!this.state.dayFriday}
               >
                 <option value="">Select an option</option>
                 <option value="0">00:00</option>
@@ -779,6 +785,7 @@ export class ProviderSchedular extends Component {
                 value={this.state.toFriday}
                 onChange={this.handleChangeAvailableTimeTo.bind(this)}
                 name="toFriday"
+                disabled={!this.state.fromFriday}
               >
                 <option value="">Select an option</option>
                 <option value="0">00:00</option>
@@ -853,6 +860,7 @@ export class ProviderSchedular extends Component {
                 value={this.state.fromSaturday}
                 onChange={this.handleChangeAvailableTimeFrom.bind(this)}
                 name="fromSaturday"
+                disabled={!this.state.daySaturday}
               >
                 <option value="">Select an option</option>
                 <option value="0">00:00</option>
@@ -911,6 +919,7 @@ export class ProviderSchedular extends Component {
                 value={this.state.toSaturday}
                 onChange={this.handleChangeAvailableTimeTo.bind(this)}
                 name="toSaturday"
+                disabled={!this.state.fromSaturday}
               >
                 <option value="">Select an option</option>
                 <option value="0">00:00</option>
@@ -985,6 +994,7 @@ export class ProviderSchedular extends Component {
                 value={this.state.fromSunday}
                 onChange={this.handleChangeAvailableTimeFrom.bind(this)}
                 name="fromSunday"
+                disabled={!this.state.daySunday}
               >
                 <option value="">Select an option</option>
                 <option value="0">00:00</option>
@@ -1043,6 +1053,7 @@ export class ProviderSchedular extends Component {
                 value={this.state.toSunday}
                 onChange={this.handleChangeAvailableTimeTo.bind(this)}
                 name="toSunday"
+                disabled={!this.state.fromSunday}
               >
                 <option value="">Select an option</option>
                 <option value="0">00:00</option>

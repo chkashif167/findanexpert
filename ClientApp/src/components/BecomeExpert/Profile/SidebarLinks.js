@@ -33,13 +33,11 @@ export class ProviderSidebarLinks extends Component {
       body: formData
     };
 
-    console.log(requestOptions);
     return fetch(
       App.ApisBaseUrl + "/api/Image/updateproviderprofileimage",
       requestOptions
     )
       .then(response => {
-        console.log(response);
         return response.json();
       })
       .then(response => {
@@ -78,7 +76,6 @@ export class ProviderSidebarLinks extends Component {
 
   render() {
     var profileImage = localStorage.getItem("imagepath");
-    console.log(profileImage);
 
     var bg = {
       background: "url(" + bannerProfile + ")"
@@ -95,7 +92,6 @@ export class ProviderSidebarLinks extends Component {
         />
       );
     } else {
-      console.log(App.ApisBaseUrl + profileImage);
       var imagePreview = (
         <img
           src={App.ApisBaseUrl + profileImage}
@@ -144,7 +140,7 @@ export class ProviderSidebarLinks extends Component {
                 </div>
               </div>
 
-              {/* <div className="imgPreview">{$imagePreview}</div> */}
+              {/* <div className="imgPreview">{imagePreview}</div> */}
 
               <div class="topnav" id="myTopnav">
                 <Link to="/provider-profile" class="custom_column">

@@ -36,7 +36,8 @@ export class ProviderAllSchedules extends Component {
       selectedDay: "",
 
       authtoken: providerAccesstoken,
-      add: false
+      add: false,
+      todyDate: new Date().toISOString().split("T")[0]
     };
 
     this.handleChangeDate = this.handleChangeDate.bind(this);
@@ -141,7 +142,6 @@ export class ProviderAllSchedules extends Component {
         checkDay = true;
         this.setState({ date: " ", from: " ", to: " " });
       } else {
-        console.log("availability not matched");
         this.setState({ date: e.target.value });
       }
     }
@@ -510,6 +510,9 @@ export class ProviderAllSchedules extends Component {
                             type="date"
                             value={this.state.date}
                             onChange={this.handleChangeDate}
+                            id="dateField"
+                            min={this.state.todyDate}
+                            name="dateField"
                           />
                         </div>
                         <div class="col">
