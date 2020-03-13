@@ -45,6 +45,7 @@ export class ProviderSchedular extends Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    var ddd = false;
   }
 
   getInitialState = () => {
@@ -89,9 +90,9 @@ export class ProviderSchedular extends Component {
         console.log(response);
         if (response.statuscode == 200) {
           toastr["success"]("Your schedular details are Updated Successfully!");
-          setTimeout(function() {
-            window.location = "/provider-schedular";
-          }, 1000);
+          // setTimeout(function() {
+          //   window.location = "/provider-schedular";
+          // }, 1000);
         } else {
           toastr["error"](response.message);
         }
@@ -106,10 +107,6 @@ export class ProviderSchedular extends Component {
       availabletimefrom: "",
       availabletimeto: ""
     };
-
-    // this.state.provideravailabilityArray.push(provideravailabilityOjb);
-    // this.state.availabledayList.push(e.target.id);
-    // console.log(this.state.availabledayList);
   }
 
   handleChangeAvailableTimeFrom(e) {
