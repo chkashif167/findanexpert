@@ -184,25 +184,29 @@ class RegisterService extends Component {
   }
 
   handleSubmit(e) {
-    const validEmailRegex = RegExp(
-      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-    );
-    /////////////////////////////////
-    var firstNameField = document.getElementById("firstNameId");
-    if (firstNameField.value == "") {
-      toastr["error"]("First Name Filed Should not empty");
-    } else if (firstNameField.value.match(/\d+/g) != null) {
-      toastr["error"]("Number is not allow in First Name");
-    }
-    //////////////////////////////////////
-    var firstNameField = document.getElementById("firstNameId");
-    if (firstNameField.value == "") {
-      toastr["error"]("First Name Filed Should not empty");
-    } else if (firstNameField.value.match(/\d+/g) != null) {
-      toastr["error"]("Number is not allow in First Name");
-    }
-    ////////////////////////////////////////
     e.preventDefault();
+    // const validEmailRegex = RegExp(
+    //   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    // );
+    /////////////////////////////////
+    // var firstNameField = document.getElementById("firstNameField");
+    // if (firstNameField.value == "") {
+    //   toastr["error"]("First Name Filed Should not empty");
+    // } else if (firstNameField.value.match(/\d+/g) != null) {
+    //   toastr["error"]("Number is not allow in First Name");
+    // }
+    //////////////////////////////////////
+    // var lastNameField = document.getElementById("lastNameField");
+    // if (lastNameField.value == "") {
+    //   toastr["error"]("First Name Filed Should not empty");
+    // } else if (lastNameField.value.match(/\d+/g) != null) {
+    //   toastr["error"]("Number is not allow in First Name");
+    // }
+    //////////////////////////////////////mobileField
+    var mobileField = document.getElementById("mobileField");
+    if (mobileField.value < 11 || mobileField.value > 11) {
+      toastr["error"]("Entery 11 number correct Mobile Number");
+    }
 
     const {
       firstname,
@@ -258,8 +262,7 @@ class RegisterService extends Component {
                 placeholder="First Name"
                 value={this.state.firstname}
                 onChange={this.handleChangeFirstname}
-                id="firstNameId"
-                // required
+                required
               />
             </div>
           </div>
@@ -272,7 +275,7 @@ class RegisterService extends Component {
                 placeholder="Last Name"
                 value={this.state.lastname}
                 onChange={this.handleChangeLastname}
-                // required
+                required
               ></input>
             </div>
           </div>
@@ -286,7 +289,7 @@ class RegisterService extends Component {
                 placeholder="Mobile"
                 value={this.state.mobile}
                 onChange={this.handleChangeMobile}
-                // required
+                required
               ></input>
             </div>
           </div>
@@ -297,10 +300,10 @@ class RegisterService extends Component {
                 type="radio"
                 name="gender"
                 className="genderCheckBox"
-                // required=""
+                required=""
                 value="Male"
                 onChange={this.handleChangeGender}
-                // required
+                required
               />
               <label className="ml-2">Male</label>
             </div>
@@ -309,10 +312,10 @@ class RegisterService extends Component {
                 type="radio"
                 name="gender"
                 className="genderCheckBox"
-                // required=""
+                required=""
                 value="Female"
                 onChange={this.handleChangeGender}
-                // required
+                required
               />
               <label className="ml-2">Female</label>
             </div>
@@ -337,7 +340,7 @@ class RegisterService extends Component {
                 value={this.state.address}
                 onChange={this.handleChangeAddress}
                 name="address"
-                // required
+                required
               >
                 <option value="" selected>
                   Select an address
@@ -365,7 +368,7 @@ class RegisterService extends Component {
               placeholder="Email Address"
               value={this.state.email}
               onChange={this.handleChangeEmail}
-              // required
+              required
             ></input>
           </div>
 
@@ -378,7 +381,7 @@ class RegisterService extends Component {
               placeholder="Password"
               value={this.state.password}
               onChange={this.handleChangePassword}
-              // required
+              required
             ></input>
           </div>
 
@@ -391,7 +394,7 @@ class RegisterService extends Component {
               placeholder="Confirm Password"
               value={this.state.cpassword}
               onChange={this.handleChangecPassword}
-              // required
+              required
             ></input>
           </div>
 
@@ -399,7 +402,7 @@ class RegisterService extends Component {
 
           <div className="form-row pb-3">
             <div className="col">
-              <input type="checkbox" id="customerTermsCheck" />
+              <input type="checkbox" id="customerTermsCheck" required />
               <label class="form-check-label" for="customerTermsCheck">
                 <p className="font-small blue-text d-flex justify-content-end">
                   Accept{" "}
@@ -457,7 +460,7 @@ class RegisterService extends Component {
               </div>
             </div>
             <div className="col">
-              <input type="checkbox" id="customerPrivacyCheck" />
+              <input type="checkbox" id="customerPrivacyCheck" required />
               <label class="form-check-label" for="customerPrivacyCheck">
                 <p className="font-small blue-text d-flex justify-content-end">
                   Accept{" "}
