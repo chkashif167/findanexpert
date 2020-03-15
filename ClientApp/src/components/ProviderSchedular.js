@@ -56,7 +56,7 @@ export class ProviderSchedular extends Component {
       "22:00",
       "22:30",
       "23:00",
-      "23:30",
+      "23:30"
     ];
 
     this.state = {
@@ -90,34 +90,37 @@ export class ProviderSchedular extends Component {
         monday: {
           isSelect: false,
           from: "0:00",
-          to: "0:00",
+          to: "0:00"
         },
         tuesday: {
           isSelect: false,
           from: "0:00",
-          to: "0:00",
-        }
-        ,wednesday: {
+          to: "0:00"
+        },
+        wednesday: {
           isSelect: false,
           from: "0:00",
-          to: "0:00",
-        }
-        ,thirsday: {
+          to: "0:00"
+        },
+        thirsday: {
           isSelect: false,
           from: "0:00",
-          to: "0:00",
-        },friday: {
+          to: "0:00"
+        },
+        friday: {
           isSelect: false,
           from: "0:00",
-          to: "0:00",
-        },saturday: {
+          to: "0:00"
+        },
+        saturday: {
           isSelect: false,
           from: "0:00",
-          to: "0:00",
-        },sunday: {
+          to: "0:00"
+        },
+        sunday: {
           isSelect: false,
           from: "0:00",
-          to: "0:00",
+          to: "0:00"
         }
       },
 
@@ -154,21 +157,21 @@ export class ProviderSchedular extends Component {
 
     // this.state.provideravailabilityArray.push(provideravailabilityOjb);
     // console.log(this.state.provideravailabilityArray);
-    const { days } = this.state
+    const { days } = this.state;
 
-    const daysName = Object.keys(days)
+    const daysName = Object.keys(days);
 
-    const dayTimeList = []
-    daysName.forEach(name =>{
-      const { isSelect, from, to } = days[name]
-      if(isSelect) {
+    const dayTimeList = [];
+    daysName.forEach(name => {
+      const { isSelect, from, to } = days[name];
+      if (isSelect) {
         dayTimeList.push({
-            availableday: name,
-            availabletimefrom: from,
-            availabletimeto: to
-        })
+          availableday: name,
+          availabletimefrom: from,
+          availabletimeto: to
+        });
       }
-    })
+    });
 
     console.log(dayTimeList);
     const requestOptions = {
@@ -193,33 +196,33 @@ export class ProviderSchedular extends Component {
         console.log(response);
         if (response.statuscode == 200) {
           toastr["success"]("Your schedular details are Updated Successfully!");
-          // setTimeout(function() {
-          //   window.location = "/provider-schedular";
-          // }, 1000);
+          setTimeout(function() {
+            window.location = "/provider-schedular";
+          }, 1000);
         } else {
           toastr["error"](response.message);
         }
       });
   }
 
-  handleChangeAvailableDay({target: { name, id, checked }}) {
-    const { days } = this.state
+  handleChangeAvailableDay({ target: { name, id, checked } }) {
+    const { days } = this.state;
     let day = days[id];
-    if(checked){
-      day.isSelect = true
-      day.from = "0:00"
-      day.to = "0:00"
-    }else{
-      day.isSelect = false
-      day.from = "0:00"
-      day.to = "0:00"
+    if (checked) {
+      day.isSelect = true;
+      day.from = "0:00";
+      day.to = "0:00";
+    } else {
+      day.isSelect = false;
+      day.from = "0:00";
+      day.to = "0:00";
     }
-    const  newData = {
+    const newData = {
       ...days,
-      [id]: day,
-    }
-    this.setState({ 
-      [name]: checked ,
+      [id]: day
+    };
+    this.setState({
+      [name]: checked,
       days: newData
     });
     // this.setState({ availabledayList: e.target.id });
@@ -230,18 +233,17 @@ export class ProviderSchedular extends Component {
     // };
   }
 
-  handleChangeAvailableTimeFrom({target: { name, value }}) {
+  handleChangeAvailableTimeFrom({ target: { name, value } }) {
+    const dayName = name.split("from")[1].toLowerCase();
 
-    const dayName = name.split("from")[1].toLowerCase()
-
-    const { days } = this.state
+    const { days } = this.state;
     let day = days[dayName];
-      day.from = value
-    const  newData = {
+    day.from = value;
+    const newData = {
       ...days,
       [dayName]: day,
       [name]: value
-    }
+    };
     this.setState({ [name]: value, days: newData });
     // this.setState({ availabletimefromList: e.target.value });
     // const provideravailabilityOjb = {
@@ -251,17 +253,16 @@ export class ProviderSchedular extends Component {
     // };
   }
 
-  handleChangeAvailableTimeTo({target: { name, value }}) {
+  handleChangeAvailableTimeTo({ target: { name, value } }) {
+    const dayName = name.split("to")[1].toLowerCase();
 
-    const dayName = name.split("to")[1].toLowerCase()
-
-    const { days } = this.state
+    const { days } = this.state;
     let day = days[dayName];
-      day.to = value
-    const  newData = {
+    day.to = value;
+    const newData = {
       ...days,
-      [dayName]: day,
-    }
+      [dayName]: day
+    };
     this.setState({ [name]: value, days: newData });
     // this.setState({ availabletimetoList: e.target.value });
     // const provideravailabilityOjb = {
@@ -276,7 +277,7 @@ export class ProviderSchedular extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    this.AddAvailibility()
+    this.AddAvailibility();
   }
 
   render() {
@@ -332,8 +333,12 @@ export class ProviderSchedular extends Component {
                 disabled={!this.state.dayMonday}
               >
                 <option value="">Select an option</option>
-                {this.time.map((time, index)=>{
-                  return <option value={time} key={index}>{time}</option>
+                {this.time.map((time, index) => {
+                  return (
+                    <option value={time} key={index}>
+                      {time}
+                    </option>
+                  );
                 })}
               </select>
             </div>
@@ -346,11 +351,19 @@ export class ProviderSchedular extends Component {
                 disabled={!this.state.fromMonday}
               >
                 <option value="">Select an option</option>
-                {this.time.map((time, index)=>{
-                  if(this.state.fromMonday && this.state.fromMonday >= time){
-                    return <option disabled value={time} key={index}>{time}</option>
+                {this.time.map((time, index) => {
+                  if (this.state.fromMonday && this.state.fromMonday >= time) {
+                    return (
+                      <option disabled value={time} key={index}>
+                        {time}
+                      </option>
+                    );
                   }
-                  return <option value={time} key={index}>{time}</option>
+                  return (
+                    <option value={time} key={index}>
+                      {time}
+                    </option>
+                  );
                 })}
               </select>
             </div>
