@@ -203,10 +203,10 @@ class RegisterService extends Component {
     //   toastr["error"]("Number is not allow in First Name");
     // }
     //////////////////////////////////////mobileField
-    var mobileField = document.getElementById("mobileField");
-    if (mobileField.value < 11 || mobileField.value > 11) {
-      toastr["error"]("Entery 11 number correct Mobile Number");
-    }
+    // var mobileField = document.getElementById("mobileField");
+    // if (mobileField.value < 11 || mobileField.value > 11) {
+    //   toastr["error"]("Entery 11 number correct Mobile Number");
+    // }
 
     const {
       firstname,
