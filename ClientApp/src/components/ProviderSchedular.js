@@ -8,6 +8,57 @@ export class ProviderSchedular extends Component {
   constructor() {
     super();
 
+    this.time = [
+      "00:00",
+      "00:30",
+      "01:00",
+      "01:30",
+      "02:00",
+      "02:30",
+      "03:00",
+      "03:30",
+      "04:00",
+      "04:30",
+      "05:00",
+      "05:30",
+      "06:00",
+      "06:30",
+      "07:00",
+      "07:30",
+      "08:00",
+      "08:30",
+      "09:00",
+      "09:30",
+      "10:00",
+      "10:30",
+      "11:00",
+      "11:30",
+      "12:00",
+      "12:30",
+      "13:00",
+      "13:30",
+      "14:00",
+      "14:30",
+      "15:00",
+      "15:30",
+      "16:00",
+      "16:30",
+      "17:00",
+      "17:30",
+      "18:00",
+      "18:30",
+      "19:00",
+      "19:30",
+      "20:00",
+      "20:30",
+      "21:00",
+      "21:30",
+      "22:00",
+      "22:30",
+      "23:00",
+      "23:30",
+    ];
+
     this.state = {
       updated: false,
 
@@ -35,6 +86,41 @@ export class ProviderSchedular extends Component {
       toSaturday: "",
       toSunday: "",
 
+      days: {
+        monday: {
+          isSelect: false,
+          from: "0:00",
+          to: "0:00",
+        },
+        tuesday: {
+          isSelect: false,
+          from: "0:00",
+          to: "0:00",
+        }
+        ,wednesday: {
+          isSelect: false,
+          from: "0:00",
+          to: "0:00",
+        }
+        ,thirsday: {
+          isSelect: false,
+          from: "0:00",
+          to: "0:00",
+        },friday: {
+          isSelect: false,
+          from: "0:00",
+          to: "0:00",
+        },saturday: {
+          isSelect: false,
+          from: "0:00",
+          to: "0:00",
+        },sunday: {
+          isSelect: false,
+          from: "0:00",
+          to: "0:00",
+        }
+      },
+
       dayMonday: "",
       dayTuesday: "",
       dayWednesday: "",
@@ -60,19 +146,36 @@ export class ProviderSchedular extends Component {
   AddAvailibility() {
     var providerAccesstoken = localStorage.getItem("provideraccesstoken");
 
-    const provideravailabilityOjb = {
-      availableday: this.state.availabledayList,
-      availabletimefrom: this.state.availabletimefromList,
-      availabletimeto: this.state.availabletimetoList
-    };
+    // const provideravailabilityOjb = {
+    //   availableday: this.state.availabledayList,
+    //   availabletimefrom: this.state.availabletimefromList,
+    //   availabletimeto: this.state.availabletimetoList
+    // };
 
-    this.state.provideravailabilityArray.push(provideravailabilityOjb);
-    console.log(this.state.provideravailabilityArray);
+    // this.state.provideravailabilityArray.push(provideravailabilityOjb);
+    // console.log(this.state.provideravailabilityArray);
+    const { days } = this.state
+
+    const daysName = Object.keys(days)
+
+    const dayTimeList = []
+    daysName.forEach(name =>{
+      const { isSelect, from, to } = days[name]
+      if(isSelect) {
+        dayTimeList.push({
+            availableday: name,
+            availabletimefrom: from,
+            availabletimeto: to
+        })
+      }
+    })
+
+    console.log(dayTimeList);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        provideravailability: this.state.dayTimeList,
+        provideravailability: dayTimeList,
         authtoken: providerAccesstoken
       })
     };
@@ -99,42 +202,81 @@ export class ProviderSchedular extends Component {
       });
   }
 
-  handleChangeAvailableDay(e) {
-    this.setState({ [e.target.name]: e.target.checked });
-    this.setState({ availabledayList: e.target.id });
-    const provideravailabilityOjb = {
-      availableday: e.target.id,
-      availabletimefrom: "",
-      availabletimeto: ""
-    };
+  handleChangeAvailableDay({target: { name, id, checked }}) {
+    const { days } = this.state
+    let day = days[id];
+    if(checked){
+      day.isSelect = true
+      day.from = "0:00"
+      day.to = "0:00"
+    }else{
+      day.isSelect = false
+      day.from = "0:00"
+      day.to = "0:00"
+    }
+    const  newData = {
+      ...days,
+      [id]: day,
+    }
+    this.setState({ 
+      [name]: checked ,
+      days: newData
+    });
+    // this.setState({ availabledayList: e.target.id });
+    // const provideravailabilityOjb = {
+    //   availableday: e.target.id,
+    //   availabletimefrom: "",
+    //   availabletimeto: ""
+    // };
   }
 
-  handleChangeAvailableTimeFrom(e) {
-    this.setState({ [e.target.name]: e.target.value });
-    this.setState({ availabletimefromList: e.target.value });
-    const provideravailabilityOjb = {
-      availableday: this.state.availabledayList,
-      availabletimefrom: e.target.value,
-      availabletimeto: ""
-    };
+  handleChangeAvailableTimeFrom({target: { name, value }}) {
+
+    const dayName = name.split("from")[1].toLowerCase()
+
+    const { days } = this.state
+    let day = days[dayName];
+      day.from = value
+    const  newData = {
+      ...days,
+      [dayName]: day,
+      [name]: value
+    }
+    this.setState({ [name]: value, days: newData });
+    // this.setState({ availabletimefromList: e.target.value });
+    // const provideravailabilityOjb = {
+    //   availableday: this.state.availabledayList,
+    //   availabletimefrom: e.target.value,
+    //   availabletimeto: ""
+    // };
   }
 
-  handleChangeAvailableTimeTo(e) {
-    this.setState({ [e.target.name]: e.target.value });
-    this.setState({ availabletimetoList: e.target.value });
-    const provideravailabilityOjb = {
-      availableday: this.state.availabledayList,
-      availabletimefrom: this.state.availabletimefromList,
-      availabletimeto: e.target.value
-    };
-    this.state.dayTimeList.push(provideravailabilityOjb);
-    console.log(this.state.dayTimeList);
+  handleChangeAvailableTimeTo({target: { name, value }}) {
+
+    const dayName = name.split("to")[1].toLowerCase()
+
+    const { days } = this.state
+    let day = days[dayName];
+      day.to = value
+    const  newData = {
+      ...days,
+      [dayName]: day,
+    }
+    this.setState({ [name]: value, days: newData });
+    // this.setState({ availabletimetoList: e.target.value });
+    // const provideravailabilityOjb = {
+    //   availableday: this.state.availabledayList,
+    //   availabletimefrom: this.state.availabletimefromList,
+    //   availabletimeto: e.target.value
+    // };
+    // this.state.dayTimeList.push(provideravailabilityOjb);
+    // console.log(this.state.dayTimeList);
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
-    this.AddAvailibility();
+    this.AddAvailibility()
   }
 
   render() {
@@ -190,54 +332,9 @@ export class ProviderSchedular extends Component {
                 disabled={!this.state.dayMonday}
               >
                 <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
+                {this.time.map((time, index)=>{
+                  return <option value={time} key={index}>{time}</option>
+                })}
               </select>
             </div>
             <div class="col">
@@ -249,54 +346,12 @@ export class ProviderSchedular extends Component {
                 disabled={!this.state.fromMonday}
               >
                 <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
+                {this.time.map((time, index)=>{
+                  if(this.state.fromMonday && this.state.fromMonday >= time){
+                    return <option disabled value={time} key={index}>{time}</option>
+                  }
+                  return <option value={time} key={index}>{time}</option>
+                })}
               </select>
             </div>
           </div>
