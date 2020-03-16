@@ -9,7 +9,6 @@ export class ProviderSchedular extends Component {
     super();
 
     this.time = [
-      "dd:dd",
       "00:00",
       "00:30",
       "01:00",
