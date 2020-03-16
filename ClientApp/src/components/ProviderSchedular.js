@@ -9,6 +9,7 @@ export class ProviderSchedular extends Component {
     super();
 
     this.time = [
+      "dd:dd",
       "00:00",
       "00:30",
       "01:00",
@@ -73,7 +74,7 @@ export class ProviderSchedular extends Component {
       fromMonday: "",
       fromTuesday: "",
       fromWednesday: "",
-      fromThirsday: "",
+      fromThursday: "",
       fromFriday: "",
       fromSaturday: "",
       fromSunday: "",
@@ -81,7 +82,7 @@ export class ProviderSchedular extends Component {
       toMonday: "",
       toTuesday: "",
       toWednesday: "",
-      toThirsday: "",
+      toThursday: "",
       toFriday: "",
       toSaturday: "",
       toSunday: "",
@@ -102,7 +103,7 @@ export class ProviderSchedular extends Component {
           from: "0:00",
           to: "0:00"
         },
-        thirsday: {
+        thursday: {
           isSelect: false,
           from: "0:00",
           to: "0:00"
@@ -127,7 +128,7 @@ export class ProviderSchedular extends Component {
       dayMonday: "",
       dayTuesday: "",
       dayWednesday: "",
-      dayThirsday: "",
+      dayThursday: "",
       dayFriday: "",
       daySaturday: "",
       daySunday: ""
@@ -309,7 +310,7 @@ export class ProviderSchedular extends Component {
               <h4>To</h4>
             </div>
           </div>
-
+          {/* //////////////////////////////  Monday Start  ///////////////////////////////////////////// */}
           <div className="form-row pb-3">
             <div class="col">
               <input
@@ -369,6 +370,7 @@ export class ProviderSchedular extends Component {
             </div>
           </div>
 
+          {/* //////////////////////////////  Tuesday Start  ///////////////////////////////////////////// */}
           <div className="form-row pb-3">
             <div class="col">
               <input
@@ -392,54 +394,13 @@ export class ProviderSchedular extends Component {
                 disabled={!this.state.dayTuesday}
               >
                 <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
+                {this.time.map((time, index) => {
+                  return (
+                    <option value={time} key={index}>
+                      {time}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             <div class="col">
@@ -451,58 +412,27 @@ export class ProviderSchedular extends Component {
                 disabled={!this.state.fromTuesday}
               >
                 <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
+                {this.time.map((time, index) => {
+                  if (
+                    this.state.fromTuesday &&
+                    this.state.fromTuesday >= time
+                  ) {
+                    return (
+                      <option disabled value={time} key={index}>
+                        {time}
+                      </option>
+                    );
+                  }
+                  return (
+                    <option value={time} key={index}>
+                      {time}
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>
-
+          {/* //////////////////////////////  Wednesday Start  ///////////////////////////////////////////// */}
           <div className="form-row pb-3">
             <div class="col">
               <input
@@ -526,54 +456,13 @@ export class ProviderSchedular extends Component {
                 disabled={!this.state.dayWednesday}
               >
                 <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
+                {this.time.map((time, index) => {
+                  return (
+                    <option value={time} key={index}>
+                      {time}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             <div class="col">
@@ -585,58 +474,27 @@ export class ProviderSchedular extends Component {
                 disabled={!this.state.fromWednesday}
               >
                 <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
+                {this.time.map((time, index) => {
+                  if (
+                    this.state.fromWednesday &&
+                    this.state.fromWednesday >= time
+                  ) {
+                    return (
+                      <option disabled value={time} key={index}>
+                        {time}
+                      </option>
+                    );
+                  }
+                  return (
+                    <option value={time} key={index}>
+                      {time}
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>
-
+          {/* //////////////////////////////  Thursday Start  ///////////////////////////////////////////// */}
           <div className="form-row pb-3">
             <div class="col">
               <input
@@ -660,54 +518,13 @@ export class ProviderSchedular extends Component {
                 disabled={!this.state.dayThursday}
               >
                 <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
+                {this.time.map((time, index) => {
+                  return (
+                    <option value={time} key={index}>
+                      {time}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             <div class="col">
@@ -719,58 +536,27 @@ export class ProviderSchedular extends Component {
                 disabled={!this.state.fromThursday}
               >
                 <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
+                {this.time.map((time, index) => {
+                  if (
+                    this.state.fromThursday &&
+                    this.state.fromThursday >= time
+                  ) {
+                    return (
+                      <option disabled value={time} key={index}>
+                        {time}
+                      </option>
+                    );
+                  }
+                  return (
+                    <option value={time} key={index}>
+                      {time}
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>
-
+          {/* //////////////////////////////  Friday Start  ///////////////////////////////////////////// */}
           <div className="form-row pb-3">
             <div class="col">
               <input
@@ -794,54 +580,13 @@ export class ProviderSchedular extends Component {
                 disabled={!this.state.dayFriday}
               >
                 <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
+                {this.time.map((time, index) => {
+                  return (
+                    <option value={time} key={index}>
+                      {time}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             <div class="col">
@@ -853,58 +598,24 @@ export class ProviderSchedular extends Component {
                 disabled={!this.state.fromFriday}
               >
                 <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
+                {this.time.map((time, index) => {
+                  if (this.state.fromFriday && this.state.fromFriday >= time) {
+                    return (
+                      <option disabled value={time} key={index}>
+                        {time}
+                      </option>
+                    );
+                  }
+                  return (
+                    <option value={time} key={index}>
+                      {time}
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>
-
+          {/* //////////////////////////////  Saturday Start  ///////////////////////////////////////////// */}
           <div className="form-row pb-3">
             <div class="col">
               <input
@@ -928,54 +639,13 @@ export class ProviderSchedular extends Component {
                 disabled={!this.state.daySaturday}
               >
                 <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
+                {this.time.map((time, index) => {
+                  return (
+                    <option value={time} key={index}>
+                      {time}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             <div class="col">
@@ -987,58 +657,27 @@ export class ProviderSchedular extends Component {
                 disabled={!this.state.fromSaturday}
               >
                 <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
+                {this.time.map((time, index) => {
+                  if (
+                    this.state.fromSaturday &&
+                    this.state.fromSaturday >= time
+                  ) {
+                    return (
+                      <option disabled value={time} key={index}>
+                        {time}
+                      </option>
+                    );
+                  }
+                  return (
+                    <option value={time} key={index}>
+                      {time}
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>
-
+          {/* //////////////////////////////  Sunday Start  ///////////////////////////////////////////// */}
           <div className="form-row pb-5">
             <div class="col">
               <input
@@ -1062,54 +701,13 @@ export class ProviderSchedular extends Component {
                 disabled={!this.state.daySunday}
               >
                 <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
+                {this.time.map((time, index) => {
+                  return (
+                    <option value={time} key={index}>
+                      {time}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             <div class="col">
@@ -1121,54 +719,21 @@ export class ProviderSchedular extends Component {
                 disabled={!this.state.fromSunday}
               >
                 <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
+                {this.time.map((time, index) => {
+                  if (this.state.fromSunday && this.state.fromSunday >= time) {
+                    return (
+                      <option disabled value={time} key={index}>
+                        {time}
+                      </option>
+                    );
+                  }
+                  return (
+                    <option value={time} key={index}>
+                      {time}
+                    </option>
+                  );
+                })}
+                })}
               </select>
             </div>
           </div>
@@ -1186,874 +751,874 @@ export class ProviderSchedular extends Component {
     );
   }
 
-  UpdatedProviderProfile(updateCustomer) {
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit} enctype="multipart/form-data">
-          <div className="form-row bg-half-white mb-4 px-2">
-            <div class="col">
-              <h4>Days</h4>
-            </div>
-            <div class="col">
-              <h4>From</h4>
-            </div>
-            <div class="col">
-              <h4>To</h4>
-            </div>
-          </div>
+  // UpdatedProviderProfile(updateCustomer) {
+  //   return (
+  //     <div>
+  //       <form onSubmit={this.handleSubmit} enctype="multipart/form-data">
+  //         <div className="form-row bg-half-white mb-4 px-2">
+  //           <div class="col">
+  //             <h4>Days</h4>
+  //           </div>
+  //           <div class="col">
+  //             <h4>From</h4>
+  //           </div>
+  //           <div class="col">
+  //             <h4>To</h4>
+  //           </div>
+  //         </div>
 
-          <div className="form-row pb-3">
-            <div class="col">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="monday"
-              />
-              <label class="form-check-label" for="monday">
-                Monday
-              </label>
-            </div>
-            <div class="col">
-              <select className="form-control frm-field" value="" onChange="">
-                <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
-              </select>
-            </div>
-            <div class="col">
-              <select className="form-control frm-field" value="" onChange="">
-                <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
-              </select>
-            </div>
-          </div>
+  //         <div className="form-row pb-3">
+  //           <div class="col">
+  //             <input
+  //               class="form-check-input"
+  //               type="checkbox"
+  //               value=""
+  //               id="monday"
+  //             />
+  //             <label class="form-check-label" for="monday">
+  //               Monday
+  //             </label>
+  //           </div>
+  //           <div class="col">
+  //             <select className="form-control frm-field" value="" onChange="">
+  //               <option value="">Select an option</option>
+  //               <option value="0">00:00</option>
+  //               <option value="00:30">00:30</option>
+  //               <option value="01:00">01:00</option>
+  //               <option value="01:30">01:30</option>
+  //               <option value="02:00">02:00</option>
+  //               <option value="02:30">02:30</option>
+  //               <option value="03:00">03:00</option>
+  //               <option value="03:30">03:30</option>
+  //               <option value="04:00">04:00</option>
+  //               <option value="04:30">04:30</option>
+  //               <option value="05:00">05:00</option>
+  //               <option value="05:30">05:30</option>
+  //               <option value="06:00">06:00</option>
+  //               <option value="06:30">06:30</option>
+  //               <option value="07:00">07:00</option>
+  //               <option value="07:30">07:30</option>
+  //               <option value="08:00">08:00</option>
+  //               <option value="08:30">08:30</option>
+  //               <option value="09:00">09:00</option>
+  //               <option value="09:30">09:30</option>
+  //               <option value="10:00">10:00</option>
+  //               <option value="10:30">10:30</option>
+  //               <option value="11:00">11:00</option>
+  //               <option value="11:30">11:30</option>
+  //               <option value="12:00">12:00</option>
+  //               <option value="12:30">12:30</option>
+  //               <option value="13:00">13:00</option>
+  //               <option value="13:30">13:30</option>
+  //               <option value="14:00">14:00</option>
+  //               <option value="14:30">14:30</option>
+  //               <option value="15:00">15:00</option>
+  //               <option value="15:30">15:30</option>
+  //               <option value="16:00">16:00</option>
+  //               <option value="16:30">16:30</option>
+  //               <option value="17:00">17:00</option>
+  //               <option value="17:30">17:30</option>
+  //               <option value="18:00">18:00</option>
+  //               <option value="18:30">18:30</option>
+  //               <option value="19:00">19:00</option>
+  //               <option value="19:30">19:30</option>
+  //               <option value="20:00">20:00</option>
+  //               <option value="20:30">20:30</option>
+  //               <option value="21:00">21:00</option>
+  //               <option value="21:30">21:30</option>
+  //               <option value="22:00">22:00</option>
+  //               <option value="22:30">22:30</option>
+  //               <option value="23:00">23:00</option>
+  //               <option value="23:30">23:30</option>
+  //             </select>
+  //           </div>
+  //           <div class="col">
+  //             <select className="form-control frm-field" value="" onChange="">
+  //               <option value="">Select an option</option>
+  //               <option value="0">00:00</option>
+  //               <option value="00:30">00:30</option>
+  //               <option value="01:00">01:00</option>
+  //               <option value="01:30">01:30</option>
+  //               <option value="02:00">02:00</option>
+  //               <option value="02:30">02:30</option>
+  //               <option value="03:00">03:00</option>
+  //               <option value="03:30">03:30</option>
+  //               <option value="04:00">04:00</option>
+  //               <option value="04:30">04:30</option>
+  //               <option value="05:00">05:00</option>
+  //               <option value="05:30">05:30</option>
+  //               <option value="06:00">06:00</option>
+  //               <option value="06:30">06:30</option>
+  //               <option value="07:00">07:00</option>
+  //               <option value="07:30">07:30</option>
+  //               <option value="08:00">08:00</option>
+  //               <option value="08:30">08:30</option>
+  //               <option value="09:00">09:00</option>
+  //               <option value="09:30">09:30</option>
+  //               <option value="10:00">10:00</option>
+  //               <option value="10:30">10:30</option>
+  //               <option value="11:00">11:00</option>
+  //               <option value="11:30">11:30</option>
+  //               <option value="12:00">12:00</option>
+  //               <option value="12:30">12:30</option>
+  //               <option value="13:00">13:00</option>
+  //               <option value="13:30">13:30</option>
+  //               <option value="14:00">14:00</option>
+  //               <option value="14:30">14:30</option>
+  //               <option value="15:00">15:00</option>
+  //               <option value="15:30">15:30</option>
+  //               <option value="16:00">16:00</option>
+  //               <option value="16:30">16:30</option>
+  //               <option value="17:00">17:00</option>
+  //               <option value="17:30">17:30</option>
+  //               <option value="18:00">18:00</option>
+  //               <option value="18:30">18:30</option>
+  //               <option value="19:00">19:00</option>
+  //               <option value="19:30">19:30</option>
+  //               <option value="20:00">20:00</option>
+  //               <option value="20:30">20:30</option>
+  //               <option value="21:00">21:00</option>
+  //               <option value="21:30">21:30</option>
+  //               <option value="22:00">22:00</option>
+  //               <option value="22:30">22:30</option>
+  //               <option value="23:00">23:00</option>
+  //               <option value="23:30">23:30</option>
+  //             </select>
+  //           </div>
+  //         </div>
 
-          <div className="form-row pb-3">
-            <div class="col">
-              <input
-                class="form-check-input frm-field"
-                type="checkbox"
-                value=""
-                id="tuesday"
-              />
-              <label class="form-check-label" for="tuesday">
-                Tuesday
-              </label>
-            </div>
-            <div class="col">
-              <select className="form-control frm-field" value="" onChange="">
-                <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
-              </select>
-            </div>
-            <div class="col">
-              <select className="form-control frm-field" value="" onChange="">
-                <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
-              </select>
-            </div>
-          </div>
+  //         <div className="form-row pb-3">
+  //           <div class="col">
+  //             <input
+  //               class="form-check-input frm-field"
+  //               type="checkbox"
+  //               value=""
+  //               id="tuesday"
+  //             />
+  //             <label class="form-check-label" for="tuesday">
+  //               Tuesday
+  //             </label>
+  //           </div>
+  //           <div class="col">
+  //             <select className="form-control frm-field" value="" onChange="">
+  //               <option value="">Select an option</option>
+  //               <option value="0">00:00</option>
+  //               <option value="00:30">00:30</option>
+  //               <option value="01:00">01:00</option>
+  //               <option value="01:30">01:30</option>
+  //               <option value="02:00">02:00</option>
+  //               <option value="02:30">02:30</option>
+  //               <option value="03:00">03:00</option>
+  //               <option value="03:30">03:30</option>
+  //               <option value="04:00">04:00</option>
+  //               <option value="04:30">04:30</option>
+  //               <option value="05:00">05:00</option>
+  //               <option value="05:30">05:30</option>
+  //               <option value="06:00">06:00</option>
+  //               <option value="06:30">06:30</option>
+  //               <option value="07:00">07:00</option>
+  //               <option value="07:30">07:30</option>
+  //               <option value="08:00">08:00</option>
+  //               <option value="08:30">08:30</option>
+  //               <option value="09:00">09:00</option>
+  //               <option value="09:30">09:30</option>
+  //               <option value="10:00">10:00</option>
+  //               <option value="10:30">10:30</option>
+  //               <option value="11:00">11:00</option>
+  //               <option value="11:30">11:30</option>
+  //               <option value="12:00">12:00</option>
+  //               <option value="12:30">12:30</option>
+  //               <option value="13:00">13:00</option>
+  //               <option value="13:30">13:30</option>
+  //               <option value="14:00">14:00</option>
+  //               <option value="14:30">14:30</option>
+  //               <option value="15:00">15:00</option>
+  //               <option value="15:30">15:30</option>
+  //               <option value="16:00">16:00</option>
+  //               <option value="16:30">16:30</option>
+  //               <option value="17:00">17:00</option>
+  //               <option value="17:30">17:30</option>
+  //               <option value="18:00">18:00</option>
+  //               <option value="18:30">18:30</option>
+  //               <option value="19:00">19:00</option>
+  //               <option value="19:30">19:30</option>
+  //               <option value="20:00">20:00</option>
+  //               <option value="20:30">20:30</option>
+  //               <option value="21:00">21:00</option>
+  //               <option value="21:30">21:30</option>
+  //               <option value="22:00">22:00</option>
+  //               <option value="22:30">22:30</option>
+  //               <option value="23:00">23:00</option>
+  //               <option value="23:30">23:30</option>
+  //             </select>
+  //           </div>
+  //           <div class="col">
+  //             <select className="form-control frm-field" value="" onChange="">
+  //               <option value="">Select an option</option>
+  //               <option value="0">00:00</option>
+  //               <option value="00:30">00:30</option>
+  //               <option value="01:00">01:00</option>
+  //               <option value="01:30">01:30</option>
+  //               <option value="02:00">02:00</option>
+  //               <option value="02:30">02:30</option>
+  //               <option value="03:00">03:00</option>
+  //               <option value="03:30">03:30</option>
+  //               <option value="04:00">04:00</option>
+  //               <option value="04:30">04:30</option>
+  //               <option value="05:00">05:00</option>
+  //               <option value="05:30">05:30</option>
+  //               <option value="06:00">06:00</option>
+  //               <option value="06:30">06:30</option>
+  //               <option value="07:00">07:00</option>
+  //               <option value="07:30">07:30</option>
+  //               <option value="08:00">08:00</option>
+  //               <option value="08:30">08:30</option>
+  //               <option value="09:00">09:00</option>
+  //               <option value="09:30">09:30</option>
+  //               <option value="10:00">10:00</option>
+  //               <option value="10:30">10:30</option>
+  //               <option value="11:00">11:00</option>
+  //               <option value="11:30">11:30</option>
+  //               <option value="12:00">12:00</option>
+  //               <option value="12:30">12:30</option>
+  //               <option value="13:00">13:00</option>
+  //               <option value="13:30">13:30</option>
+  //               <option value="14:00">14:00</option>
+  //               <option value="14:30">14:30</option>
+  //               <option value="15:00">15:00</option>
+  //               <option value="15:30">15:30</option>
+  //               <option value="16:00">16:00</option>
+  //               <option value="16:30">16:30</option>
+  //               <option value="17:00">17:00</option>
+  //               <option value="17:30">17:30</option>
+  //               <option value="18:00">18:00</option>
+  //               <option value="18:30">18:30</option>
+  //               <option value="19:00">19:00</option>
+  //               <option value="19:30">19:30</option>
+  //               <option value="20:00">20:00</option>
+  //               <option value="20:30">20:30</option>
+  //               <option value="21:00">21:00</option>
+  //               <option value="21:30">21:30</option>
+  //               <option value="22:00">22:00</option>
+  //               <option value="22:30">22:30</option>
+  //               <option value="23:00">23:00</option>
+  //               <option value="23:30">23:30</option>
+  //             </select>
+  //           </div>
+  //         </div>
 
-          <div className="form-row pb-3">
-            <div class="col">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="wednesday"
-              />
-              <label class="form-check-label" for="wednesday">
-                Wednesday
-              </label>
-            </div>
-            <div class="col">
-              <select className="form-control frm-field" value="" onChange="">
-                <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
-              </select>
-            </div>
-            <div class="col">
-              <select className="form-control frm-field" value="" onChange="">
-                <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
-              </select>
-            </div>
-          </div>
+  //         <div className="form-row pb-3">
+  //           <div class="col">
+  //             <input
+  //               class="form-check-input"
+  //               type="checkbox"
+  //               value=""
+  //               id="wednesday"
+  //             />
+  //             <label class="form-check-label" for="wednesday">
+  //               Wednesday
+  //             </label>
+  //           </div>
+  //           <div class="col">
+  //             <select className="form-control frm-field" value="" onChange="">
+  //               <option value="">Select an option</option>
+  //               <option value="0">00:00</option>
+  //               <option value="00:30">00:30</option>
+  //               <option value="01:00">01:00</option>
+  //               <option value="01:30">01:30</option>
+  //               <option value="02:00">02:00</option>
+  //               <option value="02:30">02:30</option>
+  //               <option value="03:00">03:00</option>
+  //               <option value="03:30">03:30</option>
+  //               <option value="04:00">04:00</option>
+  //               <option value="04:30">04:30</option>
+  //               <option value="05:00">05:00</option>
+  //               <option value="05:30">05:30</option>
+  //               <option value="06:00">06:00</option>
+  //               <option value="06:30">06:30</option>
+  //               <option value="07:00">07:00</option>
+  //               <option value="07:30">07:30</option>
+  //               <option value="08:00">08:00</option>
+  //               <option value="08:30">08:30</option>
+  //               <option value="09:00">09:00</option>
+  //               <option value="09:30">09:30</option>
+  //               <option value="10:00">10:00</option>
+  //               <option value="10:30">10:30</option>
+  //               <option value="11:00">11:00</option>
+  //               <option value="11:30">11:30</option>
+  //               <option value="12:00">12:00</option>
+  //               <option value="12:30">12:30</option>
+  //               <option value="13:00">13:00</option>
+  //               <option value="13:30">13:30</option>
+  //               <option value="14:00">14:00</option>
+  //               <option value="14:30">14:30</option>
+  //               <option value="15:00">15:00</option>
+  //               <option value="15:30">15:30</option>
+  //               <option value="16:00">16:00</option>
+  //               <option value="16:30">16:30</option>
+  //               <option value="17:00">17:00</option>
+  //               <option value="17:30">17:30</option>
+  //               <option value="18:00">18:00</option>
+  //               <option value="18:30">18:30</option>
+  //               <option value="19:00">19:00</option>
+  //               <option value="19:30">19:30</option>
+  //               <option value="20:00">20:00</option>
+  //               <option value="20:30">20:30</option>
+  //               <option value="21:00">21:00</option>
+  //               <option value="21:30">21:30</option>
+  //               <option value="22:00">22:00</option>
+  //               <option value="22:30">22:30</option>
+  //               <option value="23:00">23:00</option>
+  //               <option value="23:30">23:30</option>
+  //             </select>
+  //           </div>
+  //           <div class="col">
+  //             <select className="form-control frm-field" value="" onChange="">
+  //               <option value="">Select an option</option>
+  //               <option value="0">00:00</option>
+  //               <option value="00:30">00:30</option>
+  //               <option value="01:00">01:00</option>
+  //               <option value="01:30">01:30</option>
+  //               <option value="02:00">02:00</option>
+  //               <option value="02:30">02:30</option>
+  //               <option value="03:00">03:00</option>
+  //               <option value="03:30">03:30</option>
+  //               <option value="04:00">04:00</option>
+  //               <option value="04:30">04:30</option>
+  //               <option value="05:00">05:00</option>
+  //               <option value="05:30">05:30</option>
+  //               <option value="06:00">06:00</option>
+  //               <option value="06:30">06:30</option>
+  //               <option value="07:00">07:00</option>
+  //               <option value="07:30">07:30</option>
+  //               <option value="08:00">08:00</option>
+  //               <option value="08:30">08:30</option>
+  //               <option value="09:00">09:00</option>
+  //               <option value="09:30">09:30</option>
+  //               <option value="10:00">10:00</option>
+  //               <option value="10:30">10:30</option>
+  //               <option value="11:00">11:00</option>
+  //               <option value="11:30">11:30</option>
+  //               <option value="12:00">12:00</option>
+  //               <option value="12:30">12:30</option>
+  //               <option value="13:00">13:00</option>
+  //               <option value="13:30">13:30</option>
+  //               <option value="14:00">14:00</option>
+  //               <option value="14:30">14:30</option>
+  //               <option value="15:00">15:00</option>
+  //               <option value="15:30">15:30</option>
+  //               <option value="16:00">16:00</option>
+  //               <option value="16:30">16:30</option>
+  //               <option value="17:00">17:00</option>
+  //               <option value="17:30">17:30</option>
+  //               <option value="18:00">18:00</option>
+  //               <option value="18:30">18:30</option>
+  //               <option value="19:00">19:00</option>
+  //               <option value="19:30">19:30</option>
+  //               <option value="20:00">20:00</option>
+  //               <option value="20:30">20:30</option>
+  //               <option value="21:00">21:00</option>
+  //               <option value="21:30">21:30</option>
+  //               <option value="22:00">22:00</option>
+  //               <option value="22:30">22:30</option>
+  //               <option value="23:00">23:00</option>
+  //               <option value="23:30">23:30</option>
+  //             </select>
+  //           </div>
+  //         </div>
 
-          <div className="form-row pb-3">
-            <div class="col">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="thursday"
-              />
-              <label class="form-check-label" for="thursday">
-                Thursday
-              </label>
-            </div>
-            <div class="col">
-              <select className="form-control frm-field" value="" onChange="">
-                <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
-              </select>
-            </div>
-            <div class="col">
-              <select className="form-control frm-field" value="" onChange="">
-                <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
-              </select>
-            </div>
-          </div>
+  //         <div className="form-row pb-3">
+  //           <div class="col">
+  //             <input
+  //               class="form-check-input"
+  //               type="checkbox"
+  //               value=""
+  //               id="thursday"
+  //             />
+  //             <label class="form-check-label" for="thursday">
+  //               Thursday
+  //             </label>
+  //           </div>
+  //           <div class="col">
+  //             <select className="form-control frm-field" value="" onChange="">
+  //               <option value="">Select an option</option>
+  //               <option value="0">00:00</option>
+  //               <option value="00:30">00:30</option>
+  //               <option value="01:00">01:00</option>
+  //               <option value="01:30">01:30</option>
+  //               <option value="02:00">02:00</option>
+  //               <option value="02:30">02:30</option>
+  //               <option value="03:00">03:00</option>
+  //               <option value="03:30">03:30</option>
+  //               <option value="04:00">04:00</option>
+  //               <option value="04:30">04:30</option>
+  //               <option value="05:00">05:00</option>
+  //               <option value="05:30">05:30</option>
+  //               <option value="06:00">06:00</option>
+  //               <option value="06:30">06:30</option>
+  //               <option value="07:00">07:00</option>
+  //               <option value="07:30">07:30</option>
+  //               <option value="08:00">08:00</option>
+  //               <option value="08:30">08:30</option>
+  //               <option value="09:00">09:00</option>
+  //               <option value="09:30">09:30</option>
+  //               <option value="10:00">10:00</option>
+  //               <option value="10:30">10:30</option>
+  //               <option value="11:00">11:00</option>
+  //               <option value="11:30">11:30</option>
+  //               <option value="12:00">12:00</option>
+  //               <option value="12:30">12:30</option>
+  //               <option value="13:00">13:00</option>
+  //               <option value="13:30">13:30</option>
+  //               <option value="14:00">14:00</option>
+  //               <option value="14:30">14:30</option>
+  //               <option value="15:00">15:00</option>
+  //               <option value="15:30">15:30</option>
+  //               <option value="16:00">16:00</option>
+  //               <option value="16:30">16:30</option>
+  //               <option value="17:00">17:00</option>
+  //               <option value="17:30">17:30</option>
+  //               <option value="18:00">18:00</option>
+  //               <option value="18:30">18:30</option>
+  //               <option value="19:00">19:00</option>
+  //               <option value="19:30">19:30</option>
+  //               <option value="20:00">20:00</option>
+  //               <option value="20:30">20:30</option>
+  //               <option value="21:00">21:00</option>
+  //               <option value="21:30">21:30</option>
+  //               <option value="22:00">22:00</option>
+  //               <option value="22:30">22:30</option>
+  //               <option value="23:00">23:00</option>
+  //               <option value="23:30">23:30</option>
+  //             </select>
+  //           </div>
+  //           <div class="col">
+  //             <select className="form-control frm-field" value="" onChange="">
+  //               <option value="">Select an option</option>
+  //               <option value="0">00:00</option>
+  //               <option value="00:30">00:30</option>
+  //               <option value="01:00">01:00</option>
+  //               <option value="01:30">01:30</option>
+  //               <option value="02:00">02:00</option>
+  //               <option value="02:30">02:30</option>
+  //               <option value="03:00">03:00</option>
+  //               <option value="03:30">03:30</option>
+  //               <option value="04:00">04:00</option>
+  //               <option value="04:30">04:30</option>
+  //               <option value="05:00">05:00</option>
+  //               <option value="05:30">05:30</option>
+  //               <option value="06:00">06:00</option>
+  //               <option value="06:30">06:30</option>
+  //               <option value="07:00">07:00</option>
+  //               <option value="07:30">07:30</option>
+  //               <option value="08:00">08:00</option>
+  //               <option value="08:30">08:30</option>
+  //               <option value="09:00">09:00</option>
+  //               <option value="09:30">09:30</option>
+  //               <option value="10:00">10:00</option>
+  //               <option value="10:30">10:30</option>
+  //               <option value="11:00">11:00</option>
+  //               <option value="11:30">11:30</option>
+  //               <option value="12:00">12:00</option>
+  //               <option value="12:30">12:30</option>
+  //               <option value="13:00">13:00</option>
+  //               <option value="13:30">13:30</option>
+  //               <option value="14:00">14:00</option>
+  //               <option value="14:30">14:30</option>
+  //               <option value="15:00">15:00</option>
+  //               <option value="15:30">15:30</option>
+  //               <option value="16:00">16:00</option>
+  //               <option value="16:30">16:30</option>
+  //               <option value="17:00">17:00</option>
+  //               <option value="17:30">17:30</option>
+  //               <option value="18:00">18:00</option>
+  //               <option value="18:30">18:30</option>
+  //               <option value="19:00">19:00</option>
+  //               <option value="19:30">19:30</option>
+  //               <option value="20:00">20:00</option>
+  //               <option value="20:30">20:30</option>
+  //               <option value="21:00">21:00</option>
+  //               <option value="21:30">21:30</option>
+  //               <option value="22:00">22:00</option>
+  //               <option value="22:30">22:30</option>
+  //               <option value="23:00">23:00</option>
+  //               <option value="23:30">23:30</option>
+  //             </select>
+  //           </div>
+  //         </div>
 
-          <div className="form-row pb-3">
-            <div class="col">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="friday"
-              />
-              <label class="form-check-label" for="friday">
-                Friday
-              </label>
-            </div>
-            <div class="col">
-              <select className="form-control" value="" onChange="">
-                <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
-              </select>
-            </div>
-            <div class="col">
-              <select className="form-control frm-field" value="" onChange="">
-                <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
-              </select>
-            </div>
-          </div>
+  //         <div className="form-row pb-3">
+  //           <div class="col">
+  //             <input
+  //               class="form-check-input"
+  //               type="checkbox"
+  //               value=""
+  //               id="friday"
+  //             />
+  //             <label class="form-check-label" for="friday">
+  //               Friday
+  //             </label>
+  //           </div>
+  //           <div class="col">
+  //             <select className="form-control" value="" onChange="">
+  //               <option value="">Select an option</option>
+  //               <option value="0">00:00</option>
+  //               <option value="00:30">00:30</option>
+  //               <option value="01:00">01:00</option>
+  //               <option value="01:30">01:30</option>
+  //               <option value="02:00">02:00</option>
+  //               <option value="02:30">02:30</option>
+  //               <option value="03:00">03:00</option>
+  //               <option value="03:30">03:30</option>
+  //               <option value="04:00">04:00</option>
+  //               <option value="04:30">04:30</option>
+  //               <option value="05:00">05:00</option>
+  //               <option value="05:30">05:30</option>
+  //               <option value="06:00">06:00</option>
+  //               <option value="06:30">06:30</option>
+  //               <option value="07:00">07:00</option>
+  //               <option value="07:30">07:30</option>
+  //               <option value="08:00">08:00</option>
+  //               <option value="08:30">08:30</option>
+  //               <option value="09:00">09:00</option>
+  //               <option value="09:30">09:30</option>
+  //               <option value="10:00">10:00</option>
+  //               <option value="10:30">10:30</option>
+  //               <option value="11:00">11:00</option>
+  //               <option value="11:30">11:30</option>
+  //               <option value="12:00">12:00</option>
+  //               <option value="12:30">12:30</option>
+  //               <option value="13:00">13:00</option>
+  //               <option value="13:30">13:30</option>
+  //               <option value="14:00">14:00</option>
+  //               <option value="14:30">14:30</option>
+  //               <option value="15:00">15:00</option>
+  //               <option value="15:30">15:30</option>
+  //               <option value="16:00">16:00</option>
+  //               <option value="16:30">16:30</option>
+  //               <option value="17:00">17:00</option>
+  //               <option value="17:30">17:30</option>
+  //               <option value="18:00">18:00</option>
+  //               <option value="18:30">18:30</option>
+  //               <option value="19:00">19:00</option>
+  //               <option value="19:30">19:30</option>
+  //               <option value="20:00">20:00</option>
+  //               <option value="20:30">20:30</option>
+  //               <option value="21:00">21:00</option>
+  //               <option value="21:30">21:30</option>
+  //               <option value="22:00">22:00</option>
+  //               <option value="22:30">22:30</option>
+  //               <option value="23:00">23:00</option>
+  //               <option value="23:30">23:30</option>
+  //             </select>
+  //           </div>
+  //           <div class="col">
+  //             <select className="form-control frm-field" value="" onChange="">
+  //               <option value="">Select an option</option>
+  //               <option value="0">00:00</option>
+  //               <option value="00:30">00:30</option>
+  //               <option value="01:00">01:00</option>
+  //               <option value="01:30">01:30</option>
+  //               <option value="02:00">02:00</option>
+  //               <option value="02:30">02:30</option>
+  //               <option value="03:00">03:00</option>
+  //               <option value="03:30">03:30</option>
+  //               <option value="04:00">04:00</option>
+  //               <option value="04:30">04:30</option>
+  //               <option value="05:00">05:00</option>
+  //               <option value="05:30">05:30</option>
+  //               <option value="06:00">06:00</option>
+  //               <option value="06:30">06:30</option>
+  //               <option value="07:00">07:00</option>
+  //               <option value="07:30">07:30</option>
+  //               <option value="08:00">08:00</option>
+  //               <option value="08:30">08:30</option>
+  //               <option value="09:00">09:00</option>
+  //               <option value="09:30">09:30</option>
+  //               <option value="10:00">10:00</option>
+  //               <option value="10:30">10:30</option>
+  //               <option value="11:00">11:00</option>
+  //               <option value="11:30">11:30</option>
+  //               <option value="12:00">12:00</option>
+  //               <option value="12:30">12:30</option>
+  //               <option value="13:00">13:00</option>
+  //               <option value="13:30">13:30</option>
+  //               <option value="14:00">14:00</option>
+  //               <option value="14:30">14:30</option>
+  //               <option value="15:00">15:00</option>
+  //               <option value="15:30">15:30</option>
+  //               <option value="16:00">16:00</option>
+  //               <option value="16:30">16:30</option>
+  //               <option value="17:00">17:00</option>
+  //               <option value="17:30">17:30</option>
+  //               <option value="18:00">18:00</option>
+  //               <option value="18:30">18:30</option>
+  //               <option value="19:00">19:00</option>
+  //               <option value="19:30">19:30</option>
+  //               <option value="20:00">20:00</option>
+  //               <option value="20:30">20:30</option>
+  //               <option value="21:00">21:00</option>
+  //               <option value="21:30">21:30</option>
+  //               <option value="22:00">22:00</option>
+  //               <option value="22:30">22:30</option>
+  //               <option value="23:00">23:00</option>
+  //               <option value="23:30">23:30</option>
+  //             </select>
+  //           </div>
+  //         </div>
 
-          <div className="form-row pb-3">
-            <div class="col">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="saturday"
-              />
-              <label class="form-check-label" for="saturday">
-                Saturday
-              </label>
-            </div>
-            <div class="col">
-              <select className="form-control frm-field" value="" onChange="">
-                <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
-              </select>
-            </div>
-            <div class="col">
-              <select className="form-control frm-field" value="" onChange="">
-                <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
-              </select>
-            </div>
-          </div>
+  //         <div className="form-row pb-3">
+  //           <div class="col">
+  //             <input
+  //               class="form-check-input"
+  //               type="checkbox"
+  //               value=""
+  //               id="saturday"
+  //             />
+  //             <label class="form-check-label" for="saturday">
+  //               Saturday
+  //             </label>
+  //           </div>
+  //           <div class="col">
+  //             <select className="form-control frm-field" value="" onChange="">
+  //               <option value="">Select an option</option>
+  //               <option value="0">00:00</option>
+  //               <option value="00:30">00:30</option>
+  //               <option value="01:00">01:00</option>
+  //               <option value="01:30">01:30</option>
+  //               <option value="02:00">02:00</option>
+  //               <option value="02:30">02:30</option>
+  //               <option value="03:00">03:00</option>
+  //               <option value="03:30">03:30</option>
+  //               <option value="04:00">04:00</option>
+  //               <option value="04:30">04:30</option>
+  //               <option value="05:00">05:00</option>
+  //               <option value="05:30">05:30</option>
+  //               <option value="06:00">06:00</option>
+  //               <option value="06:30">06:30</option>
+  //               <option value="07:00">07:00</option>
+  //               <option value="07:30">07:30</option>
+  //               <option value="08:00">08:00</option>
+  //               <option value="08:30">08:30</option>
+  //               <option value="09:00">09:00</option>
+  //               <option value="09:30">09:30</option>
+  //               <option value="10:00">10:00</option>
+  //               <option value="10:30">10:30</option>
+  //               <option value="11:00">11:00</option>
+  //               <option value="11:30">11:30</option>
+  //               <option value="12:00">12:00</option>
+  //               <option value="12:30">12:30</option>
+  //               <option value="13:00">13:00</option>
+  //               <option value="13:30">13:30</option>
+  //               <option value="14:00">14:00</option>
+  //               <option value="14:30">14:30</option>
+  //               <option value="15:00">15:00</option>
+  //               <option value="15:30">15:30</option>
+  //               <option value="16:00">16:00</option>
+  //               <option value="16:30">16:30</option>
+  //               <option value="17:00">17:00</option>
+  //               <option value="17:30">17:30</option>
+  //               <option value="18:00">18:00</option>
+  //               <option value="18:30">18:30</option>
+  //               <option value="19:00">19:00</option>
+  //               <option value="19:30">19:30</option>
+  //               <option value="20:00">20:00</option>
+  //               <option value="20:30">20:30</option>
+  //               <option value="21:00">21:00</option>
+  //               <option value="21:30">21:30</option>
+  //               <option value="22:00">22:00</option>
+  //               <option value="22:30">22:30</option>
+  //               <option value="23:00">23:00</option>
+  //               <option value="23:30">23:30</option>
+  //             </select>
+  //           </div>
+  //           <div class="col">
+  //             <select className="form-control frm-field" value="" onChange="">
+  //               <option value="">Select an option</option>
+  //               <option value="0">00:00</option>
+  //               <option value="00:30">00:30</option>
+  //               <option value="01:00">01:00</option>
+  //               <option value="01:30">01:30</option>
+  //               <option value="02:00">02:00</option>
+  //               <option value="02:30">02:30</option>
+  //               <option value="03:00">03:00</option>
+  //               <option value="03:30">03:30</option>
+  //               <option value="04:00">04:00</option>
+  //               <option value="04:30">04:30</option>
+  //               <option value="05:00">05:00</option>
+  //               <option value="05:30">05:30</option>
+  //               <option value="06:00">06:00</option>
+  //               <option value="06:30">06:30</option>
+  //               <option value="07:00">07:00</option>
+  //               <option value="07:30">07:30</option>
+  //               <option value="08:00">08:00</option>
+  //               <option value="08:30">08:30</option>
+  //               <option value="09:00">09:00</option>
+  //               <option value="09:30">09:30</option>
+  //               <option value="10:00">10:00</option>
+  //               <option value="10:30">10:30</option>
+  //               <option value="11:00">11:00</option>
+  //               <option value="11:30">11:30</option>
+  //               <option value="12:00">12:00</option>
+  //               <option value="12:30">12:30</option>
+  //               <option value="13:00">13:00</option>
+  //               <option value="13:30">13:30</option>
+  //               <option value="14:00">14:00</option>
+  //               <option value="14:30">14:30</option>
+  //               <option value="15:00">15:00</option>
+  //               <option value="15:30">15:30</option>
+  //               <option value="16:00">16:00</option>
+  //               <option value="16:30">16:30</option>
+  //               <option value="17:00">17:00</option>
+  //               <option value="17:30">17:30</option>
+  //               <option value="18:00">18:00</option>
+  //               <option value="18:30">18:30</option>
+  //               <option value="19:00">19:00</option>
+  //               <option value="19:30">19:30</option>
+  //               <option value="20:00">20:00</option>
+  //               <option value="20:30">20:30</option>
+  //               <option value="21:00">21:00</option>
+  //               <option value="21:30">21:30</option>
+  //               <option value="22:00">22:00</option>
+  //               <option value="22:30">22:30</option>
+  //               <option value="23:00">23:00</option>
+  //               <option value="23:30">23:30</option>
+  //             </select>
+  //           </div>
+  //         </div>
 
-          <div className="form-row pb-5">
-            <div class="col">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="sunday"
-              />
-              <label class="form-check-label" for="sunday">
-                Sunday
-              </label>
-            </div>
-            <div class="col">
-              <select className="form-control frm-field" value="" onChange="">
-                <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
-              </select>
-            </div>
-            <div class="col">
-              <select className="form-control frm-field" value="" onChange="">
-                <option value="">Select an option</option>
-                <option value="0">00:00</option>
-                <option value="00:30">00:30</option>
-                <option value="01:00">01:00</option>
-                <option value="01:30">01:30</option>
-                <option value="02:00">02:00</option>
-                <option value="02:30">02:30</option>
-                <option value="03:00">03:00</option>
-                <option value="03:30">03:30</option>
-                <option value="04:00">04:00</option>
-                <option value="04:30">04:30</option>
-                <option value="05:00">05:00</option>
-                <option value="05:30">05:30</option>
-                <option value="06:00">06:00</option>
-                <option value="06:30">06:30</option>
-                <option value="07:00">07:00</option>
-                <option value="07:30">07:30</option>
-                <option value="08:00">08:00</option>
-                <option value="08:30">08:30</option>
-                <option value="09:00">09:00</option>
-                <option value="09:30">09:30</option>
-                <option value="10:00">10:00</option>
-                <option value="10:30">10:30</option>
-                <option value="11:00">11:00</option>
-                <option value="11:30">11:30</option>
-                <option value="12:00">12:00</option>
-                <option value="12:30">12:30</option>
-                <option value="13:00">13:00</option>
-                <option value="13:30">13:30</option>
-                <option value="14:00">14:00</option>
-                <option value="14:30">14:30</option>
-                <option value="15:00">15:00</option>
-                <option value="15:30">15:30</option>
-                <option value="16:00">16:00</option>
-                <option value="16:30">16:30</option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-                <option value="18:30">18:30</option>
-                <option value="19:00">19:00</option>
-                <option value="19:30">19:30</option>
-                <option value="20:00">20:00</option>
-                <option value="20:30">20:30</option>
-                <option value="21:00">21:00</option>
-                <option value="21:30">21:30</option>
-                <option value="22:00">22:00</option>
-                <option value="22:30">22:30</option>
-                <option value="23:00">23:00</option>
-                <option value="23:30">23:30</option>
-              </select>
-            </div>
-          </div>
+  //         <div className="form-row pb-5">
+  //           <div class="col">
+  //             <input
+  //               class="form-check-input"
+  //               type="checkbox"
+  //               value=""
+  //               id="sunday"
+  //             />
+  //             <label class="form-check-label" for="sunday">
+  //               Sunday
+  //             </label>
+  //           </div>
+  //           <div class="col">
+  //             <select className="form-control frm-field" value="" onChange="">
+  //               <option value="">Select an option</option>
+  //               <option value="0">00:00</option>
+  //               <option value="00:30">00:30</option>
+  //               <option value="01:00">01:00</option>
+  //               <option value="01:30">01:30</option>
+  //               <option value="02:00">02:00</option>
+  //               <option value="02:30">02:30</option>
+  //               <option value="03:00">03:00</option>
+  //               <option value="03:30">03:30</option>
+  //               <option value="04:00">04:00</option>
+  //               <option value="04:30">04:30</option>
+  //               <option value="05:00">05:00</option>
+  //               <option value="05:30">05:30</option>
+  //               <option value="06:00">06:00</option>
+  //               <option value="06:30">06:30</option>
+  //               <option value="07:00">07:00</option>
+  //               <option value="07:30">07:30</option>
+  //               <option value="08:00">08:00</option>
+  //               <option value="08:30">08:30</option>
+  //               <option value="09:00">09:00</option>
+  //               <option value="09:30">09:30</option>
+  //               <option value="10:00">10:00</option>
+  //               <option value="10:30">10:30</option>
+  //               <option value="11:00">11:00</option>
+  //               <option value="11:30">11:30</option>
+  //               <option value="12:00">12:00</option>
+  //               <option value="12:30">12:30</option>
+  //               <option value="13:00">13:00</option>
+  //               <option value="13:30">13:30</option>
+  //               <option value="14:00">14:00</option>
+  //               <option value="14:30">14:30</option>
+  //               <option value="15:00">15:00</option>
+  //               <option value="15:30">15:30</option>
+  //               <option value="16:00">16:00</option>
+  //               <option value="16:30">16:30</option>
+  //               <option value="17:00">17:00</option>
+  //               <option value="17:30">17:30</option>
+  //               <option value="18:00">18:00</option>
+  //               <option value="18:30">18:30</option>
+  //               <option value="19:00">19:00</option>
+  //               <option value="19:30">19:30</option>
+  //               <option value="20:00">20:00</option>
+  //               <option value="20:30">20:30</option>
+  //               <option value="21:00">21:00</option>
+  //               <option value="21:30">21:30</option>
+  //               <option value="22:00">22:00</option>
+  //               <option value="22:30">22:30</option>
+  //               <option value="23:00">23:00</option>
+  //               <option value="23:30">23:30</option>
+  //             </select>
+  //           </div>
+  //           <div class="col">
+  //             <select className="form-control frm-field" value="" onChange="">
+  //               <option value="">Select an option</option>
+  //               <option value="0">00:00</option>
+  //               <option value="00:30">00:30</option>
+  //               <option value="01:00">01:00</option>
+  //               <option value="01:30">01:30</option>
+  //               <option value="02:00">02:00</option>
+  //               <option value="02:30">02:30</option>
+  //               <option value="03:00">03:00</option>
+  //               <option value="03:30">03:30</option>
+  //               <option value="04:00">04:00</option>
+  //               <option value="04:30">04:30</option>
+  //               <option value="05:00">05:00</option>
+  //               <option value="05:30">05:30</option>
+  //               <option value="06:00">06:00</option>
+  //               <option value="06:30">06:30</option>
+  //               <option value="07:00">07:00</option>
+  //               <option value="07:30">07:30</option>
+  //               <option value="08:00">08:00</option>
+  //               <option value="08:30">08:30</option>
+  //               <option value="09:00">09:00</option>
+  //               <option value="09:30">09:30</option>
+  //               <option value="10:00">10:00</option>
+  //               <option value="10:30">10:30</option>
+  //               <option value="11:00">11:00</option>
+  //               <option value="11:30">11:30</option>
+  //               <option value="12:00">12:00</option>
+  //               <option value="12:30">12:30</option>
+  //               <option value="13:00">13:00</option>
+  //               <option value="13:30">13:30</option>
+  //               <option value="14:00">14:00</option>
+  //               <option value="14:30">14:30</option>
+  //               <option value="15:00">15:00</option>
+  //               <option value="15:30">15:30</option>
+  //               <option value="16:00">16:00</option>
+  //               <option value="16:30">16:30</option>
+  //               <option value="17:00">17:00</option>
+  //               <option value="17:30">17:30</option>
+  //               <option value="18:00">18:00</option>
+  //               <option value="18:30">18:30</option>
+  //               <option value="19:00">19:00</option>
+  //               <option value="19:30">19:30</option>
+  //               <option value="20:00">20:00</option>
+  //               <option value="20:30">20:30</option>
+  //               <option value="21:00">21:00</option>
+  //               <option value="21:30">21:30</option>
+  //               <option value="22:00">22:00</option>
+  //               <option value="22:30">22:30</option>
+  //               <option value="23:00">23:00</option>
+  //               <option value="23:30">23:30</option>
+  //             </select>
+  //           </div>
+  //         </div>
 
-          <div className="text-center mb-3">
-            <button
-              type="submit"
-              className="btn bg-black btn-block text-white z-depth-1a w-auto float-right mb-5"
-            >
-              Update Your Schedule
-            </button>
-          </div>
-        </form>
-      </div>
+  //         <div className="text-center mb-3">
+  //           <button
+  //             type="submit"
+  //             className="btn bg-black btn-block text-white z-depth-1a w-auto float-right mb-5"
+  //           >
+  //             Update Your Schedule
+  //           </button>
+  //         </div>
+  //       </form>
+  //     </div>
 
-      //<Redirect to='/profile' />
-    );
-  }
+  //     //<Redirect to='/profile' />
+  //   );
+  // }
 }
