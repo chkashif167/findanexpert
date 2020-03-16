@@ -29,23 +29,35 @@ class ProviderCodeConfirmation extends Component {
         return response.json();
       })
       .then(response => {
-        if (response.message === "Invalid code") {
-          toastr["error"]("Invalid code");
-        } else if (
-          response.message ===
-          "Activation code invalid/expired. Please try with valid code!"
-        ) {
-          toastr["error"](
-            "Activation code invalid/expired. Please try with valid code!"
-          );
-        } else if (response.statuscode === 200) {
+        if (response.statuscode === 200) {
           this.props.history.push({
             pathname: "/provider-authentication",
             state: response.message
           });
+        } else {
+          toastr["error"](response.message);
         }
       });
   }
+
+  //     .then(response => {
+  //       if (response.message === "Invalid code") {
+  //         toastr["error"]("Invalid code");
+  //       } else if (
+  //         response.message ===
+  //         "Activation code invalid/expired. Please try with valid code!"
+  //       ) {
+  //         toastr["error"](
+  //           "Activation code invalid/expired. Please try with valid code!"
+  //         );
+  //       } else if (response.statuscode === 200) {
+  //         this.props.history.push({
+  //           pathname: "/provider-authentication",
+  //           state: response.message
+  //         });
+  //       }
+  //     });
+  // }
 
   confirmationcode(e) {
     this.setState({ confirmationcode: e.target.value });

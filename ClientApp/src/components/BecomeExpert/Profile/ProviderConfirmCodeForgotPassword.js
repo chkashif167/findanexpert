@@ -7,28 +7,31 @@ class ProviderConfirmCodeForgotPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        resetcode: "",
-        codeConfirmed: false,
-        ccode: "",
-        password: "",
-        cpassword:""
-       };
+      resetcode: "",
+      codeConfirmed: false,
+      ccode: "",
+      password: "",
+      cpassword: ""
+    };
 
     this.handleChangeResetcode = this.handleChangeResetcode.bind(this);
     this.handleChangeResetPassword = this.handleChangeResetPassword.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this); 
-    this.handleSubmitReset = this.handleSubmitReset.bind(this); 
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitReset = this.handleSubmitReset.bind(this);
   }
 
   confirmResetCode(resetcode) {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ resetcode: resetcode, })
+      body: JSON.stringify({ resetcode: resetcode })
     };
     console.log(requestOptions);
 
-    return fetch(App.ApisBaseUrl + "/api/Reset/checkresetpasswordcodeV2", requestOptions)
+    return fetch(
+      App.ApisBaseUrl + "/api/Reset/checkresetpasswordcodeV2",
+      requestOptions
+    )
       .then(response => {
         return response.json();
       })
@@ -37,18 +40,16 @@ class ProviderConfirmCodeForgotPassword extends Component {
         if (response.statuscode == 200) {
           toastr["success"](response.message);
           this.setState({ codeConfirmed: true });
-
-        }
-        else {
-            toastr["error"](response.message); 
+        } else {
+          toastr["error"](response.message);
         }
       });
   }
   resetPasswored(ccode, password) {
-      if(this.state.password != this.state.cpassword) {
-        toastr["error"]("Password Fileds do not match");
-        return false
-      }
+    if (this.state.password != this.state.cpassword) {
+      toastr["error"]("Passwords do not match");
+      return false;
+    }
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -65,14 +66,10 @@ class ProviderConfirmCodeForgotPassword extends Component {
         if (response.statuscode == 200) {
           toastr["success"](response.message);
           this.props.history.push({
-            pathname:"/provider-authentication",
-        
-             
-           });
-
-        }
-        else {
-            toastr["error"](response.message); 
+            pathname: "/provider-authentication"
+          });
+        } else {
+          toastr["error"](response.message);
         }
       });
   }
@@ -80,34 +77,31 @@ class ProviderConfirmCodeForgotPassword extends Component {
   handleChangeResetcode(e) {
     this.setState({ resetcode: e.target.value });
   }
-  handleChangeResetPassword (e) {
-    this.setState({[e.target.name]: e.target.value})
+  handleChangeResetPassword(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const { resetcode } = this.state;
     this.confirmResetCode(resetcode);
-    this.setState({ccode: e.target.value})
-    
+    this.setState({ ccode: e.target.value });
   }
 
   handleSubmitReset(e) {
-    e.preventDefault(); 
-    const { ccode, password, resetcode  } = this.state;
-    this.resetPasswored(resetcode,password )
+    e.preventDefault();
+    const { ccode, password, resetcode } = this.state;
+    this.resetPasswored(resetcode, password);
   }
 
   render() {
-      if(this.state.codeConfirmed){
-        return this.resetPassword();
-        //return this.confirmCode();
-      }
-      else{
-       return this.confirmCode();
-       //return this.resetPassword();
-      }
-           
+    if (this.state.codeConfirmed) {
+      return this.resetPassword();
+      //return this.confirmCode();
+    } else {
+      return this.confirmCode();
+      //return this.resetPassword();
+    }
   }
 
   confirmCode() {
@@ -136,6 +130,14 @@ class ProviderConfirmCodeForgotPassword extends Component {
                         placeholder="Confirm Code"
                         required
                       />
+                      <p className="font-small blue-text d-flex justify-content-end">
+                        <a
+                          href="/provider-forgot-password"
+                          className="blue-text ml-1"
+                        >
+                          Resend Code
+                        </a>
+                      </p>
                     </div>
 
                     <div className="text-right pb-4">
@@ -155,8 +157,6 @@ class ProviderConfirmCodeForgotPassword extends Component {
       </div>
     );
   }
-
-
 
   resetPassword() {
     return (
@@ -227,7 +227,6 @@ class ProviderConfirmCodeForgotPassword extends Component {
       </div>
     );
   }
-
 }
 
 export default withRouter(ProviderConfirmCodeForgotPassword);

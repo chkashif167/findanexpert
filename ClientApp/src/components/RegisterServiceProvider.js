@@ -45,6 +45,28 @@ class RegisterService extends Component {
     );
     this.handleChangeGender = this.handleChangeGender.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    fetch(App.ApisBaseUrl + "/api/Policy/getprovidertermsandconditioncontent")
+      .then(response => {
+        console.log(response);
+        return response.json();
+      })
+      .then(response => {
+        if (response.statuscode == 200) {
+          this.setState({ termsandConditionContent: response });
+        }
+      });
+
+    fetch(App.ApisBaseUrl + "/api/Policy/getproviderprivacypolicycontent")
+      .then(response => {
+        console.log(response);
+        return response.json();
+      })
+      .then(response => {
+        if (response.statuscode == 200) {
+          this.setState({ privacyPolicyContent: response });
+        }
+      });
   }
 
   getInitialState = () => {
@@ -203,10 +225,17 @@ class RegisterService extends Component {
     //   toastr["error"]("Number is not allow in First Name");
     // }
     //////////////////////////////////////mobileField
-    // var mobileField = document.getElementById("mobileField");
-    // if (mobileField.value < 11 || mobileField.value > 11) {
-    //   toastr["error"]("Entery 11 number correct Mobile Number");
-    // }
+    var mobileField = document.getElementById("mobileField");
+    if (mobileField.value.length < 11 || mobileField.value.length > 11) {
+      toastr["error"]("Entery 11 digit correct mobile number");
+      return false;
+    }
+    //////////////////////////////////////passwordField
+    var passwordField = document.getElementById("passwordField");
+    if (passwordField.value.length < 8) {
+      toastr["error"]("Please enter at least 8 characters");
+      return false;
+    }
 
     const {
       firstname,
@@ -283,6 +312,7 @@ class RegisterService extends Component {
           <div className="form-row pb-3">
             <div class="col">
               <input
+                id="mobileField"
                 type="number"
                 name="mobile"
                 className="form-control validate"
@@ -340,11 +370,15 @@ class RegisterService extends Component {
                 value={this.state.address}
                 onChange={this.handleChangeAddress}
                 name="address"
-                required
               >
                 <option value="" selected>
                   Select an address
                 </option>
+                {!this.state.allAddresses && (
+                  <option value="" selected>
+                    Invalid Postal Code
+                  </option>
+                )}
                 {this.state.allAddresses &&
                   this.state.allAddresses.map(adr => (
                     <option
@@ -357,6 +391,19 @@ class RegisterService extends Component {
               </select>
             </div>
           </div>
+
+          {/* {!this.state.allAddresses && (
+            <div className="md-form pb-3">
+              <input
+                type="text"
+                name="address"
+                className="form-control validate"
+                placeholder=" Alternate Address"
+                value={this.state.address}
+                onChange={this.handleChangeAddress}
+              ></input>
+            </div>
+          )} */}
 
           <hr />
 
@@ -374,7 +421,7 @@ class RegisterService extends Component {
 
           <div className="md-form pb-3">
             <input
-              id="txtPassword"
+              id="passwordField"
               type="password"
               name="password"
               className="form-control validate"

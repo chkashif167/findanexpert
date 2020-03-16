@@ -32,18 +32,28 @@ class ProviderResendConfirmationCode extends Component {
         return response.json();
       })
       .then(response => {
-        console.log(response);
-        if (response.message === "No data found") {
-          toastr["error"]("No data found");
-        } else if (response.message === "Please enter a valid e-mail adress") {
-          toastr["error"]("Please enter a valid e-mail adress");
-        } else if (response.statuscode === 200) {
+        if (response.statuscode === 200) {
           this.props.history.push({
-            pathname: "/provider-authentication",
+            pathname: "/provider-code-confirmation",
             state: response.message
           });
+        } else {
+          toastr["error"](response.message);
         }
       });
+    // .then(response => {
+    //   console.log(response);
+    //   if (response.message === "No data found") {
+    //     toastr["error"]("No data found");
+    //   } else if (response.message === "Please enter a valid e-mail adress") {
+    //     toastr["error"]("Please enter a valid e-mail adress");
+    //   } else if (response.statuscode === 200) {
+    //     this.props.history.push({
+    //       pathname: "/provider-authentication",
+    //       state: response.message
+    //     });
+    //   }
+    // });
   }
 
   changeEmailHandler(e) {

@@ -95,6 +95,12 @@ class AuthenticateServiceProvider extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    //////////////////////////////////////passwordField
+    var passwordField = document.getElementById("passwordField");
+    if (passwordField.value.length < 8) {
+      toastr["error"]("Please enter at least 8 characters");
+      return false;
+    }
     const { username, password } = this.state;
     this.login(username, password);
   }
@@ -121,6 +127,7 @@ class AuthenticateServiceProvider extends Component {
 
           <div className="md-form pb-3">
             <input
+              id="passwordField"
               type="password"
               className="form-control validate"
               name="password"

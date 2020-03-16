@@ -10,11 +10,9 @@ class EditProviderProfile extends Component {
   constructor(props) {
     super(props);
 
-    if (localStorage.getItem("dob") == "0001-01-01") {
-      var providerDOB = new Date()
-        .toJSON()
-        .slice(0, 10)
-        .replace(/-/g, "/");
+    if (localStorage.getItem("dob") == "null") {
+      var providerDOB = new Date().toJSON().slice("T", 10);
+      // .replace(/-/g, "/");
     } else {
       var providerDOB = localStorage.getItem("dob").slice("T", 10);
     }
@@ -33,6 +31,7 @@ class EditProviderProfile extends Component {
       imagePreviewUrl: "",
       postalcode: localStorage.getItem("postalcode"),
       address: localStorage.getItem("address"),
+      customAddress: localStorage.getItem("address"),
       customerid: "0",
       serviceproviderid: "",
       dob: providerDOB
@@ -44,6 +43,7 @@ class EditProviderProfile extends Component {
     this.handleChangeMobile = this.handleChangeMobile.bind(this);
     this.handleChangePostalCode = this.handleChangePostalCode.bind(this);
     this.handleChangeAddress = this.handleChangeAddress.bind(this);
+    this.handleChangeCustomAddress = this.handleChangeCustomAddress.bind(this);
     this.handleChangeGenderPreference = this.handleChangeGenderPreference.bind(
       this
     );
@@ -189,6 +189,11 @@ class EditProviderProfile extends Component {
     this.setState({ address: e.target.value });
   }
 
+  handleChangeCustomAddress(e) {
+    this.setState({ customAddress: e.target.value });
+    this.setState({ address: e.target.value });
+  }
+
   handleChangeGender(e) {
     this.setState({ gender: e.target.value });
   }
@@ -225,6 +230,7 @@ class EditProviderProfile extends Component {
       gender,
       postalcode,
       address,
+
       dob
     } = this.state;
     this.UpdateProfile(
@@ -235,7 +241,6 @@ class EditProviderProfile extends Component {
       gender,
       postalcode,
       address,
-
       dob
     );
   }
@@ -330,6 +335,7 @@ class EditProviderProfile extends Component {
                 <option values={localStorage.getItem("address")} selected>
                   {localStorage.getItem("address")}
                 </option>
+
                 {this.state.allAddresses &&
                   this.state.allAddresses.map(adr => (
                     <option value={adr.replace("{", "").replace("}", "")}>
@@ -340,6 +346,22 @@ class EditProviderProfile extends Component {
             </div>
           </div>
 
+          <div className="form-row pb-3">
+            <div class="col">
+              <h5>
+                {" "}
+                <strong> Custom Address</strong>
+              </h5>
+              <input
+                type="text"
+                name="customAddress"
+                className="form-control validate frm-field"
+                placeholder="Custome Address"
+                value={this.state.customAddress}
+                onChange={this.handleChangeCustomAddress}
+              />
+            </div>
+          </div>
           <hr />
 
           <h5>Gender Preference</h5>
@@ -353,7 +375,7 @@ class EditProviderProfile extends Component {
               <option value={localStorage.getItem("genderpreference")}>
                 {providerGenderPreference}
               </option>
-              <option value="">-----------------</option>
+
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Others">Others</option>
@@ -373,7 +395,6 @@ class EditProviderProfile extends Component {
               <option value={localStorage.getItem("gender")}>
                 {providerGender}
               </option>
-              <option value="">-----------------</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Others">Others</option>

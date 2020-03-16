@@ -77,9 +77,15 @@ class ChangeProviderPassword extends Component {
     e.preventDefault();
     const { password, newpassword, confirmpassword } = this.state;
     //this.UpdatePassword(email, password, newpassword, confirmpassword);
+    //////////////////////////////////////passwordField
+    var passwordField = document.getElementById("passwordField");
+    if (passwordField.value.length < 8) {
+      toastr["error"]("Please enter at least 8 characters new password");
+      return false;
+    }
 
     if (this.state.newpassword != this.state.confirmpassword) {
-      toastr["error"]("New and confirm password does not match!");
+      toastr["error"]("Passowrd and confirm password does not match!");
     } else {
       this.UpdatePassword(password, newpassword, confirmpassword);
     }
@@ -126,6 +132,7 @@ class ChangeProviderPassword extends Component {
                     </div>
                     <div className="md-form pb-3">
                       <input
+                        id="passwordField"
                         type="password"
                         className="form-control validate frm-field"
                         name="password"
@@ -199,6 +206,7 @@ class ChangeProviderPassword extends Component {
                     </div>
                     <div className="md-form pb-3">
                       <input
+                        id="passwordField"
                         type="password"
                         className="form-control validate"
                         name="password"

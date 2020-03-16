@@ -19,7 +19,6 @@ export class ProviderAllServices extends Component {
     };
 
     var providerAccesstoken = localStorage.getItem("provideraccesstoken");
-    var providerId = localStorage.getItem("serviceproviderid");
 
     fetch(
       App.ApisBaseUrl +
@@ -32,16 +31,14 @@ export class ProviderAllServices extends Component {
         providerAccesstoken
     )
       .then(response => {
-        if (response.status == "404") {
-          this.setState({ noServices: response.status, found: true });
-          localStorage.setItem("providerServicesNotFound", response.status);
-        } else {
-          localStorage.removeItem("providerServicesNotFound");
-          return response.json();
-        }
+        return response.json();
       })
       .then(data => {
-        this.setState({ allServices: data.serviceslist, loading: false });
+        this.setState({
+          allServices: data.serviceslist,
+          loading: false,
+          found: true
+        });
       });
   }
 
@@ -72,13 +69,13 @@ export class ProviderAllServices extends Component {
             window.location = "/provider-services";
           }, 1000);
         } else {
-          toastr["error"](response.response);
+          toastr["error"](response.message);
         }
       });
   }
 
   render() {
-    if (localStorage.getItem("providerServicesNotFound") != "404") {
+    if (localStorage.getItem("isapproved") == "true") {
       let contents = this.state.loading ? (
         <p>
           <em>Loading...</em>
@@ -154,9 +151,12 @@ export class ProviderAllServices extends Component {
               <div class="row">
                 <div className="col-md-12">
                   <div className="pb-5">
-                    <h3 className="section-title pb-2">
-                      <strong>No Services</strong>
-                    </h3>
+                    <h5 className="section-title pb-2">
+                      <strong>
+                        Your Services will not show untill admin approve your
+                        account
+                      </strong>
+                    </h5>
                   </div>
 
                   <ProviderSelectServices />

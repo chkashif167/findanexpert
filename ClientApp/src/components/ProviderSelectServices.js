@@ -28,7 +28,7 @@ export class ProviderSelectServices extends Component {
     this.handleChangeAllServices = this.handleChangeAllServices.bind(this);
     // this.handleChangeServiceTypes = this.handleChangeServiceTypes.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    var providerAccesstoken = localStorage.getItem('provideraccesstoken');
+    var providerAccesstoken = localStorage.getItem("provideraccesstoken");
 
     fetch(
       App.ApisBaseUrl +
@@ -60,8 +60,7 @@ export class ProviderSelectServices extends Component {
   };
 
   AddServices(servicestypes) {
-
-    var providerAccesstoken = localStorage.getItem('provideraccesstoken');
+    var providerAccesstoken = localStorage.getItem("provideraccesstoken");
 
     const requestOptions = {
       method: "POST",
@@ -73,8 +72,7 @@ export class ProviderSelectServices extends Component {
       })
     };
 
-
-    console.log(requestOptions)
+    console.log(requestOptions);
 
     return fetch(App.ApisBaseUrl + "/api/Provider/addservices", requestOptions)
       .then(response => {
@@ -84,13 +82,12 @@ export class ProviderSelectServices extends Component {
       .then(response => {
         console.log(response);
         if (response.statuscode == 200) {
-           toastr["success"]("Your selected services are added successfully!");
+          toastr["success"]("Your selected services are added successfully!");
           setTimeout(function() {
             window.location = "/provider-services";
           }, 1000);
-        }
-        else {
-          toastr["error"](response.response);
+        } else {
+          toastr["error"](response.message);
         }
       });
   }
@@ -101,7 +98,6 @@ export class ProviderSelectServices extends Component {
     const selectedService = find(allServices, { categoryid });
 
     this.setState({ selectedService });
-  
   }
 
   // handleChangeServiceTypes(e) {
@@ -112,7 +108,6 @@ export class ProviderSelectServices extends Component {
   // }
 
   handleChangeTypeCheckboxes(value) {
-    
     const { selectedService } = this.state;
     const index = findIndex(this.array, v => {
       return value.servicetypeid === v;
