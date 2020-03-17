@@ -84,7 +84,6 @@ export class ProviderAllSchedules extends Component {
   }
 
   AddUnavailibility(date, from, to, providerAccesstoken) {
-    // console.log(this.state.unavailabilityList);
     const requestOptions = {
       method: "POST",
       headers: {
@@ -132,7 +131,7 @@ export class ProviderAllSchedules extends Component {
 
     var DAY = weekday[selectedDate.getDay()];
     var day = DAY.toLowerCase();
-    console.log(day);
+
     this.setState({ selectedDay: day });
 
     var checkDay = false;
@@ -140,6 +139,10 @@ export class ProviderAllSchedules extends Component {
 
     for (var i = 0; i < this.state.availableDays.length; i++) {
       if (this.state.availableDays[i].toLowerCase() == day.toLowerCase()) {
+        console.log(
+          this.state.availableDays[i].toLowerCase(),
+          day.toLowerCase()
+        );
         checkDay = true;
         this.setState({ date: " ", from: " ", to: " " });
       } else {
