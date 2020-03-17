@@ -132,6 +132,7 @@ export class ProviderAllSchedules extends Component {
 
     var DAY = weekday[selectedDate.getDay()];
     var day = DAY.toLowerCase();
+    console.log(day);
     this.setState({ selectedDay: day });
 
     var checkDay = false;
@@ -430,7 +431,9 @@ export class ProviderAllSchedules extends Component {
                           <div>
                             <div className="form-row mb-3">
                               <div class="col">
-                                <h4>{srv.availableday}</h4>
+                                <h4 style={{ textTransform: "capitalize" }}>
+                                  {srv.availableday}
+                                </h4>
                               </div>
                               <div class="col">
                                 <h4>{srv.timefrom}</h4>

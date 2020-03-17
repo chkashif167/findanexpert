@@ -165,7 +165,7 @@ export class ProviderSchedular extends Component {
     daysName.forEach(name => {
       const { isSelect, from, to } = days[name];
       if (isSelect) {
-        if (to <= from) {
+        if (to === "0:00" || from === "0:00" || to <= from) {
           return false;
         }
         dayTimeList.push({

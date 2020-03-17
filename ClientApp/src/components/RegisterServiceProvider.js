@@ -116,6 +116,8 @@ class RegisterService extends Component {
         deviceid: "id123",
         macaddress: "123",
         devicename: "web",
+        inclinic: false,
+        inhouses: true,
         istermsaccepted: true,
         isprivacyaccepted: true
       })

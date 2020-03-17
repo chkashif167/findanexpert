@@ -24,6 +24,7 @@ class EditProviderProfile extends Component {
       // phone: localStorage.getItem('phone'),
       mobile: localStorage.getItem("mobile"),
       genderpreference: localStorage.getItem("genderpreference"),
+      genderpreferenceArray: [],
       gender: localStorage.getItem("gender"),
       file: "",
       imagepath: "",
@@ -44,9 +45,9 @@ class EditProviderProfile extends Component {
     this.handleChangePostalCode = this.handleChangePostalCode.bind(this);
     this.handleChangeAddress = this.handleChangeAddress.bind(this);
     this.handleChangeCustomAddress = this.handleChangeCustomAddress.bind(this);
-    this.handleChangeGenderPreference = this.handleChangeGenderPreference.bind(
-      this
-    );
+    // this.handleChangeGenderPreference = this.handleChangeGenderPreference.bind(
+    //   this
+    // );
     this.handleChangeGender = this.handleChangeGender.bind(this);
     this.handleChangeImage = this.handleChangeImage.bind(this);
     this.handleChangeDOB = this.handleChangeDOB.bind(this);
@@ -153,7 +154,23 @@ class EditProviderProfile extends Component {
   }
 
   handleChangeGenderPreference(e) {
-    this.setState({ genderpreference: e.target.value });
+    if (e.target.checked) {
+      this.setState({ genderpreference: e.target.value });
+      this.state.genderpreferenceArray.push(e.target.value);
+      console.log(this.state.genderpreferenceArray);
+    } else {
+      let genderpreferenceArray = this.state.genderpreferenceArray;
+      let index = genderpreferenceArray.indexOf(e.target.value);
+      genderpreferenceArray.splice(index, 1);
+      console.log(this.state.genderpreferenceArray);
+    }
+    if (this.state.genderpreferenceArray.length === 2) {
+      this.setState({ genderpreference: "Both" });
+    } else {
+      this.setState({ genderpreference: e.target.value });
+    }
+
+    console.log(this.state.genderpreference);
   }
 
   handleChangePostalCode(e) {
@@ -172,15 +189,13 @@ class EditProviderProfile extends Component {
       requestOptions
     )
       .then(response => {
-        console.log(response);
         return response.json();
       })
       .then(response => {
-        console.log(response);
         if (response.statuscode == 200) {
-          console.log(response);
           this.setState({ allAddresses: response.get_address });
-          console.log(this.state.allAddresses);
+        } else {
+          this.setState({ allAddresses: "" });
         }
       });
   }
@@ -259,7 +274,6 @@ class EditProviderProfile extends Component {
         <div className="previewText">Please select an Image for Preview</div>
       );
     }
-    console.log(this.state.imagePreviewUrl.slice(23));
 
     if (localStorage.getItem("genderpreference") == "na") {
       var providerGenderPreference = "Others";
@@ -332,10 +346,17 @@ class EditProviderProfile extends Component {
                 value={this.state.address}
                 onChange={this.handleChangeAddress}
               >
-                <option values={localStorage.getItem("address")} selected>
+                {/* <option values={localStorage.getItem("address")} selected>
                   {localStorage.getItem("address")}
+                </option> */}
+                <option value="" selected>
+                  Select an address
                 </option>
-
+                {!this.state.allAddresses && (
+                  <option value="" selected>
+                    Invalid Postal Code
+                  </option>
+                )}
                 {this.state.allAddresses &&
                   this.state.allAddresses.map(adr => (
                     <option value={adr.replace("{", "").replace("}", "")}>
@@ -367,7 +388,7 @@ class EditProviderProfile extends Component {
           <h5>Gender Preference</h5>
 
           <div className="md-form pb-3">
-            <select
+            {/* <select
               className="form-control my-1 mr-sm-2 frm-field"
               value={this.state.genderpreference}
               onChange={this.handleChangeGenderPreference}
@@ -379,7 +400,25 @@ class EditProviderProfile extends Component {
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Others">Others</option>
-            </select>
+            </select> */}
+
+            <label style={{ fontWeight: "normal" }} className="pr-5">
+              <input
+                type="checkbox"
+                onChange={this.handleChangeGenderPreference.bind(this)}
+                value="Male"
+              />
+              Male
+            </label>
+
+            <label style={{ fontWeight: "normal" }}>
+              <input
+                type="checkbox"
+                onChange={this.handleChangeGenderPreference.bind(this)}
+                value="Female"
+              />
+              Female
+            </label>
           </div>
 
           <hr />
