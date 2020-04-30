@@ -14,7 +14,7 @@
     "bootstrap": "^3.3.7",
     "braintree-web-drop-in-react": "0.2.10",
     "formik": "^2.1.4",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.23",
