@@ -82,8 +82,7 @@ export class ProviderSidebarLinks extends Component {
     };
 
     if (!profileImage) {
-      var imgUrl =
-        "https://www.integraconference.info/wp-content/uploads/2018/03/placeholder-face-big-300x300.png";
+      var imgUrl = "https://via.placeholder.com/300";
       var imagePreview = (
         <img
           src={imgUrl}

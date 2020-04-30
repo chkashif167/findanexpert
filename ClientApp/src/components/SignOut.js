@@ -6,10 +6,11 @@ export class SignOut extends Component {
 
     render() {
 
-        localStorage.removeItem("customeraccesstoken");
+        localStorage.removeItem("provideraccesstoken");
         localStorage.removeItem("customerid");
         localStorage.removeItem("firstname");
-        localStorage.removeItem("surname");
+        localStorage.removeItem("lastname");
+        localStorage.removeItem("surename");
         localStorage.removeItem("email");
         localStorage.removeItem("phone");
         localStorage.removeItem("mobile");

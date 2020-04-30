@@ -2,11 +2,15 @@
 import { ProviderSidebarLinks } from "./SidebarLinks";
 import EditProviderProfile from "../../EditProviderProfile";
 import { BreadCrumbs } from "../../BreadCrumbs/BreadCrumbs";
+import { Redirect } from "react-router-dom";
 
 export class ProviderEditProfile extends Component {
   displayName = ProviderEditProfile.name;
 
   render() {
+    if (!localStorage.getItem("provideraccesstoken")) {
+      return <Redirect to={"/provider-authentication"} />;
+    }
     return (
       <div id="MainPageWrapper">
         <ProviderSidebarLinks />

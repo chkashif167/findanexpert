@@ -37,6 +37,7 @@ export class ProviderOutbox extends Component {
         return response.json();
       })
       .then(data => {
+        console.log("outbossssss", data);
         this.setState({ totalPages: data.emaillist });
         this.setState({ allMessages: data.emaillist, loading: false });
       });
@@ -202,10 +203,10 @@ export class ProviderOutbox extends Component {
                   encodeURIComponent(
                     "subject=" +
                       inbx.subject +
-                      "&from=" +
-                      inbx.from +
+                      "&receiver=" +
+                      inbx.receiver +
                       "&body=" +
-                      inbx.body
+                      inbx.emailbody
                   )
                 )
               }

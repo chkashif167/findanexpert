@@ -1,5 +1,5 @@
 ﻿import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { ProviderSidebarLinks } from "./SidebarLinks";
 import { ProviderAppointments } from "../Apointments/ProviderAppointments";
 import { BreadCrumbs } from "../../BreadCrumbs/BreadCrumbs";
@@ -17,6 +17,11 @@ export class ProviderProfile extends Component {
   }
 
   render() {
+
+    if (!localStorage.getItem("provideraccesstoken")) {
+      return <Redirect to={"/provider-authentication"} />;
+    }
+
     if (localStorage.getItem("genderpreference") == "na") {
       var providerGenderPreference = <p className="card-text">Other</p>;
     } else {
@@ -26,11 +31,9 @@ export class ProviderProfile extends Component {
     }
 
     if (localStorage.getItem("gender") == "na") {
-      var providerGender = <p className="card-text">Other</p>;
+      var providerGender = "Other";
     } else {
-      var providerGender = (
-        <p className="card-text">{localStorage.getItem("gender")}</p>
-      );
+      var providerGender = localStorage.getItem("gender");
     }
 
     var border = {
@@ -82,12 +85,12 @@ export class ProviderProfile extends Component {
                       </div>
                     </div>
 
-                    {/* <div className="col-md-6 pb-4">
-                                            <div className="profileBox info">
-                                                <h4 className="text-muted">Email Address</h4>
-                                                <h3>{localStorage.getItem("email")}</h3>
-                                            </div>
-                                        </div> */}
+                    <div className="col-md-6 pb-4">
+                      <div className="profileBox info">
+                        <h4 className="text-muted">Email Address</h4>
+                        <h3>{localStorage.getItem("email")}</h3>
+                      </div>
+                    </div>
 
                     <div className="col-md-6 pb-4">
                       <div className="profileBox info">

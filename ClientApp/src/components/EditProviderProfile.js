@@ -24,7 +24,7 @@ class EditProviderProfile extends Component {
       // phone: localStorage.getItem('phone'),
       mobile: localStorage.getItem("mobile"),
       genderpreference: localStorage.getItem("genderpreference"),
-      genderpreferenceArray: [],
+      // genderpreferenceArray: [],
       gender: localStorage.getItem("gender"),
       file: "",
       imagepath: "",
@@ -152,26 +152,44 @@ class EditProviderProfile extends Component {
   handleChangeMobile(e) {
     this.setState({ mobile: e.target.value });
   }
+  handleChangeGenderPreference = e => {
+    const { genderpreference } = this.state;
+    const { value } = e.target;
+    // if (e.target.checked) {
+    //   this.setState({ genderpreference: e.target.value });
+    //   this.state.genderpreferenceArray.push(e.target.value);
+    //   console.log(this.state.genderpreferenceArray);
+    // } else {
+    //   let genderpreferenceArray = this.state.genderpreferenceArray;
+    //   let index = genderpreferenceArray.indexOf(e.target.value);
+    //   genderpreferenceArray.splice(index, 1);
+    //   console.log(this.state.genderpreferenceArray);
+    // }
+    // if (this.state.genderpreferenceArray.length === 2) {
+    //   this.setState({ genderpreference: "Both" });
+    // } else {
+    //   this.setState({ genderpreference: e.target.value });
+    // }
+    console.log(genderpreference, value);
 
-  handleChangeGenderPreference(e) {
-    if (e.target.checked) {
-      this.setState({ genderpreference: e.target.value });
-      this.state.genderpreferenceArray.push(e.target.value);
-      console.log(this.state.genderpreferenceArray);
-    } else {
-      let genderpreferenceArray = this.state.genderpreferenceArray;
-      let index = genderpreferenceArray.indexOf(e.target.value);
-      genderpreferenceArray.splice(index, 1);
-      console.log(this.state.genderpreferenceArray);
+    if (
+      (genderpreference == "Male" && value == "Male") ||
+      (genderpreference == "Female" && value == "Female")
+    ) {
+      this.setState({ genderpreference: null });
+    } else if (!genderpreference) {
+      this.setState({ genderpreference: value });
+    } else if (
+      (genderpreference == "Male" && value == "Female") ||
+      (genderpreference == "Female" && value == "Male")
+    ) {
+      this.setState({ genderpreference: "both" });
+    } else if (genderpreference == "both" && value == "Female") {
+      this.setState({ genderpreference: "Male" });
+    } else if (genderpreference == "both" && value == "Male") {
+      this.setState({ genderpreference: "Female" });
     }
-    if (this.state.genderpreferenceArray.length === 2) {
-      this.setState({ genderpreference: "Both" });
-    } else {
-      this.setState({ genderpreference: e.target.value });
-    }
-
-    console.log(this.state.genderpreference);
-  }
+  };
 
   handleChangePostalCode(e) {
     this.setState({ postalcode: e.target.value });
@@ -405,8 +423,12 @@ class EditProviderProfile extends Component {
             <label style={{ fontWeight: "normal" }} className="pr-5">
               <input
                 type="checkbox"
-                onChange={this.handleChangeGenderPreference.bind(this)}
+                onChange={this.handleChangeGenderPreference}
                 value="Male"
+                checked={
+                  this.state.genderpreference === "Male" ||
+                  this.state.genderpreference === "both"
+                }
               />
               Male
             </label>
@@ -414,8 +436,12 @@ class EditProviderProfile extends Component {
             <label style={{ fontWeight: "normal" }}>
               <input
                 type="checkbox"
-                onChange={this.handleChangeGenderPreference.bind(this)}
+                onChange={this.handleChangeGenderPreference}
                 value="Female"
+                checked={
+                  this.state.genderpreference === "Female" ||
+                  this.state.genderpreference === "both"
+                }
               />
               Female
             </label>

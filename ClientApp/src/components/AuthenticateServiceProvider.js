@@ -26,45 +26,71 @@ class AuthenticateServiceProvider extends Component {
     this.login = this.login.bind(this);
   }
 
-  login(username, password, addressesList) {
+  login(username, password, sEmail) {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: username,
-        password: password,
-        devicetype: "None",
-        devicetoken: ""
+        password: password
       })
     };
     return fetch(App.ApisBaseUrl + "/api/SignIn/providersignin", requestOptions)
       .then(response => {
         return response.json();
       })
+
       .then(response => {
-        if (response.message == "Incorrect password, please try again.") {
-          toastr["error"]("Incorrect password, please try again.");
-        } else if (
-          response.message == "Email does not exist. Please sign up."
-        ) {
-          toastr["error"]("Email does not exist. Please sign up.");
-        } else if (response.message == "Please enter a valid e-mail adress") {
-          toastr["error"]("Please enter a valid e-mail adress");
-        } else if (
-          response.message ==
-          "Your email is not confirmed, Please confirm it first."
-        ) {
-          this.props.history.push({
-            pathname: "/provider-code-confirmation",
-            state: response.message
-          });
-        } else if (response.message == "Success") {
+        console.log("loginnnnnn", response);
+        // if (response.message == "Incorrect password, please try again.") {
+        //   toastr["error"]("Incorrect password, please try again.");
+        // } else if (
+        //   response.message == "Email does not exist. Please sign up."
+        // ) {
+        //   toastr["error"]("Email does not exist. Please sign up.");
+        // } else if (response.message == "Please enter a valid e-mail adress") {
+        //   toastr["error"]("Please enter a valid e-mail adress");
+        // } else if (
+        //   response.message ==
+        //   "Your email is not confirmed, Please confirm it first."
+        // ) {
+        //   this.props.history.push({
+        //     pathname: "/provider-code-confirmation",
+        //     state: response.message
+        //   });
+        // } else if (response.message == "Success") {
+        //   console.log("Response", response);
+        //   localStorage.setItem("provideraccesstoken", response.authtoken);
+        //   localStorage.setItem("serviceproviderid", response.serviceproviderid);
+        //   localStorage.setItem("firstname", response.firstname);
+        //   localStorage.setItem("lastname", response.lastname);
+        //   localStorage.setItem("email", sEmail);
+        //   localStorage.setItem(
+        //     "isaccountconfirmed",
+        //     response.isaccountconfirmed
+        //   );
+        //   localStorage.setItem("mobile", response.mobile);
+        //   localStorage.setItem("gender", response.gender);
+        //   localStorage.setItem("genderpreference", response.genderpreference);
+        //   localStorage.setItem("dob", response.dob);
+        //   localStorage.setItem("imagepath", response.imagepath);
+        //   localStorage.setItem("isapproved", response.isapproved);
+        //   localStorage.setItem("postalcode", response.postalcode);
+        //   localStorage.setItem("inhouse", response.inhouse);
+        //   localStorage.setItem("inclinic", response.inclinic);
+        //   localStorage.setItem("address", response.address);
+
+        //   this.props.history.push("/jobs");
+        // }
+
+
+        if (response.message == "Success") {
           console.log("Response", response);
           localStorage.setItem("provideraccesstoken", response.authtoken);
           localStorage.setItem("serviceproviderid", response.serviceproviderid);
           localStorage.setItem("firstname", response.firstname);
           localStorage.setItem("lastname", response.lastname);
-          localStorage.setItem("email", response.email);
+          localStorage.setItem("email", sEmail);
           localStorage.setItem(
             "isaccountconfirmed",
             response.isaccountconfirmed
@@ -81,6 +107,8 @@ class AuthenticateServiceProvider extends Component {
           localStorage.setItem("address", response.address);
 
           this.props.history.push("/jobs");
+        } else {
+          toastr["error"](response.message);
         }
       });
   }
@@ -102,7 +130,8 @@ class AuthenticateServiceProvider extends Component {
       return false;
     }
     const { username, password } = this.state;
-    this.login(username, password);
+    const sEmail = this.state.username;
+    this.login(username, password, sEmail);
   }
 
   render() {

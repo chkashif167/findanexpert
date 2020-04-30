@@ -2050,6 +2050,7 @@ box-show-bottom {
 section.customerProfile {
   position: relative;
   width: 100%;
+  min-height: 200px;
 }
 
 .topnav {
@@ -4695,3 +4696,18 @@ nav#main-nav {
   color: #495057;
   font-size: 16px;
 }
+
+.uploadDocss .imgPreview {     height: 100px;
+  width: 100px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 11px;
+  display: table;     
+   }
+.uploadDocss  .previewText {    display: table-cell; vertical-align: middle; }
+.uploadDocss .imgPreview img { height: 100px;  width: 100px;}
+.uploadDocss .docBlock:first-child { border-top:  1px solid #ddd; }
+.uploadDocss .docBlock { display: inline-block; width: 100%; border-bottom:  1px solid #ddd; padding:  15px 0;}
+.uploadDocss .docBlock h5 { padding: 0 !important; margin:  0px;}
+.uploadDocss .docBlock .blockLeft  { margin-top: 15px;}
+.uploadDocss .docBlock .blockLeft h5 span { color: red;}

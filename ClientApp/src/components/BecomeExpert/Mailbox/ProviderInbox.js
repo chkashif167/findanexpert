@@ -39,13 +39,15 @@ export class ProviderInbox extends Component {
         return response.json();
       })
       .then(data => {
-        console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy", data);
+        console.log("88888888888", data);
+        console.log("999999999", data.emaillist);
         this.setState({ totalPages: data.emaillist });
         this.setState({ allMessages: data.emaillist, loading: false });
       });
   }
 
   render() {
+    console.log("ssssssssssssss", this.state.allMessagess);
     if (this.state.allMessages) {
       let contents = this.state.loading ? (
         <div class="spinner-border text-center pt-2" role="status">
@@ -205,10 +207,10 @@ export class ProviderInbox extends Component {
                   encodeURIComponent(
                     "subject=" +
                       inbx.subject +
-                      "&from=" +
-                      inbx.from +
+                      "&sender=" +
+                      inbx.sender +
                       "&body=" +
-                      inbx.body
+                      inbx.emailbody
                   )
                 )
               }

@@ -2,6 +2,7 @@
 import { ProviderSidebarLinks } from "../Profile/SidebarLinks";
 import { BreadCrumbs } from "../../BreadCrumbs/BreadCrumbs";
 import App from "../../../App";
+import { Redirect } from "react-router-dom";
 
 export class ProviderEarnings extends Component {
   displayName = ProviderEarnings.name;
@@ -16,8 +17,8 @@ export class ProviderEarnings extends Component {
 
     fetch(
       App.ApisBaseUrl +
-        "/api/Provider/getearnings?authtoken=" +
-        providerAccesstoken
+      "/api/Provider/getearnings?authtoken=" +
+      providerAccesstoken
     )
       .then(response => {
         return response.json();
@@ -28,13 +29,16 @@ export class ProviderEarnings extends Component {
   }
 
   render() {
+    if (!localStorage.getItem("provideraccesstoken")) {
+      return <Redirect to={"/provider-authentication"} />;
+    }
     let contents = this.state.loading ? (
       <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
       </div>
     ) : (
-      this.ProviderAllearnings(this.state.allEarnings)
-    );
+        this.ProviderAllearnings(this.state.allEarnings)
+      );
     return <div>{contents}</div>;
   }
 

@@ -4,11 +4,15 @@ import { ProviderComposer } from "./ProviderComposer";
 import { ProviderOutbox } from "./ProviderOutbox";
 import { ProviderSidebarLinks } from "../Profile/SidebarLinks";
 import { BreadCrumbs } from "../../BreadCrumbs/BreadCrumbs";
+import { Redirect } from "react-router-dom";
 
 export class ProviderMailbox extends Component {
   displayName = ProviderMailbox.name;
 
   render() {
+    if (!localStorage.getItem("provideraccesstoken")) {
+      return <Redirect to={"/provider-authentication"} />;
+    }
     const search = window.location.search;
     const params = new URLSearchParams(search);
     const providerEmails = params.get("providerEmails");

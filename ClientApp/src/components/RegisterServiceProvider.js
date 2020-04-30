@@ -24,13 +24,20 @@ class RegisterService extends Component {
       postalcode: "",
       address: "",
       gender: "",
-      serviceproviderid: "0",
-      image: "",
+      // serviceproviderid: "0",
+      // image: "",
       privacyPolicyContent: "",
       termsandConditionContent: "",
-      registered: false,
-      modalMessage: "",
-      showModal: "hide"
+      // registered: false,
+      // modalMessage: "",
+      // showModal: "hide"
+      deviceid: "",
+      macaddress: "",
+      devicename: "",
+      inclinic: false,
+      inhouse: true,
+      istermsaccepted: true,
+      isprivacyaccepted: true
     };
 
     this.handleChangeFirstname = this.handleChangeFirstname.bind(this);
@@ -87,10 +94,14 @@ class RegisterService extends Component {
     postalcode,
     address,
     gender,
-    serviceproviderid,
-    image,
-    privacypolicyaccepted,
-    termsandconditionaccepted
+    // serviceproviderid,
+    // image,
+    // privacypolicyaccepted,
+    // termsandconditionaccepted
+    inclinic,
+    inhouse,
+    istermsaccepted,
+    isprivacyaccepted
   ) {
     if (this.state.password !== this.state.cpassword) {
       toastr["error"]("Password and Confirm Password not matching");
@@ -111,15 +122,15 @@ class RegisterService extends Component {
         PostalCode: postalcode,
         Address: address,
         Gender: gender,
-        ServiceProviderId: serviceproviderid,
-        Image: image,
-        deviceid: "id123",
-        macaddress: "123",
-        devicename: "web",
-        inclinic: false,
-        inhouses: true,
-        istermsaccepted: true,
-        isprivacyaccepted: true
+        // ServiceProviderId: serviceproviderid,
+        // Image: image,
+        deviceid: "deviceid123",
+        macaddress: "macaddress123",
+        devicename: "devicenameweb",
+        inclinic: inclinic,
+        inhouse: inhouse,
+        istermsaccepted: istermsaccepted,
+        isprivacyaccepted: isprivacyaccepted
       })
     };
     console.log("requestOptions", requestOptions);
@@ -128,7 +139,7 @@ class RegisterService extends Component {
         return response.json();
       })
       .then(response => {
-        console.log("response..", response);
+        console.log("registerrrrrrrrr", response);
         if (response.statuscode == 200) {
           this.props.history.push({
             pathname: "/provider-code-confirmation",
@@ -248,10 +259,14 @@ class RegisterService extends Component {
       postalcode,
       address,
       gender,
-      serviceproviderid,
-      image,
-      privacyPolicyContent,
-      termsandConditionContent
+      // serviceproviderid,
+      // image,
+      // privacyPolicyContent,
+      // termsandConditionContent,
+      inclinic,
+      inhouse,
+      istermsaccepted,
+      isprivacyaccepted
     } = this.state;
     this.Register(
       firstname,
@@ -262,10 +277,14 @@ class RegisterService extends Component {
       postalcode,
       address,
       gender,
-      serviceproviderid,
-      image,
-      privacyPolicyContent,
-      termsandConditionContent
+      // serviceproviderid,
+      // image,
+      // privacyPolicyContent,
+      // termsandConditionContent
+      inclinic,
+      inhouse,
+      istermsaccepted,
+      isprivacyaccepted
     );
   }
 

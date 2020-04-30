@@ -2,11 +2,15 @@
 import { ProviderSidebarLinks } from '../Profile/SidebarLinks';
 import { ProviderSchedular } from '../../ProviderSchedular';
 import { BreadCrumbs } from '../../BreadCrumbs/BreadCrumbs';
+import { Redirect } from "react-router-dom";
 
 export class EditSchedular extends Component {
     displayName = EditSchedular.name
 
     render() {
+        if (!localStorage.getItem("provideraccesstoken")) {
+            return <Redirect to={"/provider-authentication"} />;
+        }
         return (
 
             <div id="MainPageWrapper">
@@ -20,7 +24,7 @@ export class EditSchedular extends Component {
                             <div class="row">
 
                                 <div className="col-md-12 pt-5 pb-5">
-     
+
                                     <ProviderSchedular />
 
                                 </div>

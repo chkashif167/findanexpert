@@ -5,6 +5,7 @@ import { BreadCrumbs } from "../../BreadCrumbs/BreadCrumbs";
 import App from "../../../App";
 import toastr from "toastr";
 import _ from "lodash";
+import { Redirect } from "react-router-dom";
 
 export class ProviderAllSchedules extends Component {
   displayName = ProviderAllSchedules.name;
@@ -28,7 +29,6 @@ export class ProviderAllSchedules extends Component {
       selectedDate: "",
       from: "",
       to: "",
-      idToRemove: "",
 
       availableDays: [],
       availableTimeFrom: [],
@@ -47,8 +47,8 @@ export class ProviderAllSchedules extends Component {
 
     fetch(
       App.ApisBaseUrl +
-        "/api/Provider/getavailability?authtoken=" +
-        providerAccesstoken
+      "/api/Provider/getavailability?authtoken=" +
+      providerAccesstoken
     )
       .then(response => {
         return response.json();
@@ -70,8 +70,8 @@ export class ProviderAllSchedules extends Component {
 
     fetch(
       App.ApisBaseUrl +
-        "/api/Provider/getunavailability?authToken=" +
-        providerAccesstoken
+      "/api/Provider/getunavailability?authToken=" +
+      providerAccesstoken
     )
       .then(response => {
         return response.json();
@@ -109,7 +109,7 @@ export class ProviderAllSchedules extends Component {
         console.log(response);
         if (response.statuscode == 200) {
           toastr["success"]("Unavailablity added successfully!");
-          setTimeout(function() {
+          setTimeout(function () {
             window.location = "/provider-schedular";
           }, 1000);
         } else {
@@ -144,9 +144,8 @@ export class ProviderAllSchedules extends Component {
           day.toLowerCase()
         );
         checkDay = true;
-        this.setState({ date: " ", from: " ", to: " " });
-      } else {
         this.setState({ date: e.target.value });
+      } else {
       }
     }
 
@@ -207,10 +206,10 @@ export class ProviderAllSchedules extends Component {
       if (this.state.availableDays[i] == this.state.selectedDay) {
         for (var j = 0; j < this.state.availableTimeFrom.length; j++) {
           if (i == j) {
-            if (e.target.value > this.state.availableTimeFrom[j]) {
+            if (e.target.value >= this.state.availableTimeFrom[j]) {
               for (var k = 0; k < this.state.availableTimeTo.length; k++) {
                 if (j == k) {
-                  if (e.target.value < this.state.availableTimeTo[k]) {
+                  if (e.target.value <= this.state.availableTimeTo[k]) {
                     this.setState({ from: e.target.value });
                     checkTimeFrom = true;
                   } else {
@@ -243,7 +242,7 @@ export class ProviderAllSchedules extends Component {
     }
     if (!checkTimeFrom) {
       toastr["error"](
-        "You selected Time does not match your availibility! Please another one."
+        "You selected Time does not match your availibility! Please Select another one."
       );
     }
   }
@@ -266,8 +265,8 @@ export class ProviderAllSchedules extends Component {
         for (var k = 0; k < this.state.availableTimeTo.length; k++) {
           if (i == k) {
             if (
-              e.target.value > this.state.from &&
-              e.target.value < this.state.availableTimeTo[k]
+              e.target.value >= this.state.from &&
+              e.target.value <= this.state.availableTimeTo[k]
             ) {
               this.setState({ to: e.target.value });
               checkTimeTo = true;
@@ -332,7 +331,7 @@ export class ProviderAllSchedules extends Component {
       .then(response => {
         if (response.statuscode == 200) {
           toastr["success"]("Unavailibility has been removed!");
-          setTimeout(function() {
+          setTimeout(function () {
             window.location = "/provider-schedular";
           }, 1000);
         } else {
@@ -342,16 +341,17 @@ export class ProviderAllSchedules extends Component {
   }
 
   render() {
-    return (
-      <>
-        {/* {this.ProviderNoUnAvailibility(
-        this.state.serviceprovideravailability)} */}
-        {this.ProviderAllSchedule(
-          this.state.serviceprovideravailability,
-          this.state.unavailabilityList
-        )}
-      </>
-    );
+    if (!localStorage.getItem("provideraccesstoken")) {
+      return <Redirect to={"/provider-authentication"} />;
+    }
+    if (this.state.serviceprovideravailability) {
+      return this.ProviderAllSchedule(
+        this.state.serviceprovideravailability,
+        this.state.unavailabilityList
+      );
+    } else {
+      return this.ProviderNoAvailibility();
+    }
   }
 
   ProviderNoAvailibility() {
@@ -374,9 +374,9 @@ export class ProviderAllSchedules extends Component {
                   </div>
 
                   <div className="AvailibilityWrap">
-                    <h3 className="section-title pb-2">
+                    <h5 className="section-title pb-2">
                       <strong>Your schedule is empty</strong>
-                    </h3>
+                    </h5>
                   </div>
                 </div>
               </div>

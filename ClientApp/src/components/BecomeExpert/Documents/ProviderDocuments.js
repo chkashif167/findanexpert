@@ -4,6 +4,7 @@ import { ProviderAddDocuments } from "../../ProviderAddDocuments";
 import { BreadCrumbs } from "../../BreadCrumbs/BreadCrumbs";
 import App from "../../../App";
 import toastr from "toastr";
+import { Link, Redirect } from "react-router-dom";
 
 export class ProviderDocuments extends Component {
   displayName = ProviderDocuments.name;
@@ -20,8 +21,8 @@ export class ProviderDocuments extends Component {
 
     fetch(
       App.ApisBaseUrl +
-        "/api/Provider/getdocuments?authToken=" +
-        providerAccesstoken
+      "/api/Provider/getdocuments?authToken=" +
+      providerAccesstoken
     )
       .then(response => {
         return response.json();
@@ -68,7 +69,7 @@ export class ProviderDocuments extends Component {
         console.log(response);
         if (response.statuscode == 200) {
           toastr["success"]("Document has been removed!");
-          setTimeout(function() {
+          setTimeout(function () {
             window.location = "/provider-documents";
           }, 1000);
         } else {
@@ -78,6 +79,9 @@ export class ProviderDocuments extends Component {
   }
 
   render() {
+    if (!localStorage.getItem("provideraccesstoken")) {
+      return <Redirect to={"/provider-authentication"} />;
+    }
     return this.ProviderAlldocuments(this.state.allDocuments);
     // if (localStorage.getItem("providerDocumentNotFound") != "404") {
     //   let contents = this.state.loading ? (

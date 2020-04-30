@@ -3,7 +3,8 @@ import { ProviderSidebarLinks } from "./SidebarLinks";
 // import { BreadCrumbs } from "../../BreadCrumbs/BreadCrumbs";
 import App from "../../../App";
 import toastr from "toastr";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
+
 
 class ChangeProviderPassword extends Component {
   displayName = ChangeProviderPassword.name;
@@ -92,6 +93,9 @@ class ChangeProviderPassword extends Component {
   }
 
   render() {
+    if (!localStorage.getItem("provideraccesstoken")) {
+      return <Redirect to={"/provider-authentication"} />;
+    }
     if (localStorage.getItem("providerPasswordUpdateStatus") == "200") {
       let contents = this.state.update
         ? this.PasswordUpdated(this.state.Updated)

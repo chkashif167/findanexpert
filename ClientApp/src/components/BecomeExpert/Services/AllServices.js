@@ -1,5 +1,6 @@
 ﻿import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import { Redirect } from "react-router-dom";
 import { ProviderSidebarLinks } from "../Profile/SidebarLinks";
 import { ProviderSelectServices } from "../../ProviderSelectServices";
 import { BreadCrumbs } from "../../BreadCrumbs/BreadCrumbs";
@@ -22,13 +23,13 @@ export class ProviderAllServices extends Component {
 
     fetch(
       App.ApisBaseUrl +
-        "/api/Provider/getservices?serviceProviderId=" +
-        "&pagenumber=" +
-        1 +
-        "&pagesize=" +
-        15 +
-        "&authToken=" +
-        providerAccesstoken
+      "/api/Provider/getservices?serviceProviderId=" +
+      "&pagenumber=" +
+      1 +
+      "&pagesize=" +
+      15 +
+      "&authToken=" +
+      providerAccesstoken
     )
       .then(response => {
         return response.json();
@@ -65,7 +66,7 @@ export class ProviderAllServices extends Component {
       .then(response => {
         if (response.statuscode == 200) {
           toastr["success"]("Service has been removed.");
-          setTimeout(function() {
+          setTimeout(function () {
             window.location = "/provider-services";
           }, 1000);
         } else {
@@ -75,23 +76,26 @@ export class ProviderAllServices extends Component {
   }
 
   render() {
+    if (!localStorage.getItem("provideraccesstoken")) {
+      return <Redirect to={"/provider-authentication"} />;
+    }
     if (localStorage.getItem("isapproved") == "true") {
       let contents = this.state.loading ? (
         <p>
           <em>Loading...</em>
         </p>
       ) : (
-        this.ProviderAllServices(this.state.allServices)
-      );
+          this.ProviderAllServices(this.state.allServices)
+        );
       return <div>{contents}</div>;
     } else {
       let contents = this.state.found ? (
         this.ProviderNoServices(this.state.noServices)
       ) : (
-        <p>
-          <em>Loading...</em>
-        </p>
-      );
+          <p>
+            <em>Loading...</em>
+          </p>
+        );
       return <div>{contents}</div>;
     }
   }
