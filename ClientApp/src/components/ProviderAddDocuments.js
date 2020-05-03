@@ -39,15 +39,15 @@ export class ProviderAddDocuments extends Component {
         [
           {
             "requestdocid": 1,
-            "documentname": "Income Certificate"
+            "documentname": "Qualification"
           },
           {
             "requestdocid": 2,
-            "documentname": "Tax Certificate"
+            "documentname": "Insurance Certificate"
           },
           {
             "requestdocid": 3,
-            "documentname": "Police  Clearance Certificate"
+            "documentname": "Criminal Clearance Certificate"
           }
         ]
 
@@ -65,20 +65,20 @@ export class ProviderAddDocuments extends Component {
       })
       .then(data => {
 
-        this.setState({ requestedDocuments: data.requestdocuments, loading: false });
+        this.setState({ requestedDocuments: data.requestdocuments });
       });
 
 
   }
 
-  getInitialState = () => {
-    const initialState = {};
-    return initialState;
-  };
+  // getInitialState = () => {
+  //   const initialState = {};
+  //   return initialState;
+  // };
 
-  resetState = () => {
-    this.setState(this.getInitialState());
-  };
+  // resetState = () => {
+  //   this.setState(this.getInitialState());
+  // };
 
   UploadDocument() {
     var providerAccesstoken = localStorage.getItem("provideraccesstoken");
@@ -145,7 +145,7 @@ export class ProviderAddDocuments extends Component {
 
 
 
-  handleChangeFileUpload = (e, recdoc) => {
+  handleChangeFileUpload = (e, doc) => {
 
     e.preventDefault();
     this.setState({ [e.target.name]: e.target.value })
@@ -154,13 +154,8 @@ export class ProviderAddDocuments extends Component {
     let file = e.target.files[0];
     console.log(e.target.files[0])
     reader.onloadend = () => {
-      this.setState({
-        insuranceFile: file,
-        insuranceFileUrl: reader.result,
-
-      });
       var docs = this.state.documentsCode.map(code => {
-        if (code.requestdocid === recdoc.requestdocid) {
+        if (code.requestdocid === doc.requestdocid) {
           return {
             ...code, image: reader.result
           }
@@ -183,12 +178,7 @@ export class ProviderAddDocuments extends Component {
     let file = e.target.files[0];
     console.log(e.target.files[0])
     reader.onloadend = () => {
-      this.setState({
-        insuranceFile: file,
-        insuranceFileUrl: reader.result,
-
-      });
-      var docs = this.state.requestedDocuments.map(code => {
+      var reddocs = this.state.requestedDocuments.map(code => {
         if (code.requestdocid === recdoc.requestdocid) {
           return {
             ...code, image: reader.result
@@ -196,7 +186,7 @@ export class ProviderAddDocuments extends Component {
         }
         return code;
       })
-      this.setState({ documentsCode: docs })
+      this.setState({ requestedDocuments: reddocs })
     };
 
     reader.readAsDataURL(file);
@@ -216,7 +206,6 @@ export class ProviderAddDocuments extends Component {
   }
 
   render() {
-    console.log("sssssssssss", this.state.documentsCode)
     // let contents = this.state.upload
     //   ? this.UpdatedProviderDocument(this.state.uploadedDocument)
     //   : this.ProviderDocument();
@@ -225,46 +214,6 @@ export class ProviderAddDocuments extends Component {
   }
 
   ProviderDocument() {
-    let { qualificationFileUrl, insuranceFileUrl, clearanceFileUrl, otherFileUrl } = this.state;
-    let $qualificationFilePreview = null;
-    let $insuranceFilePreview = null;
-    let $clearanceFilePreview = null;
-    let $otherFilePreview = null;
-
-    if (qualificationFileUrl) {
-      $qualificationFilePreview = <img src={qualificationFileUrl} />;
-    } else {
-      $qualificationFilePreview = (
-        <div className="previewText">Image Preview</div>
-      );
-    }
-
-    if (insuranceFileUrl) {
-      $insuranceFilePreview = <img src={insuranceFileUrl} />;
-    } else {
-      $insuranceFilePreview = (
-        <div className="previewText">Image Preview</div>
-      );
-    }
-
-    if (clearanceFileUrl) {
-      $clearanceFilePreview = <img src={clearanceFileUrl} />;
-    } else {
-      $clearanceFilePreview = (
-        <div className="previewText">Image Preview</div>
-      );
-    }
-
-    if (otherFileUrl) {
-      $otherFilePreview = <img src={otherFileUrl} />;
-    } else {
-      $otherFilePreview = (
-        <div className="previewText">Image Preview</div>
-      );
-    }
-
-
-
 
     return (
       <div className="Register coloredBox uploadDocss">
@@ -274,12 +223,12 @@ export class ProviderAddDocuments extends Component {
         <form onSubmit={this.handleSubmit}>
 
           {this.state.documentsCode &&
-            this.state.documentsCode.map(recdocs => (
+            this.state.documentsCode.map(doc => (
               <div className="docBlock">
 
                 <div class="form-group pb-3">
                   <div className="pull-left blockLeft">
-                    <h5 style={{ fontWeight: "bold" }}> Upload {recdocs.documentname} </h5>
+                    <h5 style={{ fontWeight: "bold" }}> Upload {doc.documentname} </h5>
                     <label style={{ fontSize: "11px" }} for="exampleFormControlFile1">
 
                     </label>
@@ -287,12 +236,12 @@ export class ProviderAddDocuments extends Component {
                       type="file"
                       class="form-control-file frm-field"
                       name="image"
-                      onChange={(e) => this.handleChangeFileUpload(e, recdocs)}
+                      onChange={(e) => this.handleChangeFileUpload(e, doc)}
                       required
                     />
 
                   </div>
-                  <div className="imgPreview pull-right">{recdocs.image ? <img src={recdocs.image} /> :
+                  <div className="imgPreview pull-right">{doc.image ? <img src={doc.image} /> :
                     <div className="previewText">Image Preview</div>}</div>
                 </div>
 
@@ -307,12 +256,12 @@ export class ProviderAddDocuments extends Component {
           </p>
 
           {this.state.requestedDocuments &&
-            this.state.requestedDocuments.map(recdocs => (
+            this.state.requestedDocuments.map(recdoc => (
               <div className="docBlock">
 
                 <div class="form-group pb-3">
                   <div className="pull-left blockLeft">
-                    <h5 style={{ fontWeight: "bold" }}> Upload {recdocs.documentname} </h5>
+                    <h5 style={{ fontWeight: "bold" }}> Upload {recdoc.documentname} </h5>
                     <label style={{ fontSize: "11px" }} for="exampleFormControlFile1">
 
                     </label>
@@ -320,12 +269,12 @@ export class ProviderAddDocuments extends Component {
                       type="file"
                       class="form-control-file frm-field"
                       name="image"
-                      onChange={(e) => this.handleChangeRequestedFileUpload(e, recdocs)}
+                      onChange={(e) => this.handleChangeRequestedFileUpload(e, recdoc)}
                       required
                     />
 
                   </div>
-                  <div className="imgPreview pull-right">{recdocs.image ? <img src={recdocs.image} /> :
+                  <div className="imgPreview pull-right">{recdoc.image ? <img src={recdoc.image} /> :
                     <div className="previewText">Image Preview</div>}</div>
                 </div>
 
