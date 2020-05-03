@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import App from "../App";
 import toastr from "toastr";
-import jsonToFormData from "json-form-data"
 
 export class ProviderAddDocuments extends Component {
   displayName = ProviderAddDocuments.name;
@@ -13,112 +12,47 @@ export class ProviderAddDocuments extends Component {
     this.state = {
       serviceproviderid: "",
       doctype: "",
-
-      qualificationFile: "",
-      insuranceFile: "",
-      clearanceFile: "",
-      otherFile: "",
-
-      qualificationFileUrl: "",
-      insuranceFileUrl: "",
-      clearanceFileUrl: "",
-      otherFileUrl: "",
-
-      qualificationFileUri: "",
-      insuranceFileUri: "",
-      clearanceFileUri: "",
-      otherFileUri: "",
-
-      expirydate: "",
-
-      requestedDocuments: "",
-
-      upload: false,
-
-      docCounter: 3,
-
-      documentsCode:
-        [
-          {
-            "requestdocid": 1,
-            "documentname": "Qualification"
-          },
-          {
-            "requestdocid": 2,
-            "documentname": "Insurance Certificate"
-          },
-          {
-            "requestdocid": 3,
-            "documentname": "Criminal Clearance Certificate"
-          }
-        ]
-
+      file: "",
+      base64Image: "",
+      imagePreviewUrl: "",
+      upload: false
     };
 
+    this.handleChangeDoctype = this.handleChangeDoctype.bind(this);
+    this.handleChangeImage = this.handleChangeImage.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    var providerAccesstoken = localStorage.getItem("provideraccesstoken");
-    fetch(
-      App.ApisBaseUrl +
-      "/api/Provider/getrequestdocuments?authToken=" +
-      providerAccesstoken
-    )
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-
-        this.setState({ requestedDocuments: data.requestdocuments });
-      });
-
-
   }
 
-  // getInitialState = () => {
-  //   const initialState = {};
-  //   return initialState;
-  // };
+  getInitialState = () => {
+    const initialState = {};
+    return initialState;
+  };
 
-  // resetState = () => {
-  //   this.setState(this.getInitialState());
-  // };
+  resetState = () => {
+    this.setState(this.getInitialState());
+  };
 
-  UploadDocument() {
-    this.state.docCounter = this.state.requestedDocuments.length + this.state.documentsCode.length
-    console.log(this.state.docCounter);
+  UploadDocument(serviceproviderid, doctype, imagePreviewUrl) {
+    // var providerAccesstoken =
+
+    //   "ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnVZVzFsYVdRaU9pSXhNRFFpTENKbGJXRnBiQ0k2SW10aGMyaHBaa0J0WVdsc2FXNWhkRzl5TG1OdmJTSXNJbkp2YkdVaU9pSlFjbTkyYVdSbGNpSXNJa2x6Vm1Gc2FXUWlPaUowY25WbElpd2libUptSWpveE5UZ3pNelEzTmpZNExDSmxlSEFpT2pFMk1UYzVNRFF3Tmpnc0ltbGhkQ0k2TVRVNE16TTBOelkyT0N3aWFYTnpJam9pWm1sdVpHRnVaWGh3WlhKMExtNWxkQ0lzSW1GMVpDSTZJbVpwYm1SaGJtVjRjR1Z5ZEM1dVpYUWlmUS5nc04wTm4ySjY5WEVvT19sVnVEZ1pyT3NKZ3dXMklXUFBaem9NbVFYUVc0";
     var providerAccesstoken = localStorage.getItem("provideraccesstoken");
-
-    formData = {
-      providerdocuments: [
-        {
-          doctype: "Qualifcation",
-          image: this.state.qualificationFile,
-          expirydate: "",
-          requestdocid: "1"
-        },
-        {
-          doctype: "Insurance",
-          image: this.state.insuranceFile,
-          expirydate: "",
-          requestdocid: "2"
-        },
-
-        {
-          doctype: "Clearnce",
-          image: this.state.clearanceFile,
-          expirydate: "",
-          requestdocid: "4"
-        }
-      ],
-      authtoken: providerAccesstoken
-
-
-    }
-
-    var formData = jsonToFormData(formData)
-    // const formData = new FormData();
-    //formData.append("image", this.state.file);
-    // formData.append("providerdocuments",
-    //formData.append("authtoken", providerAccesstoken);
+    // var serviceproviderid = localStorage.getItem("serviceproviderid");
+    // var bse64String = this.state.imagePreviewUrl.slice(22);
+    // const requestOptions = {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({
+    //     serviceproviderid: serviceproviderid,
+    //     doctype: doctype,
+    //     base64Image: bse64String,
+    //     authtoken: providerAccesstoken
+    //   })
+    // };
+    const formData = new FormData();
+    formData.append("image", this.state.file);
+    formData.append("docType", doctype);
+    formData.append("authtoken", providerAccesstoken);
 
     const requestOptions = {
       method: "POST",
@@ -147,66 +81,33 @@ export class ProviderAddDocuments extends Component {
       });
   }
 
+  handleChangeDoctype(e) {
+    this.setState({ doctype: e.target.value });
+  }
 
-
-  handleChangeFileUpload = (e, doc) => {
+  handleChangeImage(e) {
+    //this.setState({ image: e.target.value });
 
     e.preventDefault();
-    this.setState({ [e.target.name]: e.target.value })
-    console.log(e.target.name);
+
     let reader = new FileReader();
     let file = e.target.files[0];
-    console.log(e.target.files[0])
+
     reader.onloadend = () => {
-      var docs = this.state.documentsCode.map(code => {
-        if (code.requestdocid === doc.requestdocid) {
-          return {
-            ...code, image: reader.result
-          }
-        }
-        return code;
-      })
-      this.setState({ documentsCode: docs })
+      this.setState({
+        file: file,
+        imagePreviewUrl: reader.result
+      });
     };
 
     reader.readAsDataURL(file);
 
   }
-
-  handleChangeRequestedFileUpload = (e, recdoc) => {
-
-    e.preventDefault();
-    this.setState({ [e.target.name]: e.target.value })
-    console.log(e.target.name);
-    let reader = new FileReader();
-    let file = e.target.files[0];
-    console.log(e.target.files[0])
-    reader.onloadend = () => {
-      var reddocs = this.state.requestedDocuments.map(code => {
-        if (code.requestdocid === recdoc.requestdocid) {
-          return {
-            ...code, image: reader.result
-          }
-        }
-        return code;
-      })
-      this.setState({ requestedDocuments: reddocs })
-    };
-
-    reader.readAsDataURL(file);
-
-  }
-
-
-  handleChangeExpiry(e) {
-    e.preventDefault();
-    this.setState({ expirydate: this })
-  }
-
 
   handleSubmit(e) {
     e.preventDefault();
-    this.UploadDocument();
+    const { serviceproviderid, doctype, imagePreviewUrl } = this.state;
+    this.UploadDocument(serviceproviderid, doctype, imagePreviewUrl);
   }
 
   render() {
@@ -218,6 +119,16 @@ export class ProviderAddDocuments extends Component {
   }
 
   ProviderDocument() {
+    let { imagePreviewUrl } = this.state;
+    let $imagePreview = null;
+    if (imagePreviewUrl) {
+      $imagePreview = <img src={imagePreviewUrl} />;
+    } else {
+      $imagePreview = (
+        <div className="previewText">Image Preview</div>
+      );
+    }
+    console.log(this.state.imagePreviewUrl.slice(23));
 
     return (
       <div className="Register coloredBox uploadDocss">
@@ -225,70 +136,117 @@ export class ProviderAddDocuments extends Component {
           Add your <span className="text-red">Documents</span>
         </p>
         <form onSubmit={this.handleSubmit}>
+          {/* <div className="md-form pb-3">
+            <select
+              className="form-control frm-field"
+              value={this.state.doctype}
+              onChange={this.handleChangeDoctype}
+              required
+            >
+              <option value="" selected>
+                Please Select an Image
+              </option>
+              <option value="degree">Degree</option>
+              <option value="certificate">Certificate</option>
+              <option value="other">Other</option>
+            </select>
+          </div> */}
+          <div className="docBlock">
 
-          {this.state.documentsCode &&
-            this.state.documentsCode.map(doc => (
-              <div className="docBlock">
+            <div class="form-group pb-3">
 
-                <div class="form-group pb-3">
-                  <div className="pull-left blockLeft">
-                    <h5 style={{ fontWeight: "bold" }}> Upload {doc.documentname} </h5>
-                    <label style={{ fontSize: "11px" }} for="exampleFormControlFile1">
+              <div className="pull-left blockLeft">
+                <h5 style={{ fontWeight: "bold" }}> <span> * </span> Upload Qualification </h5>
+                <label style={{ fontSize: "11px" }} for="exampleFormControlFile1">
 
-                    </label>
-                    <input
-                      type="file"
-                      class="form-control-file frm-field"
-                      name="image"
-                      onChange={(e) => this.handleChangeFileUpload(e, doc)}
-                      required
-                    />
+                </label>
+                <input
+                  type="file"
+                  class="form-control-file frm-field"
+                  name="image"
+                  onChange={this.handleChangeImage}
+                  required
+                />
+              </div>
+              <div className="imgPreview pull-right">{$imagePreview}</div>
+            </div>
 
-                  </div>
-                  <div className="imgPreview pull-right">{doc.image ? <img src={doc.image} /> :
-                    <div className="previewText">Image Preview</div>}</div>
-                </div>
+          </div>
+
+          <div className="docBlock">
+
+            <div class="form-group pb-3">
+
+              <div className="pull-left blockLeft">
+                <h5 style={{ fontWeight: "bold" }}> <span> * </span> Upload Insurance Certificate</h5>
+                <label style={{ fontSize: "11px" }} for="exampleFormControlFile1">
+
+                </label>
+                <input
+                  type="file"
+                  class="form-control-file frm-field"
+                  name="image"
+                  onChange={this.handleChangeImage}
+                  required
+                />
+                <br />
+                <label for="birthday"> <span> * </span>   Enter Expiry</label> <br />
+                <input type="date" id="expirydate" name="expirydate"></input>
+              </div>
+              <div className="imgPreview pull-right">{$imagePreview}</div>
+            </div>
+
+          </div>
+
+          <div className="docBlock">
+
+            <div class="form-group pb-3">
+              <div className="pull-left blockLeft">
+                <h5 style={{ fontWeight: "bold" }}> <span> * </span> Upload Criminal Clearance Certificate</h5>
+                <label style={{ fontSize: "11px" }} for="exampleFormControlFile1">
+
+                </label>
+                <input
+                  type="file"
+                  class="form-control-file frm-field"
+                  name="image"
+                  onChange={this.handleChangeImage}
+                  required
+                />
 
               </div>
-            ))}
+              <div className="imgPreview pull-right">{$imagePreview}</div>
+            </div>
+
+          </div>
 
 
+          <div className="docBlock">
 
-
-          <p className="font-weight-bold mb-5">
-            Other <span className="text-red">Documents</span>
-          </p>
-
-          {this.state.requestedDocuments &&
-            this.state.requestedDocuments.map(recdoc => (
-              <div className="docBlock">
-
-                <div class="form-group pb-3">
-                  <div className="pull-left blockLeft">
-                    <h5 style={{ fontWeight: "bold" }}> Upload {recdoc.documentname} </h5>
-                    <label style={{ fontSize: "11px" }} for="exampleFormControlFile1">
-
-                    </label>
-                    <input
-                      type="file"
-                      class="form-control-file frm-field"
-                      name="image"
-                      onChange={(e) => this.handleChangeRequestedFileUpload(e, recdoc)}
-                      required
-                    />
-
-                  </div>
-                  <div className="imgPreview pull-right">{recdoc.image ? <img src={recdoc.image} /> :
-                    <div className="previewText">Image Preview</div>}</div>
-                </div>
+            <div class="form-group pb-3">
+              <div className="pull-left blockLeft">
+                <h5 style={{ fontWeight: "bold" }}> Upload Others </h5>
+                <label style={{ fontSize: "11px" }} for="exampleFormControlFile1">
+                  Upload Document (PNG Format)
+            </label>
+                <input
+                  type="file"
+                  class="form-control-file frm-field"
+                  name="image"
+                  onChange={this.handleChangeImage}
+                  required
+                />
 
               </div>
-            ))}
+              <div className="imgPreview pull-right">{$imagePreview}</div>
+            </div>
+
+          </div>
 
 
 
 
-          < div className="text-center mb-5" >
+          <div className="text-center mb-5">
             <button
               type="submit"
               className="btn bg-black btn-block text-white z-depth-1a w-auto float-right"
@@ -300,9 +258,57 @@ export class ProviderAddDocuments extends Component {
         </form>
 
 
-      </div >
+      </div>
     );
   }
 
+  // UpdatedProviderDocument(uploadedDocument) {
+  //   return (
+  //     <div>
+  //       <div class="spinner-border text-center pt-3 pb-3" role="status">
+  //         <span class="sr-only">Loading...</span>
+  //       </div>
 
+  //       <form onSubmit={this.handleSubmit} enctype="multipart/form-data">
+  //         <div className="md-form pb-3">
+  //           <select
+  //             className="form-control frm-field"
+  //             value={this.state.doctype}
+  //             onChange={this.handleChangeDoctype}
+  //             required
+  //           >
+  //             <option value="" selected>
+  //               Please Select
+  //             </option>
+  //             <option value="degree">Degree</option>
+  //             <option value="certificate">Certificate</option>
+  //             <option value="other">Other</option>
+  //           </select>
+  //         </div>
+
+  //         <div class="form-group pb-3">
+  //           <label for="exampleFormControlFile1">Upload Document</label>
+  //           <input
+  //             type="file"
+  //             class="form-control-file frm-field"
+  //             name="image"
+  //             onChange={this.handleChangeImage}
+  //             required
+  //           />
+  //         </div>
+
+  //         <div className="text-center mb-5">
+  //           <button
+  //             type="submit"
+  //             className="btn bg-black btn-block text-white z-depth-1a w-auto float-right"
+  //           >
+  //             Upload Your Documents
+  //           </button>
+  //         </div>
+  //       </form>
+  //     </div>
+
+  //     //<Redirect to='/profile' />
+  //   );
+  // }
 }

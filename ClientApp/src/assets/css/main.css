@@ -4711,3 +4711,7 @@ nav#main-nav {
 .uploadDocss .docBlock h5 { padding: 0 !important; margin:  0px;}
 .uploadDocss .docBlock .blockLeft  { margin-top: 15px;}
 .uploadDocss .docBlock .blockLeft h5 span { color: red;}
+
+.uploadDocRed { color:  red;}
+.uploadDocOrange { color: orange;}
+
