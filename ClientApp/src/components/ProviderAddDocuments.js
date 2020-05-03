@@ -35,6 +35,8 @@ export class ProviderAddDocuments extends Component {
 
       upload: false,
 
+      docCounter: 3,
+
       documentsCode:
         [
           {
@@ -81,6 +83,8 @@ export class ProviderAddDocuments extends Component {
   // };
 
   UploadDocument() {
+    this.state.docCounter = this.state.requestedDocuments.length + this.state.documentsCode.length
+    console.log(this.state.docCounter);
     var providerAccesstoken = localStorage.getItem("provideraccesstoken");
 
     formData = {
