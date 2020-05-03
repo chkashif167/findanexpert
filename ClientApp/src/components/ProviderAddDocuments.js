@@ -15,17 +15,18 @@ export class ProviderAddDocuments extends Component {
         {
           requestdocid: 1,
           doctype: "Qualification",
-          expirydate: "",
+          type: "main",
         },
         {
           requestdocid: 2,
           doctype: "Insurance Certificate",
           expirydate: "",
+          type: "main",
         },
         {
           requestdocid: 3,
           doctype: "Criminal Clearance Certificate",
-          expirydate: "",
+          type: "main",
         },
       ],
     };
@@ -45,7 +46,7 @@ export class ProviderAddDocuments extends Component {
           return {
             requestdocid: value.requestdocid,
             doctype: value.documentname,
-            expirydate: "",
+            type: "other",
           };
         });
         this.setState((state) => ({
@@ -125,9 +126,23 @@ export class ProviderAddDocuments extends Component {
     reader.readAsDataURL(file);
   };
 
-  handleChangeExpiry(e) {
+  handleChangeExpiry(e, doc) {
     e.preventDefault();
-    this.setState({ expirydate: this });
+    var docs = this.state.documentsCode;
+    const currentIndex = docs.findIndex((value) => {
+      return value.requestdocid === doc.requestdocid;
+    });
+    let newDoc = docs.find((value) => {
+      return value.requestdocid === doc.requestdocid;
+    });
+    if (newDoc) {
+      newDoc = {
+        ...newDoc,
+        expirydate: e.target.value,
+      };
+    }
+    docs[currentIndex] = newDoc;
+    this.setState({ documentsCode: docs });
   }
 
   handleSubmit(e) {
@@ -167,6 +182,14 @@ export class ProviderAddDocuments extends Component {
                     onChange={(e) => this.handleChangeFileUpload(e, doc)}
                     required
                   />
+                  {doc.expirydate !== undefined && (
+                    <div>
+                      <input
+                        type="date"
+                        onChange={(e) => this.handleChangeExpiry(e, doc)}
+                      />
+                    </div>
+                  )}
                 </div>
                 <div className="imgPreview pull-right">
                   {doc.image ? (
