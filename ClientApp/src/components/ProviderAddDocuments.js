@@ -12,25 +12,27 @@ export class ProviderAddDocuments extends Component {
 
     this.state = {
       documentsCode: [
-        {
-          requestdocid: 1,
-          doctype: "Qualification",
+        // {
+        //   requestdocid: 1,
+        //   doctype: "Qualification",
 
-          type: "main",
-        },
-        {
-          requestdocid: 2,
-          doctype: "Insurance Certificate",
-          expirydate: "",
-          type: "main",
-        },
-        {
-          requestdocid: 3,
-          doctype: "Criminal Clearance Certificate",
-          type: "main",
-        },
+        //   type: "main",
+        // },
+        // {
+        //   requestdocid: 2,
+        //   doctype: "Insurance Certificate",
+        //   expirydate: "",
+        //   type: "main",
+        // },
+        // {
+        //   requestdocid: 3,
+        //   doctype: "Criminal Clearance Certificate",
+        //   type: "main",
+        // },
       ],
-      proDocs: {}
+      proDocs: {},
+
+      docArray: []
 
     };
 
@@ -67,15 +69,25 @@ export class ProviderAddDocuments extends Component {
     //   authtoken: providerAccesstoken,
     // };
 
-    // providerdocuments {
-    //   // doctype: string(required)
-    //   // image: image(required)
-    //   // expirydate: datetime
-    //   // requestdocid: int(required)
-    // }
+
+    console.log(documentsCode[0].image);
+
+    // var providerdocuments = [{
+    //   doctype: "Qualification",
+    //   image: "asad",
+    //   expirydate: "",
+    //   requestdocid: 1,
+    // }];
+
+
+    // this.state.docArray.push(JSON.stringify(providerdocuments));
+
+    // var json = JSON.stringify(providerdocuments);
+
     const formData = new FormData();
     formData.append('authtoken', providerAccesstoken);
-    formData.append('providerdocuments', this.state.proDocs);
+    // formData.append('providerdocuments', JSON.stringify(providerdocuments));
+    formData.append('providerdocuments', JSON.stringify(documentsCode[0]));
 
 
     // documentsCode.forEach((element) => {
@@ -208,7 +220,7 @@ export class ProviderAddDocuments extends Component {
                     class="form-control-file frm-field"
                     name="image"
                     onChange={(e) => this.handleChangeFileUpload(e, doc)}
-                    required
+                  // required
                   />
                   {doc.expirydate !== undefined && (
                     <div>
