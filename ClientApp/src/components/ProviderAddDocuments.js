@@ -15,20 +15,23 @@ export class ProviderAddDocuments extends Component {
         {
           requestdocid: 1,
           doctype: "Qualification",
-          expirydate: "",
 
+          type: "main",
         },
         {
           requestdocid: 2,
           doctype: "Insurance Certificate",
           expirydate: "",
+          type: "main",
         },
         {
           requestdocid: 3,
           doctype: "Criminal Clearance Certificate",
-          expirydate: "",
+          type: "main",
         },
       ],
+      proDocs: {}
+
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -46,7 +49,7 @@ export class ProviderAddDocuments extends Component {
           return {
             requestdocid: value.requestdocid,
             doctype: value.documentname,
-            expirydate: "",
+            type: "other",
           };
         });
         this.setState((state) => ({
@@ -58,27 +61,49 @@ export class ProviderAddDocuments extends Component {
   UploadDocument() {
     var providerAccesstoken = localStorage.getItem("provideraccesstoken");
     const { documentsCode } = this.state;
-    formData = {
-      providerdocuments: documentsCode,
-      authtoken: providerAccesstoken,
-    };
+    console.log("999999999999999999", documentsCode);
+    // formData = {
+    //   providerdocuments: documentsCode,
+    //   authtoken: providerAccesstoken,
+    // };
 
-    var formData = jsonToFormData(formData);
+    // providerdocuments {
+    //   // doctype: string(required)
+    //   // image: image(required)
+    //   // expirydate: datetime
+    //   // requestdocid: int(required)
+    // }
+    const formData = new FormData();
+    formData.append('authtoken', providerAccesstoken);
+    formData.append('providerdocuments', this.state.proDocs);
+
+
+    // documentsCode.forEach((element) => {
+    //   formData.append('providerdocuments', element);
+    // });
+    // for (let name in this.state.documentsCode) {
+    //   console.log('before 999999', name)
+    //   // formData.append(name, this.state[name]);
+    // }
+
 
     const requestOptions = {
       method: "POST",
       body: formData,
     };
+
+
+
     return fetch(
       App.ApisBaseUrl + "/api/Provider/uploaddocument",
       requestOptions
     )
       .then((response) => {
-        console.log(response);
+
         return response.json();
       })
       .then((response) => {
-        console.log(response);
+
         if (response.statuscode == 200) {
           toastr["success"]("Document has been uploaded!");
           // setTimeout(function () {
@@ -95,6 +120,8 @@ export class ProviderAddDocuments extends Component {
     // this.setState({ [e.target.name]: e.target.value });
     let reader = new FileReader();
     let file = e.target.files[0];
+
+
     reader.onloadend = () => {
       var docs = this.state.documentsCode;
       const currentIndex = docs.findIndex((value) => {
@@ -106,7 +133,8 @@ export class ProviderAddDocuments extends Component {
       if (newDoc) {
         newDoc = {
           ...newDoc,
-          image: reader.result,
+          imageSrc: reader.result,
+          image: file
         };
       }
       docs[currentIndex] = newDoc;
@@ -126,9 +154,23 @@ export class ProviderAddDocuments extends Component {
     reader.readAsDataURL(file);
   };
 
-  handleChangeExpiry(e) {
+  handleChangeExpiry(e, doc) {
     e.preventDefault();
-    this.setState({ expirydate: this });
+    var docs = this.state.documentsCode;
+    const currentIndex = docs.findIndex((value) => {
+      return value.requestdocid === doc.requestdocid;
+    });
+    let newDoc = docs.find((value) => {
+      return value.requestdocid === doc.requestdocid;
+    });
+    if (newDoc) {
+      newDoc = {
+        ...newDoc,
+        expirydate: e.target.value,
+      };
+    }
+    docs[currentIndex] = newDoc;
+    this.setState({ documentsCode: docs });
   }
 
   handleSubmit(e) {
@@ -145,7 +187,7 @@ export class ProviderAddDocuments extends Component {
   }
 
   ProviderDocument() {
-    console.log(this.state);
+
     return (
       <div className="Register coloredBox uploadDocss">
         <p className="font-weight-bold mb-5">
@@ -168,10 +210,18 @@ export class ProviderAddDocuments extends Component {
                     onChange={(e) => this.handleChangeFileUpload(e, doc)}
                     required
                   />
+                  {doc.expirydate !== undefined && (
+                    <div>
+                      <input
+                        type="date"
+                        onChange={(e) => this.handleChangeExpiry(e, doc)}
+                      />
+                    </div>
+                  )}
                 </div>
                 <div className="imgPreview pull-right">
-                  {doc.image ? (
-                    <img src={doc.image} />
+                  {doc.imageSrc ? (
+                    <img src={doc.imageSrc} />
                   ) : (
                       <div className="previewText">Image Preview</div>
                     )}
@@ -179,9 +229,9 @@ export class ProviderAddDocuments extends Component {
               </div>
             </div>
           ))}
-          <p className="font-weight-bold mb-5">
+          {/* <p className="font-weight-bold mb-5">
             Other <span className="text-red">Documents</span>
-          </p>
+          </p> */}
           <div className="text-center mb-5">
             <button
               type="submit"
