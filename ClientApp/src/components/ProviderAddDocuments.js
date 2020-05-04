@@ -15,31 +15,29 @@ export class ProviderAddDocuments extends Component {
         {
           requestdocid: 1,
           doctype: "Qualification",
-
           type: "main",
         },
-        {
-          requestdocid: 2,
-          doctype: "Insurance Certificate",
-          expirydate: "",
-          type: "main",
-        },
-        {
-          requestdocid: 3,
-          doctype: "Criminal Clearance Certificate",
-          type: "main",
-        },
+        // {
+        //   requestdocid: 2,
+        //   doctype: "Insurance Certificate",
+        //   expirydate: "",
+        //   type: "main",
+        // },
+        // {
+        //   requestdocid: 3,
+        //   doctype: "Criminal Clearance Certificate",
+        //   type: "main",
+        // },
       ],
-      proDocs: {}
-
+      proDocs: {},
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     var providerAccesstoken = localStorage.getItem("provideraccesstoken");
     fetch(
       App.ApisBaseUrl +
-      "/api/Provider/getrequestdocuments?authToken=" +
-      providerAccesstoken
+        "/api/Provider/getrequestdocuments?authToken=" +
+        providerAccesstoken
     )
       .then((response) => {
         return response.json();
@@ -52,58 +50,34 @@ export class ProviderAddDocuments extends Component {
             type: "other",
           };
         });
-        this.setState((state) => ({
-          documentsCode: [...state.documentsCode, ...requestDocuments],
-        }));
+        // this.setState((state) => ({
+        //   documentsCode: [...state.documentsCode, ...requestDocuments],
+        // }));
       });
   }
 
   UploadDocument() {
     var providerAccesstoken = localStorage.getItem("provideraccesstoken");
     const { documentsCode } = this.state;
-    console.log("999999999999999999", documentsCode);
-    // formData = {
-    //   providerdocuments: documentsCode,
-    //   authtoken: providerAccesstoken,
-    // };
 
-    // providerdocuments {
-    //   // doctype: string(required)
-    //   // image: image(required)
-    //   // expirydate: datetime
-    //   // requestdocid: int(required)
-    // }
-    const formData = new FormData();
-    formData.append('authtoken', providerAccesstoken);
-    formData.append('providerdocuments', this.state.proDocs);
-
-
-    // documentsCode.forEach((element) => {
-    //   formData.append('providerdocuments', element);
-    // });
-    // for (let name in this.state.documentsCode) {
-    //   console.log('before 999999', name)
-    //   // formData.append(name, this.state[name]);
-    // }
-
+    const formData = {
+      providerdocuments: documentsCode,
+      authtoken: providerAccesstoken,
+    };
 
     const requestOptions = {
       method: "POST",
-      body: formData,
+      body: jsonToFormData(formData),
     };
-
-
 
     return fetch(
       App.ApisBaseUrl + "/api/Provider/uploaddocument",
       requestOptions
     )
       .then((response) => {
-
         return response.json();
       })
       .then((response) => {
-
         if (response.statuscode == 200) {
           toastr["success"]("Document has been uploaded!");
           // setTimeout(function () {
@@ -121,6 +95,7 @@ export class ProviderAddDocuments extends Component {
     let reader = new FileReader();
     let file = e.target.files[0];
 
+    console.log(reader);
 
     reader.onloadend = () => {
       var docs = this.state.documentsCode;
@@ -133,22 +108,12 @@ export class ProviderAddDocuments extends Component {
       if (newDoc) {
         newDoc = {
           ...newDoc,
-          imageSrc: reader.result,
-          image: file
+          preview: reader.result,
+          image: file,
         };
       }
       docs[currentIndex] = newDoc;
       this.setState({ documentsCode: docs });
-      // var docs = this.state.documentsCode.map((code) => {
-      //   if (code.requestdocid === doc.requestdocid) {
-      //     return {
-      //       ...code,
-      //       image: reader.result,
-      //     };
-      //   }
-      //   return code;
-      // });
-      // this.setState({ documentsCode: docs });
     };
 
     reader.readAsDataURL(file);
@@ -187,7 +152,7 @@ export class ProviderAddDocuments extends Component {
   }
 
   ProviderDocument() {
-
+    console.log(this.state);
     return (
       <div className="Register coloredBox uploadDocss">
         <p className="font-weight-bold mb-5">
@@ -220,11 +185,11 @@ export class ProviderAddDocuments extends Component {
                   )}
                 </div>
                 <div className="imgPreview pull-right">
-                  {doc.imageSrc ? (
-                    <img src={doc.imageSrc} />
+                  {doc.preview ? (
+                    <img src={doc.preview} />
                   ) : (
-                      <div className="previewText">Image Preview</div>
-                    )}
+                    <div className="previewText">Image Preview</div>
+                  )}
                 </div>
               </div>
             </div>
