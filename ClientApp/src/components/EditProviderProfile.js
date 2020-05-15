@@ -3,6 +3,7 @@ import ModernDatepicker from "react-modern-datepicker";
 import App from "../App";
 import toastr from "toastr";
 import { withRouter } from "react-router-dom";
+import { myConfig } from '../config'
 
 class EditProviderProfile extends Component {
   displayName = EditProviderProfile.name;
@@ -202,8 +203,8 @@ class EditProviderProfile extends Component {
 
     return fetch(
       App.ApisBaseUrl +
-        "/api/Address/getaddresses?postalcode=" +
-        e.target.value,
+      "/api/Address/getaddresses?postalcode=" +
+      e.target.value + "&apikey=" + myConfig.ADDRESSES_API_KEY,
       requestOptions
     )
       .then(response => {

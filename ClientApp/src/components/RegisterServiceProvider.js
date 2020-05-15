@@ -5,6 +5,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import App from "../App";
 import toastr from "toastr";
+import { myConfig } from '../config'
 
 class RegisterService extends Component {
   displayName = RegisterService.name;
@@ -139,7 +140,7 @@ class RegisterService extends Component {
         return response.json();
       })
       .then(response => {
-        console.log("registerrrrrrrrr", response);
+
         if (response.statuscode == 200) {
           this.props.history.push({
             pathname: "/provider-code-confirmation",
@@ -185,8 +186,8 @@ class RegisterService extends Component {
     console.log(requestOptions);
     return fetch(
       App.ApisBaseUrl +
-        "/api/Address/getaddresses?postalcode=" +
-        e.target.value,
+      "/api/Address/getaddresses?postalcode=" +
+      e.target.value + "&apikey=" + myConfig.ADDRESSES_API_KEY,
       requestOptions
     )
       .then(response => {
@@ -291,7 +292,7 @@ class RegisterService extends Component {
   render() {
     let contents = this.state.registered
       ? // ? this.ProviderLoginDetails(this.state.registeredProvider)
-        this.ProviderLogin()
+      this.ProviderLogin()
       : this.ProviderLogin();
     return <div>{contents}</div>;
   }
@@ -384,7 +385,53 @@ class RegisterService extends Component {
               />
             </div>
           </div>
-          <div className="form-row pb-3">
+
+
+          <div className="addressAccordion" id="accordion">
+
+            <div class="heading" id="headingOne">
+              <h5 class="mb-0">
+                <a class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Find your address
+        </a>
+              </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+              <div className="form-row pb-3">
+                <div class="col">
+                  <select className="form-control" value={this.state.address}
+                    onChange={this.handleChangeAddress.bind(this)}>
+                    <option value="">Please select an address</option>
+                    {this.state.allAddresses &&
+                      <option value="" selected> {this.state.noAddressFound} </option>
+                    }
+
+                    {this.state.allAddresses.map((adr) =>
+                      <option value={adr.replace("{", " ").replace("}", " ")}>{adr.replace("{", " ").replace("}", " ")}</option>
+                    )}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="heading" id="headingTwo">
+              <h5 class="mb-0">
+                <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Add manual address
+        </a>
+              </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+              <div className="form-row pb-3">
+                <div className="col">
+                  <input type="text" name="postalcode" className="form-control validate" placeholder="Your address" value={this.state.address}
+                    onChange={this.handleChangeAddress.bind(this)} />
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <div className="form-row pb-3">
             <div class="col">
               <select
                 className="form-control"
@@ -411,7 +458,7 @@ class RegisterService extends Component {
                   ))}
               </select>
             </div>
-          </div>
+          </div> */}
 
           {/* {!this.state.allAddresses && (
             <div className="md-form pb-3">

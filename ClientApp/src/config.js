@@ -1,0 +1,1 @@
+export const myConfig = { ADDRESSES_API_KEY: "XzUzTFQzUS5AUEkudkAyX5OG8eakYoY5XY39bxPGnvU=" }

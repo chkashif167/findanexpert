@@ -2117,7 +2117,7 @@ section.customerProfile {
 
 .profileName h3 {
   font-size: 20px;
-  margin: 0;
+  margin: 12px 0 0 0;
 }
 
 .uploadPhotoArea {
@@ -4712,6 +4712,42 @@ nav#main-nav {
 .uploadDocss .docBlock .blockLeft  { margin-top: 15px;}
 .uploadDocss .docBlock .blockLeft h5 span { color: red;}
 
-.uploadDocRed { color:  red;}
-.uploadDocOrange { color: orange;}
+.uploadDocRed { color:  red; font-weight: bold; font-size: 16px;}
+.uploadDocOrange { color: orange;  font-weight: bold; font-size: 16px;}
+.uploadDocGreen { color: green;  font-weight: bold; font-size: 16px;}
+.uploadDocBlack { color: black;}
 
+
+.imagePreview {
+  border: 1px solid white;
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  border-radius: 50%;
+  position: relative;
+}
+.PlusButton {
+  position: absolute;
+  margin: auto;
+  left: 42%;
+
+  bottom: 0;
+  color: #fff;
+}
+.PlusButton span {
+  width: 22px;
+  height: 22px;
+  border-radius: 27%;
+  background: #fff;
+  color: #000;
+  font-size: 19px;
+  display: block;
+  cursor: pointer;
+}
+
+.modal-dialog.profilePic {
+  margin-top: 22% !important;
+  height: 600px;
+  overflow-y: auto;
+}
+.profileImageBrowseButton { margin-left: 70px;}

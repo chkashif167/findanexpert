@@ -5,6 +5,7 @@ import { BreadCrumbs } from "../../BreadCrumbs/BreadCrumbs";
 import App from "../../../App";
 import toastr from "toastr";
 import { Link, Redirect } from "react-router-dom";
+import find from "lodash/find";
 
 export class ProviderDocuments extends Component {
   displayName = ProviderDocuments.name;
@@ -78,6 +79,14 @@ export class ProviderDocuments extends Component {
       });
   }
 
+
+  renderHighlightedClass = (doc) => {
+    const { allDocuments } = this.state;
+    const hasDoc = find(allDocuments, { 'doctype': doc.doctype })
+    if (!hasDoc.isvalidated) return 'uploadDocOrange'
+    return 'uploadDocGreen';
+  }
+
   render() {
     if (!localStorage.getItem("provideraccesstoken")) {
       return <Redirect to={"/provider-authentication"} />;
@@ -133,9 +142,10 @@ export class ProviderDocuments extends Component {
                             allDocuments.map(docs => (
                               <li class="list-group-item d-flex justify-content-between align-items-center profileBox mb-3">
                                 <div>
+                                  <div className={this.renderHighlightedClass(docs)}> {docs.doctype} </div>
                                   <img
                                     class="card-img-top providerDocuments shadow"
-                                    src={App.ApisBaseUrl + docs.docpath}
+                                    src={docs.docpath}
                                     alt="Card image cap"
                                   />
 
@@ -148,7 +158,13 @@ export class ProviderDocuments extends Component {
                                       <i class="far fa-clock pr-1"></i>{" "}
                                       {docs.createddatetime.split("", 10)}
                                     </p>
+
                                   </div>
+                                  <p>
+                                    {docs.expirydate &&
+
+                                      <div>  <lable>  Expiry Date:</lable> {docs.expirydate}</div>}
+                                  </p>
                                 </div>
                                 <form onSubmit={this.handleSubmit}>
                                   <button

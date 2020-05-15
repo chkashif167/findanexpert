@@ -44,7 +44,7 @@ export class ProviderSidebarLinks extends Component {
         if (response.statuscode == 200) {
           localStorage.setItem("imagepath", response.imagepath);
           toastr["success"]("Photo has been uploaded!");
-          setTimeout(function() {
+          setTimeout(function () {
             window.location = "/provider-profile";
           }, 1000);
         } else {
@@ -107,35 +107,57 @@ export class ProviderSidebarLinks extends Component {
           <div class="container-fluid shadow">
             <div class="row">
               <div class="banner_profile_picture">
-                {imagePreview}
+                <div className="imagePreview">
+                  <div className="PlusButton"> <span data-toggle="modal" data-target="#exampleModal">
+                    +
+                  </span></div>
+                  {imagePreview}</div>
+
                 <div class="profileName text-center">
                   <h3 class="text-white">
                     {localStorage.getItem("firstname")}{" "}
                     {localStorage.getItem("lastname")}
                   </h3>
-                  {/*<h4 class="text-white">Your Credit : £ 200</h4>*/}
-                  <div className="uploadPhotoArea">
-                    <form onSubmit={this.handleSubmit}>
-                      <div class="form-group pb-3 pl-5">
-                        <input
-                          type="file"
-                          class="form-control-file frm-field"
-                          name="image"
-                          onChange={this.handleChangeImage}
-                          required
-                        />
-                      </div>
 
-                      <div className="text-center">
-                        <button
-                          type="submit"
-                          className="btn bg-black btn-block text-white z-depth-1a w-auto float-right"
-                        >
-                          Upload Your Photo
+
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog profilePic" role="document">
+                      <div class="modal-content">
+                        <div class="modal-body">
+                          <div className="uploadPhotoArea">
+                            <form onSubmit={this.handleSubmit}>
+                              <div class="form-group pb-3">
+                                <div className="imagePreview"> <img src={this.state.imagePreviewUrl ? this.state.imagePreviewUrl : App.ApisBaseUrl + profileImage} /></div>
+                                <input
+                                  id="img"
+                                  type="file"
+                                  class="form-control-file frm-field ml-10 mt-2 profileImageBrowseButton"
+                                  name="image"
+                                  onChange={this.handleChangeImage}
+                                  required
+                                />
+                                {/* <label for="img">Click here to upload image</label> */}
+                              </div>
+
+                              <div className="text-center">
+                                <button
+                                  type="submit"
+                                  className="btn bg-black btn-block text-white z-depth-1a w-auto float-right"
+                                >
+                                  Upload Your Photo
                         </button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        </div>
                       </div>
-                    </form>
+                    </div>
                   </div>
+
                 </div>
               </div>
 
