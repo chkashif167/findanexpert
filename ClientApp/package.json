@@ -18,7 +18,7 @@
     "json-form-data": "^1.7.2",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
-    "moment-timezone": "^0.5.23",
+    "moment-timezone": "^0.5.35",
     "multiselect-dropdown-react": "^1.0.5",
     "rc-time-picker": "^3.7.2",
     "react": "^16.10.2",
